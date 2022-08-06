@@ -3,6 +3,7 @@ using System.Diagnostics;
 using NativeSupportServiceApplication.Modules;
 using NativeSupportServiceApplication.Models;
 using NativeSupportServiceApplication.Utils;
+using NativeSupportServiceApplication.Threads;
 
 namespace NativeSupportServiceApplication
 {
@@ -24,6 +25,7 @@ namespace NativeSupportServiceApplication
             var taskClipboardMonitor = Task.Run(() => ClipboardMonitor.startMonitor());
             var taskProcessMonitor = Task.Run(() => ProcessMonitor.startMonitor()); 
             var taskFileMonitor = Task.Run(() => FileMonitor.startMonitor());
+            var iPC = Task.Run(() => Icom.startListner());
         }
 
         private void buildCache()

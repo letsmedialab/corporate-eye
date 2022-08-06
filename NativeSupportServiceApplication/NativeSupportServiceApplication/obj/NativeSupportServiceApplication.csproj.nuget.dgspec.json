@@ -40,6 +40,14 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "dependencies": {
+            "IPC.NamedPipe": {
+              "target": "Package",
+              "version": "[0.9.3, )"
+            },
+            "Microsoft.Toolkit.Uwp.Notifications": {
+              "target": "Package",
+              "version": "[7.1.2, )"
+            },
             "MySql.Data": {
               "target": "Package",
               "version": "[8.0.30, )"

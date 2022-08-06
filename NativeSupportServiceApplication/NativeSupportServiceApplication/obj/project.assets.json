@@ -11,6 +11,15 @@
           "lib/net5.0/Google.Protobuf.dll": {}
         }
       },
+      "IPC.NamedPipe/0.9.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/IPC.NamedPipe.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/IPC.NamedPipe.dll": {}
+        }
+      },
       "K4os.Compression.LZ4/1.2.6": {
         "type": "package",
         "dependencies": {
@@ -55,6 +64,18 @@
         },
         "runtime": {
           "lib/netstandard1.0/_._": {}
+        }
+      },
+      "Microsoft.Toolkit.Uwp.Notifications/7.1.2": {
+        "type": "package",
+        "dependencies": {
+          "System.ValueTuple": "4.5.0"
+        },
+        "compile": {
+          "lib/net5.0/Microsoft.Toolkit.Uwp.Notifications.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/Microsoft.Toolkit.Uwp.Notifications.dll": {}
         }
       },
       "Microsoft.Win32.SystemEvents/4.7.0": {
@@ -262,6 +283,15 @@
           }
         }
       },
+      "System.ValueTuple/4.5.0": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.0/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/_._": {}
+        }
+      },
       "System.Windows.Extensions/4.7.0": {
         "type": "package",
         "dependencies": {
@@ -304,6 +334,18 @@
         "lib/netstandard2.0/Google.Protobuf.dll",
         "lib/netstandard2.0/Google.Protobuf.pdb",
         "lib/netstandard2.0/Google.Protobuf.xml"
+      ]
+    },
+    "IPC.NamedPipe/0.9.3": {
+      "sha512": "HdQTKNG4CVcmd+zM/MsWmLAqDU8tOhj5qmQWuY8SjITqDUPOa3ClK4G4ujNPD8Si3Xc0qtTLoMZzxcDQvnfqjw==",
+      "type": "package",
+      "path": "ipc.namedpipe/0.9.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ipc.namedpipe.0.9.3.nupkg.sha512",
+        "ipc.namedpipe.nuspec",
+        "lib/netstandard2.0/IPC.NamedPipe.dll"
       ]
     },
     "K4os.Compression.LZ4/1.2.6": {
@@ -380,6 +422,47 @@
         "runtime.json",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "Microsoft.Toolkit.Uwp.Notifications/7.1.2": {
+      "sha512": "cVBRDG8g0K4sBRHFJoNQjwZduDUz+cXP33erIQjAa8fGKF4DsWIuOAQCYGFoXpdXIXjxoaUYuGSxAG6QCvOdtQ==",
+      "type": "package",
+      "path": "microsoft.toolkit.uwp.notifications/7.1.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "License.md",
+        "build/native/Microsoft.Toolkit.Uwp.Notifications.targets",
+        "lib/native/Microsoft.Toolkit.Uwp.Notifications.pdb",
+        "lib/native/Microsoft.Toolkit.Uwp.Notifications.pri",
+        "lib/native/Microsoft.Toolkit.Uwp.Notifications.winmd",
+        "lib/native/Microsoft.Toolkit.Uwp.Notifications.xml",
+        "lib/net461/Microsoft.Toolkit.Uwp.Notifications.dll",
+        "lib/net461/Microsoft.Toolkit.Uwp.Notifications.pdb",
+        "lib/net461/Microsoft.Toolkit.Uwp.Notifications.xml",
+        "lib/net5.0-windows10.0.17763/Microsoft.Toolkit.Uwp.Notifications.dll",
+        "lib/net5.0-windows10.0.17763/Microsoft.Toolkit.Uwp.Notifications.pdb",
+        "lib/net5.0-windows10.0.17763/Microsoft.Toolkit.Uwp.Notifications.xml",
+        "lib/net5.0/Microsoft.Toolkit.Uwp.Notifications.dll",
+        "lib/net5.0/Microsoft.Toolkit.Uwp.Notifications.pdb",
+        "lib/net5.0/Microsoft.Toolkit.Uwp.Notifications.xml",
+        "lib/netcoreapp3.1/Microsoft.Toolkit.Uwp.Notifications.dll",
+        "lib/netcoreapp3.1/Microsoft.Toolkit.Uwp.Notifications.pdb",
+        "lib/netcoreapp3.1/Microsoft.Toolkit.Uwp.Notifications.xml",
+        "lib/netstandard1.4/Microsoft.Toolkit.Uwp.Notifications.dll",
+        "lib/netstandard1.4/Microsoft.Toolkit.Uwp.Notifications.pdb",
+        "lib/netstandard1.4/Microsoft.Toolkit.Uwp.Notifications.xml",
+        "lib/uap10.0.10240/Microsoft.Toolkit.Uwp.Notifications.pdb",
+        "lib/uap10.0.10240/Microsoft.Toolkit.Uwp.Notifications.pri",
+        "lib/uap10.0.10240/Microsoft.Toolkit.Uwp.Notifications.winmd",
+        "lib/uap10.0.10240/Microsoft.Toolkit.Uwp.Notifications.xml",
+        "lib/uap10.0.16299/Microsoft.Toolkit.Uwp.Notifications.dll",
+        "lib/uap10.0.16299/Microsoft.Toolkit.Uwp.Notifications.pdb",
+        "lib/uap10.0.16299/Microsoft.Toolkit.Uwp.Notifications.pri",
+        "lib/uap10.0.16299/Microsoft.Toolkit.Uwp.Notifications.xml",
+        "microsoft.toolkit.uwp.notifications.7.1.2.nupkg.sha512",
+        "microsoft.toolkit.uwp.notifications.nuspec"
       ]
     },
     "Microsoft.Win32.SystemEvents/4.7.0": {
@@ -852,6 +935,50 @@
         "version.txt"
       ]
     },
+    "System.ValueTuple/4.5.0": {
+      "sha512": "okurQJO6NRE/apDIP23ajJ0hpiNmJ+f0BwOlB/cSqTLQlw5upkf+5+96+iG2Jw40G1fCVCyPz/FhIABUjMR+RQ==",
+      "type": "package",
+      "path": "system.valuetuple/4.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net461/System.ValueTuple.dll",
+        "lib/net461/System.ValueTuple.xml",
+        "lib/net47/System.ValueTuple.dll",
+        "lib/net47/System.ValueTuple.xml",
+        "lib/netcoreapp2.0/_._",
+        "lib/netstandard1.0/System.ValueTuple.dll",
+        "lib/netstandard1.0/System.ValueTuple.xml",
+        "lib/netstandard2.0/_._",
+        "lib/portable-net40+sl4+win8+wp8/System.ValueTuple.dll",
+        "lib/portable-net40+sl4+win8+wp8/System.ValueTuple.xml",
+        "lib/uap10.0.16299/_._",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net461/System.ValueTuple.dll",
+        "ref/net47/System.ValueTuple.dll",
+        "ref/netcoreapp2.0/_._",
+        "ref/netstandard2.0/_._",
+        "ref/portable-net40+sl4+win8+wp8/System.ValueTuple.dll",
+        "ref/uap10.0.16299/_._",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "system.valuetuple.4.5.0.nupkg.sha512",
+        "system.valuetuple.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
     "System.Windows.Extensions/4.7.0": {
       "sha512": "CeWTdRNfRaSh0pm2gDTJFwVaXfTq6Xwv/sA887iwPTneW7oMtMlpvDIO+U60+3GWTB7Aom6oQwv5VZVUhQRdPQ==",
       "type": "package",
@@ -876,6 +1003,8 @@
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
+      "IPC.NamedPipe >= 0.9.3",
+      "Microsoft.Toolkit.Uwp.Notifications >= 7.1.2",
       "MySql.Data >= 8.0.30",
       "MySqlConnector >= 2.1.11"
     ]
@@ -919,6 +1048,14 @@
       "net6.0-windows7.0": {
         "targetAlias": "net6.0-windows",
         "dependencies": {
+          "IPC.NamedPipe": {
+            "target": "Package",
+            "version": "[0.9.3, )"
+          },
+          "Microsoft.Toolkit.Uwp.Notifications": {
+            "target": "Package",
+            "version": "[7.1.2, )"
+          },
           "MySql.Data": {
             "target": "Package",
             "version": "[8.0.30, )"

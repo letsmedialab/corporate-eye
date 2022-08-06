@@ -1,12 +1,45 @@
 ﻿
 
+using IPC.NamedPipe;
 using System.Diagnostics;
+using System.IO.MemoryMappedFiles;
+using System.Runtime.Serialization.Formatters.Binary;
 
+[Serializable]  // mandatory
+class Message
+{
+    public string title;
+    public string content;
+}
 public class MessageHandler
 {
+    private static void OnReceived(PipeMessage message)
+    {
+        if (message.GetPayloadType() == PipeMessageType.PMTString)
+        {
+            Console.WriteLine("[R]{S}-" + (string)message.GetPayload());
+        }
+        if (message.GetPayloadType() == PipeMessageType.PMTByte)
+        {
+            var data = (byte[])message.GetPayload();
+            Console.WriteLine("[R]{B}-" + BitConverter.ToString((byte[])data));
+        }
+    }
 
     static void Main(string[] args)
     {
+
+
+        IPC.NamedPipe.Node node = new IPC.NamedPipe.Node("client", "server", ".", OnReceived);
+        if (node.Start() == false)
+            throw new Exception("Error: Could not create the named pipe!");
+        //while (true)
+        //{
+        //    string r = Console.ReadLine();
+        //    if (!string.IsNullOrEmpty(r))
+
+        //}
+
 
 
         try
@@ -22,7 +55,8 @@ public class MessageHandler
 
             string path = @"d:\MyTest.txt";
             String content = OpenStandardStreamIn();
-            // This text is added only once to the file.
+            node.Send(content);
+
             if (!String.IsNullOrEmpty(content))
             {
                 if (!File.Exists(path))
@@ -46,7 +80,7 @@ public class MessageHandler
                     sw.Close();
                 }
             }
-           
+
             //Console.WriteLine(OpenStandardStreamIn());
         }
     }
@@ -65,7 +99,7 @@ public class MessageHandler
             input += (char)stdin.ReadByte();
 
 
-        
+
 
         return input;
     }

@@ -45,6 +45,12 @@ namespace NativeSupportServiceApplication.Utils
 
         public static void handle(RestrictedFile restrictedFile)
         {
+            new Microsoft.Toolkit.Uwp.Notifications.ToastContentBuilder()
+    .AddArgument("action", "viewConversation")
+    .AddArgument("conversationId", 9813)
+    .AddText("Andrew sent you a picture")
+    .AddText("Check this out, The Enchantments in Washington!")
+    .Show(); 
             if (!waitingRFileDialogs.Contains("rfile_" + restrictedFile.FileSHA))
                 new Task(() => {
                     DialogResult d;

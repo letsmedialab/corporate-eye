@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     "net6.0": {
+      "IPC.NamedPipe/0.9.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/IPC.NamedPipe.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/IPC.NamedPipe.dll": {}
+        }
+      },
       "NativeMessaging/2.0.0": {
         "type": "package",
         "dependencies": {
@@ -26,6 +35,18 @@
     }
   },
   "libraries": {
+    "IPC.NamedPipe/0.9.3": {
+      "sha512": "HdQTKNG4CVcmd+zM/MsWmLAqDU8tOhj5qmQWuY8SjITqDUPOa3ClK4G4ujNPD8Si3Xc0qtTLoMZzxcDQvnfqjw==",
+      "type": "package",
+      "path": "ipc.namedpipe/0.9.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ipc.namedpipe.0.9.3.nupkg.sha512",
+        "ipc.namedpipe.nuspec",
+        "lib/netstandard2.0/IPC.NamedPipe.dll"
+      ]
+    },
     "NativeMessaging/2.0.0": {
       "sha512": "NNwkCLNX1gNzI48PXwBvNs+l3N7XYmvr/O0zdYvIWzZqR+CLwtif23IyLYpz4+w2pln2VDNAnyQe8qp6+eWiqw==",
       "type": "package",
@@ -69,6 +90,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "IPC.NamedPipe >= 0.9.3",
       "NativeMessaging >= 2.0.0",
       "Newtonsoft.Json >= 13.0.1"
     ]
@@ -112,6 +134,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "IPC.NamedPipe": {
+            "target": "Package",
+            "version": "[0.9.3, )"
+          },
           "NativeMessaging": {
             "target": "Package",
             "version": "[2.0.0, )"
