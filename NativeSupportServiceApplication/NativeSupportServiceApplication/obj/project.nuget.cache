@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "VVRx1y4cmjf68Z1KQObZi7JhSHSVXHCCPCDJYY+6vRdD96rWaUqRUPZ6CkPrLswf8idoLeeNP8cmwkDFS46LAA==",
+  "dgSpecHash": "jop3kCG5z6hAkDnphc4ak0FfDaNFrzeLfa3+3bYo9stQLeAywnkvyfMtOBZD/44tk3+czowJVYjaDHPgTQpt0Q==",
   "success": true,
-  "projectFilePath": "E:\\WorkOnedrive\\OneDrive\\MSc Projects\\SourceCode\\corporate-eye\\NativeSupportServiceApplication\\NativeSupportServiceApplication\\NativeSupportServiceApplication.csproj",
+  "projectFilePath": "E:\\WorkOnedrive\\OneDrive\\MScProjects\\SourceCode\\corporate-eye\\NativeSupportServiceApplication\\NativeSupportServiceApplication\\NativeSupportServiceApplication.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\workp\\.nuget\\packages\\google.protobuf\\3.19.4\\google.protobuf.3.19.4.nupkg.sha512",
     "C:\\Users\\workp\\.nuget\\packages\\k4os.compression.lz4\\1.2.6\\k4os.compression.lz4.1.2.6.nupkg.sha512",
