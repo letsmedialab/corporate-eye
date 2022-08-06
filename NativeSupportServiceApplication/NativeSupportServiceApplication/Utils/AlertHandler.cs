@@ -50,7 +50,7 @@ namespace NativeSupportServiceApplication.Utils
                     DialogResult d;
                     waitingRFileDialogs.Add("rfile_" + restrictedFile.FileSHA);
 
-                    d = MessageBox.Show("Posession of file " + restrictedFile.FileName + " violates company policy " + restrictedFile.PolicyName + " Do you want to delete the file?", "Restricted File Detected", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    d = MessageBox.Show("Possession of file " + restrictedFile.FileName + " violates company policy " + restrictedFile.PolicyName + " Do you want to delete the file?", "Restricted File Detected", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
                     if (d == DialogResult.Yes)
                     {

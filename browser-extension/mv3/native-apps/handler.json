@@ -1,0 +1,9 @@
+{
+    "name": "com.coporateeye.handler",
+    "description": "My Application",
+    "path": "d:\\mhl\\MessageHandler.exe",
+    "type": "stdio",
+    "allowed_origins": [
+      "chrome-extension://kfmnkfepmagcipakhpjmdoacmhbalnkk/"
+    ]
+  }

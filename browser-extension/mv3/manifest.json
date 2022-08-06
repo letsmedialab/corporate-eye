@@ -14,6 +14,13 @@
       "js": ["inject.js"]
     }
   ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["nativeMessaging"],
+  "action": {
+    "default_popup": "index.html"
+  },
   "host_permissions": ["<all_urls>"],
   "manifest_version": 3,
   "web_accessible_resources": [

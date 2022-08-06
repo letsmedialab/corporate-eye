@@ -886,11 +886,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\WorkOnedrive\\OneDrive\\MSc Projects\\SourceCode\\corporate-eye\\NativeSupportServiceApplication\\NativeSupportServiceApplication\\NativeSupportServiceApplication.csproj",
+      "projectUniqueName": "E:\\WorkOnedrive\\OneDrive\\MScProjects\\SourceCode\\corporate-eye\\NativeSupportServiceApplication\\NativeSupportServiceApplication\\NativeSupportServiceApplication.csproj",
       "projectName": "NativeSupportServiceApplication",
-      "projectPath": "E:\\WorkOnedrive\\OneDrive\\MSc Projects\\SourceCode\\corporate-eye\\NativeSupportServiceApplication\\NativeSupportServiceApplication\\NativeSupportServiceApplication.csproj",
+      "projectPath": "E:\\WorkOnedrive\\OneDrive\\MScProjects\\SourceCode\\corporate-eye\\NativeSupportServiceApplication\\NativeSupportServiceApplication\\NativeSupportServiceApplication.csproj",
       "packagesPath": "C:\\Users\\workp\\.nuget\\packages\\",
-      "outputPath": "E:\\WorkOnedrive\\OneDrive\\MSc Projects\\SourceCode\\corporate-eye\\NativeSupportServiceApplication\\NativeSupportServiceApplication\\obj\\",
+      "outputPath": "E:\\WorkOnedrive\\OneDrive\\MScProjects\\SourceCode\\corporate-eye\\NativeSupportServiceApplication\\NativeSupportServiceApplication\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\workp\\AppData\\Roaming\\NuGet\\NuGet.Config",
