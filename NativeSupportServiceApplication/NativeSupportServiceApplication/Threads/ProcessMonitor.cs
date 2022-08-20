@@ -18,17 +18,17 @@ namespace NativeSupportServiceApplication.Modules
 
             while (true)
             {
-             
-                foreach (RestrictedProcess process in Cache.restrictedProcesses)
-                {
-                    if (listProcesses().Contains(process.ProcessName))
-                    {
-                        AlertHandler.handle(process);
-                    }
-                }
-               
 
-                Thread.Sleep(5000);
+                List<RestrictedProcess> alertProcesses =  new List<RestrictedProcess>();
+                List<String> currentProcess = listProcesses();
+
+                AlertHandlerHelpers.flushExpiredNotifications(REventType.R_PROCESS,currentProcess);
+
+                Cache.restrictedProcesses.ForEach(e=> { if (currentProcess.Contains(e.ProcessName)) { alertProcesses.Add(e); } });
+
+                alertProcesses.ForEach(e => AlertHandler.handle(e));               
+
+                Thread.Sleep(10000);
             }
 
         }

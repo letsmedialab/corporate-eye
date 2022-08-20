@@ -11,5 +11,6 @@ namespace NativeSupportServiceApplication.Utils
     {
         public static List<RestrictedProcess> restrictedProcesses = new List<RestrictedProcess>();
         public static List<RestrictedFile> restrictedFiles = new List<RestrictedFile>();
+        public static List<RestrictedKeyword> restrictedKeywords = new List<RestrictedKeyword>();
     }
 }

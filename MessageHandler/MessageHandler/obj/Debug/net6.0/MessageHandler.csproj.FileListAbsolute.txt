@@ -48,3 +48,4 @@ E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\MessageHandler\Mes
 E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\MessageHandler\MessageHandler\obj\Debug\net6.0\MessageHandler.pdb
 E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\MessageHandler\MessageHandler\obj\Debug\net6.0\MessageHandler.genruntimeconfig.cache
 E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\MessageHandler\MessageHandler\obj\Debug\net6.0\ref\MessageHandler.dll
+E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\MessageHandler\MessageHandler\bin\Debug\net6.0\IPC.NamedPipe.dll

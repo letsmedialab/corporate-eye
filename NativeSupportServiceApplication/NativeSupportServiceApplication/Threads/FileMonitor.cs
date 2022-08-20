@@ -13,30 +13,37 @@ namespace NativeSupportServiceApplication.Modules
         {
             while (true)
             {
+                //
 
-                List<String> files = listFiles();
+                List<RestrictedFile> alertFiles = new List<RestrictedFile>();
+                List<String> currentFiles = listFiles();
+
+                AlertHandlerHelpers.flushExpiredNotifications(REventType.R_FILE, currentFiles);
 
 
-                foreach (String file in files)
+                foreach (String file in currentFiles)
                 {
                     foreach (RestrictedFile restrictedFile in Cache.restrictedFiles)
                     {
                         if (restrictedFile.FileSHA.Equals(ChecksumUtil.GetChecksum(file).ToUpper()))
                         {
                             restrictedFile.FileName = file;
-                            AlertHandler.handle(restrictedFile) ;
+                            alertFiles.Add(restrictedFile);
                         }
                     }
                 }
 
+                alertFiles.ForEach(e => AlertHandler.handle(e));
+
                 Thread.Sleep(10000);
+
             }
-           
+
         }
 
 
-        
-     
+
+
 
         private static List<String> listFiles() => Directory.EnumerateFiles(@"E:\TestFolder", "*.*", SearchOption.AllDirectories).ToList();
     }

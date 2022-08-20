@@ -4,5 +4,8 @@
     <Compile Update="LoadingSplash.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="MainApplicationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 </Project>
