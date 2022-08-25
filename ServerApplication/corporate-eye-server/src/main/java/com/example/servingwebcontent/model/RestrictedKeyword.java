@@ -1,12 +1,16 @@
 package com.example.servingwebcontent.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import lombok.Getter;
@@ -29,13 +33,14 @@ public class RestrictedKeyword {
   @Column
   private String restrictedRegex;
   
-  @Column
-  @OneToMany
-  private Set<Users> allowedGroupId;
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+  @JoinColumn(name = "restrictedkeyword_id")
+  private Set<CGroup> allowedGroups = new HashSet<>();
   
-  @Column
-  @OneToMany
-  private Set<RuleGroup> allowedUserId;
+  
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+  @JoinColumn(name = "restrictedkeyword_id")
+  private Set<CUser> allowedUsers = new HashSet<>();
   
   @Column
   private String policyName;
