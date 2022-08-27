@@ -28,7 +28,7 @@ public class CGroup {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@Column
+	@Column (unique = true)
 	private String groupName;
 
 	
@@ -37,7 +37,11 @@ public class CGroup {
 	@JsonIgnore
 	private Set<CUser> users = new HashSet<>();
 	
-	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,  }, mappedBy = "allowedGroups")
+	@JsonIgnore
+	Set<RestrictedKeyword> keywords = new HashSet<>();
 
-
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,  }, mappedBy = "allowedGroups")
+	@JsonIgnore
+	Set<RestrictedProcess> processes = new HashSet<>();
 }

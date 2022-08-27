@@ -21,7 +21,7 @@
 	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 	crossorigin="anonymous"></script>
 
-<title>Corporate Eye Admin - Configure Keywords</title>
+<title>Corporate Eye Admin - Configure Processes</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"
 	rel="stylesheet" />
@@ -59,7 +59,7 @@
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid px-4">
-					<h1 class="mt-4">Configure Keywords</h1>
+					<h1 class="mt-4">Configure Processes</h1>
 
 
 					<div class="row">
@@ -85,7 +85,7 @@
 												<div class="offset-4 col-sm-2" style="margin-top: 10px">
 													<button class="btn btn-success" style="float: right"
 														data-toggle="modal" data-target="#addModal"
-														data-mode="add" data-id="Add">Add Keyword
+														data-mode="add" data-id="Add">Add Process
 														Configuration</button>
 												</div>
 											</div>
@@ -206,7 +206,7 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="addModalLabel">Add Keyword
+					<h5 class="modal-title" id="addModalLabel">Add Process
 						Configuration</h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
@@ -249,14 +249,11 @@
 						
 						</div>
 						<div class="form-group">
-							<label for="f_name" class="col-form-label">Keyword(s):</label> <input
-								type="text" class="form-control" placeholder="Enter multiple values as comma seperated" id="f_keywords">
+							<label for="f_name" class="col-form-label">Process Name</label> <input
+								type="text" class="form-control" placeholder="Enter Process Name without extension" id="f_process">
 						</div>
 						
-						<div class="form-group">
-							<label for="f_name" class="col-form-label">RegEx:</label> <input
-								type="text" class="form-control" id="f_regex">
-						</div>
+						
 						<hr>
 
 						<label for="f_role" class="col-form-label">Group Rule: </label>
@@ -381,8 +378,8 @@
 			 });
 			formValid = true;	
 			policyName = $("#f_policyname").val().trim();
-			keywordName = $("#f_keywords").val().trim();
-			regEx = $("#f_regex").val().trim();
+			processName = $("#f_process").val().trim();
+			
 
 			if (policyName.length < 3) {
 				formValid = false;
@@ -391,25 +388,19 @@
 			 	 $('.toast1').toast('show');
 			}
 			
-			if (keywordName.length == 0) {
+			if (processName.length == 0) {
 				formValid = false;
 				 $("#toastMessage2").html("Keywords cannot be empty");
 	  				
 			 	 $('.toast2').toast('show');
 			}
 
-			if (regEx.length == 0) {
-				formValid = false;
-				 $("#toastMessage3").html("RegEx cannot be empty");
-	  				
-			 	 $('.toast3').toast('show');
-			}
+		
 			
 			if (formValid) {
 				
 				policyName = $("#f_policyname").val().trim();
-				keywordName = $("#f_keywords").val().trim();
-				regEx = $("#f_regex").val().trim();
+				processName = $("#f_process").val().trim();
 				userNames = userList;
 				groupNames = Array.from(groupList);
 				console.log(groupNames);
@@ -420,15 +411,19 @@
 				data = JSON.stringify({  "policyName" :  policyName 
 					, "enabled" : enabled,"restrictUsersByDefault" : restrictUsersByDefault 
 					, "restrictGroupsByDefault" : restrictGroupsByDefault,
-					"keywordName" : keywordName,"regEx" : regEx,
-					userNames ,groupNames })
+					
+					"processName" : processName,
+					
+					userNames ,
+					
+					groupNames })
 					
 				
 
 				$
 						.ajax({
 							type : "POST",
-							url : "ajax/addKeyword",
+							url : "ajax/addProcess",
 							data : data,
 							contentType : "application/json; charset=UTF-8",
 							success : function(data) {
@@ -464,29 +459,24 @@
 			 });
 			formValid = true;	
 			policyName = $("#f_policyname").val().trim();
-			keywordName = $("#f_keywords").val().trim();
-			regEx = $("#f_regex").val().trim();
+			processName = $("#f_process").val().trim();
+	
 
 		
-			if (keywordName.length == 0) {
+			if (processName.length == 0) {
 				formValid = false;
-				 $("#toastMessage2").html("Keywords cannot be empty");
+				 $("#toastMessage2").html("Process Name cannot be empty");
 	  				
 			 	 $('.toast2').toast('show');
 			}
 
-			if (regEx.length == 0) {
-				formValid = false;
-				 $("#toastMessage3").html("RegEx cannot be empty");
-	  				
-			 	 $('.toast3').toast('show');
-			}
+			
 			
 			if (formValid) {
 				
 				policyName = $("#f_policyname").val().trim();
-				keywordName = $("#f_keywords").val().trim();
-				regEx = $("#f_regex").val().trim();
+				processName = $("#f_process").val().trim();
+			
 				userNames = userList;
 				groupNames = Array.from(groupList);
 				console.log(groupNames);
@@ -498,15 +488,15 @@
 				data = JSON.stringify({ "id" : id,  "policyName" :  policyName 
 					, "enabled" : enabled,"restrictUsersByDefault" : restrictUsersByDefault 
 					, "restrictGroupsByDefault" : restrictGroupsByDefault,
-					"keywordName" : keywordName,"regEx" : regEx,
-					userNames , groupNames })
+					"processName" : processName,
+					userNames ,groupNames })
 					
 				
 
 				$
 						.ajax({
 							type : "POST",
-							url : "ajax/updateKeyword",
+							url : "ajax/updateProcess",
 							data : data,
 							contentType : "application/json; charset=UTF-8",
 							success : function(data) {
@@ -566,7 +556,7 @@
 
 		function getTableData(keyword) {
 
-			$.get("ajax/keywordTableContent?query=" + keyword, function(data,
+			$.get("ajax/processTableContent?query=" + keyword, function(data,
 					status) {
 				//alert("Data: " + data + "\nStatus: " + status);
 				$("#tableContent").html(data);
@@ -576,14 +566,14 @@
 		}
 
 		function setValues(id) {
-			$.get("ajax/getKeywordDataById?id=" + id,
+			$.get("ajax/getProcessDataById?id=" + id,
 					function(data, status) {
 						//alert("Data: " + data + "\nStatus: " + status);
 						$("#f_policyname").val(data.policyName);
 						$('input:radio[name="f_enabled"]').filter(
 								'[value="' + data.enabled + '"]').attr(
 								'checked', true);
-						$("#f_keywords").val(data.restrictedKeyword);
+						$("#f_process").val(data.restrictedProcess);
 						$("#f_regex").val(data.restrictedRegex);
 						$("#f_id").val(data.id);			
 						
@@ -667,7 +657,7 @@
 					var id = $(this).data('recordId');
 					var policyname = $(this).data('policyname');
 					$modalDiv.addClass('loading');
-					$.post('/ajax/deleteKeyword/' + id).then(
+					$.post('/ajax/deleteProcess/' + id).then(
 							function() {
 								$modalDiv.modal('hide').removeClass('loading');
 								getTableData($("#searchInput").val());

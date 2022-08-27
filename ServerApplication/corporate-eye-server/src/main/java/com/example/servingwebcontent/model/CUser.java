@@ -6,12 +6,15 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -40,5 +43,14 @@ public class CUser {
 	@JoinTable(name = "cuser_cgroup", joinColumns = { @JoinColumn(name = "cuser_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "cgroup_id") })
 	Set<CGroup> groups = new HashSet<>();
+	
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,  }, mappedBy = "allowedUsers")
+	@JsonIgnore
+	Set<RestrictedKeyword> keywords = new HashSet<>();
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,  }, mappedBy = "allowedUsers")
+	@JsonIgnore
+	Set<RestrictedProcess> processes = new HashSet<>();
 
 }

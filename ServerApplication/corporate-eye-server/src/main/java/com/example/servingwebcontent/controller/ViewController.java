@@ -44,6 +44,16 @@ public class ViewController {
 		return "configKeywords";
 	}
 	
+	@GetMapping("configProcesses")
+	public String configProcesses( @RequestParam(name = "query", required = false, defaultValue = "") 
+	String keyword ,Model model)
+	{
+		
+		model.addAttribute("keyword",keyword);
+		
+		return "configProcesses";
+	}
+	
 	@GetMapping("groups")
 	public String groups( @RequestParam(name = "query", required = false, defaultValue = "") 
 	String keyword ,Model model)

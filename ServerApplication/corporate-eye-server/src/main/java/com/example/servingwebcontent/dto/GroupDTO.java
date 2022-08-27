@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.model;
+package com.example.servingwebcontent.dto;
 
 import java.util.HashMap;
 import java.util.Map;

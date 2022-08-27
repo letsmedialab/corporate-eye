@@ -24,6 +24,11 @@
 				</tr>
 			</thead>
 			<tbody>
+			
+				<tr th:if="${#lists.isEmpty(data)}">
+					<td colspan="7"><div class="alert alert-primary" role="alert">
+							No items Found!</div></td>
+				</tr>
 				<tr role="row" th:each="item , rowstat : ${data}">
 					<td th:classappend="${rowstat.odd} ? 'odd' : 'even'"
 						th:text="${item.groupName}" />

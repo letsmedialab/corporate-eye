@@ -21,7 +21,7 @@
 					<th class="sorting" tabindex="0" aria-controls="zero_config"
 						rowspan="1" colspan="1"
 						aria-label="Office: activate to sort column ascending"
-						style="width: 286.141px;">Enabled</th>
+						style="width: 286.141px;">Status</th>
 
 					<th class="sorting" tabindex="0" aria-controls="zero_config"
 						rowspan="1" colspan="1"
@@ -31,6 +31,13 @@
 				</tr>
 			</thead>
 			<tbody>
+			
+			
+				<tr th:if="${#lists.isEmpty(data)}">
+					<td colspan="7"><div class="alert alert-primary" role="alert">
+							No items Found!</div></td>
+				</tr>
+				
 				<tr role="row" th:each="item , rowstat : ${data}">
 					<td th:classappend="${rowstat.odd} ? 'odd' : 'even'"
 						th:text="${item.name}" />
@@ -40,7 +47,7 @@
 					<td th:classappend="${rowstat.odd} ? 'odd' : 'even'"
 						th:text="${item.role}" />
 					<td th:classappend="${rowstat.odd} ? 'odd' : 'even'"
-						th:text="${item.enabled}" />
+						th:text="${item.enabled} ? 'Enabled' : 'Disabled'" />
 
 					<td th:classappend="${rowstat.odd} ? 'odd' : 'even'" />
 					

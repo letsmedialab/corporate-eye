@@ -9,24 +9,29 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.servingwebcontent.model.RestrictedKeyword;
 import com.example.servingwebcontent.model.CGroup;
 import com.example.servingwebcontent.model.CUser;
-import com.example.servingwebcontent.repo.RestrictedKeywordRepository;
+import com.example.servingwebcontent.model.RestrictedKeyword;
+import com.example.servingwebcontent.model.RestrictedProcess;
 import com.example.servingwebcontent.repo.GroupRepository;
+import com.example.servingwebcontent.repo.RestrictedKeywordRepository;
+import com.example.servingwebcontent.repo.RestrictedProcessRepository;
 import com.example.servingwebcontent.repo.UserRepository;
 
 @Controller
 @RequestMapping("ajax")
 public class AjaxViewController {
 	@Autowired
-	UserRepository userRepository;
+	private UserRepository userRepository;
 	
 	@Autowired
-	RestrictedKeywordRepository restrictedKeywordRepository;
+	private RestrictedKeywordRepository restrictedKeywordRepository;
 	
 	@Autowired
-	GroupRepository groupRepository;
+	private GroupRepository groupRepository;
+	
+	@Autowired
+	private RestrictedProcessRepository processRepository;
 	
 	@GetMapping("userTableContent")
 	public String userTableContent( @RequestParam(name = "query", required = false, defaultValue = "") 
@@ -42,7 +47,10 @@ public class AjaxViewController {
 	public String groupTableContent( @RequestParam(name = "query", required = false, defaultValue = "") 
 	String keyword ,Model model)
 	{
-		List<CGroup> groups = groupRepository.findAll();
+		List<CGroup> groups; 
+		
+		
+		groups = groupRepository.search(keyword);
 		
 		
 		model.addAttribute("keyword",keyword);
@@ -59,6 +67,16 @@ public class AjaxViewController {
 		model.addAttribute("keyword",keyword);
 		model.addAttribute("data",keywords);
 		return "ajax/keywordTableContent";
+	}
+	
+	@GetMapping("processTableContent")
+	public String processTableContent( @RequestParam(name = "query", required = false, defaultValue = "") 
+	String keyword ,Model model)
+	{
+		List<RestrictedProcess> data = processRepository.search(keyword);
+		model.addAttribute("keyword",keyword);
+		model.addAttribute("data",data);
+		return "ajax/processTableContent";
 	}
 	
 }

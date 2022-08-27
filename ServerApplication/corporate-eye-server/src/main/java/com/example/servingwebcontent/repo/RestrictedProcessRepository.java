@@ -12,12 +12,13 @@ import com.example.servingwebcontent.model.RestrictedKeyword;
 import com.example.servingwebcontent.model.RestrictedProcess;
 import com.example.servingwebcontent.model.CUser;
 
-public interface RestrictedKeywordRepository extends JpaRepository<RestrictedKeyword, Long> {
+public interface RestrictedProcessRepository extends JpaRepository<RestrictedProcess, Long>{
+	
+	public List<RestrictedProcess> findAll();
+	
+	@Query("SELECT u FROM RestrictedProcess u where u.policyName like CONCAT(:keyword,'%') or u.restrictedProcess  like CONCAT(:keyword,'%')")
+	public List<RestrictedProcess> search(@Param("keyword")String keyword);
 
-	public List<RestrictedKeyword> findAll();
 
-	@Query("SELECT u FROM RestrictedKeyword u where u.policyName like CONCAT(:keyword,'%') or u.restrictedRegex  like CONCAT(:keyword,'%') or u.restrictedKeyword  like CONCAT(:keyword,'%')")
-	public List<RestrictedKeyword> search(@Param("keyword") String keyword);
-
-	public Optional<RestrictedKeyword> findByPolicyName(String policyName);
+	public Optional<RestrictedProcess> findByPolicyName(String policyName);
 }

@@ -10,17 +10,13 @@
 						rowspan="1" colspan="1" aria-sort="ascending"
 						aria-label="Name: activate to sort column descending"
 						style="width: 362.391px;">Policy Name</th>
-					
+
 					<th class="sorting" tabindex="0" aria-controls="zero_config"
 						rowspan="1" colspan="1"
 						aria-label="Position: activate to sort column ascending"
-						style="width: 556.219px;">Keyword(s)</th>
-						
-					<th class="sorting" tabindex="0" aria-controls="zero_config"
-						rowspan="1" colspan="1"
-						aria-label="Position: activate to sort column ascending"
-						style="width: 556.219px;">RegEx</th>
-						
+						style="width: 556.219px;">Process</th>
+
+
 					<th class="sorting" tabindex="0" aria-controls="zero_config"
 						rowspan="1" colspan="1"
 						aria-label="Position: activate to sort column ascending"
@@ -30,14 +26,14 @@
 						rowspan="1" colspan="1"
 						aria-label="Office: activate to sort column ascending"
 						style="width: 286.141px;">Group(s)</th>
-						
-						
+
+
 					<th class="sorting" tabindex="0" aria-controls="zero_config"
 						rowspan="1" colspan="1"
 						aria-label="Position: activate to sort column ascending"
 						style="width: 556.219px;">Status</th>
-						
-						<th class="sorting" tabindex="0" aria-controls="zero_config"
+
+					<th class="sorting" tabindex="0" aria-controls="zero_config"
 						rowspan="1" colspan="1"
 						aria-label="Position: activate to sort column ascending"
 						style="width: 556.219px;">Actions</th>
@@ -45,58 +41,70 @@
 				</tr>
 			</thead>
 			<tbody>
-			
+
 				<tr th:if="${#lists.isEmpty(data)}">
 					<td colspan="7"><div class="alert alert-primary" role="alert">
 							No items Found!</div></td>
 				</tr>
+
 				<tr role="row" th:each="item , rowstat : ${data}">
-					<td style="width: 16%" th:classappend="${rowstat.odd} ? 'odd' : 'even'"
+					<td style="width: 16%"
+						th:classappend="${rowstat.odd} ? 'odd' : 'even'"
 						th:text="${item.policyName}" />
 
-				
-					<td style="width: 16%" th:classappend="${rowstat.odd} ? 'odd' : 'even'"
-						th:text="${item.restrictedKeyword}" />
-						
-					<td style="width: 16%" th:classappend="${rowstat.odd} ? 'odd' : 'even'"
-						th:text="${item.restrictedRegex}" />
-						
-					<td style="width: 18%" th:classappend="${rowstat.odd} ? 'odd' : 'even'"
-						 />
-						<h6> <span th:text="${item.restrictUsersByDefault  ? 'Restricted for:' : 'Allowed For:'}"/></h6>
-						<ul th:each="user , index : ${item.allowedUsers}" style="list-style:none;overflow:auto;max-height:50px">
-							<li th:text="${ user.name + ' (' + user.username+ ')'}"  />
-						</ul>
-						 
-						
-						</td>
-					<td style="width: 18%" th:classappend="${rowstat.odd} ? 'odd' : 'even'"
-						 />
-						 <h6> <span th:text="${item.restrictGroupsByDefault  ? 'Restricted for:' : 'Allowed For:'}"/></h6>
-						<ul th:each="group , index : ${item.allowedGroups}" style="list-style:none;overflow:auto;max-height:50px">
-							<li th:text="${ group.groupName +'' }"  />
-						</ul>
-						 
-						
-						</td>
-						
-					<td style="width: 5%" th:classappend="${rowstat.odd} ? 'odd' : 'even'"
+
+					<td style="width: 16%"
+						th:classappend="${rowstat.odd} ? 'odd' : 'even'"
+						th:text="${item.restrictedProcess}" />
+
+
+
+					<td style="width: 18%"
+						th:classappend="${rowstat.odd} ? 'odd' : 'even'" />
+					<h6>
+						<span
+							th:text="${item.restrictUsersByDefault  ? 'Restricted for:' : 'Allowed For:'}" />
+					</h6>
+					<ul th:each="user , index : ${item.allowedUsers}"
+						style="list-style: none; overflow: auto; max-height: 50px">
+						<li th:text="${ user.name + ' (' + user.username+ ')'}" />
+					</ul>
+
+
+					</td>
+					<td style="width: 18%"
+						th:classappend="${rowstat.odd} ? 'odd' : 'even'" />
+					<h6>
+						<span
+							th:text="${item.restrictGroupsByDefault  ? 'Restricted for:' : 'Allowed For:'}" />
+					</h6>
+					<ul th:each="group , index : ${item.allowedGroups}"
+						style="list-style: none; overflow: auto; max-height: 50px">
+						<li th:text="${ group.groupName +'' }" />
+					</ul>
+
+
+					</td>
+
+					<td style="width: 5%"
+						th:classappend="${rowstat.odd} ? 'odd' : 'even'"
 						th:text="${item.enabled} ? 'Enabled' : 'Disabled'" />
-				
+
 					<td>
-					<button  class="btn btn-primary" data-toggle="modal"
-						data-target="#addModal" th:attr="data-id=${item.id}" data-mode="edit">
-						Edit</button>
-					<button class="btn btn-danger" data-toggle="modal"
-						data-target="#confirm-delete" th:attr="data-id=${item.id},data-policyname=${item.policyName}" >
-						Delete</button>
+						<button class="btn btn-primary" data-toggle="modal"
+							data-target="#addModal" th:attr="data-id=${item.id}"
+							data-mode="edit">Edit</button>
+						<button class="btn btn-danger" data-toggle="modal"
+							data-target="#confirm-delete"
+							th:attr="data-id=${item.id},data-policyname=${item.policyName}">
+							Delete</button>
 					</td>
 
 				</tr>
-				
 
-   
-</button>
+
+
+				</button>
 			</tbody>
 
 		</table>

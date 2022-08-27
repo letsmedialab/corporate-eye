@@ -96,24 +96,77 @@
 			</main>
 
 
+ <div class="toast-container">
+ 
+<div class="toast toast1" role="alert" aria-live="assertive" aria-atomic="true"   data-delay="2000">
+  <div class="toast-header">
+   
+    <strong class="mr-auto text-danger toastMessage" >Notification</strong>
+   
+  </div>
+  <div class="toast-body" id="toastMessage1" >
+  
+  </div>  
+  
+</div>
+
+<div class="toast toast2" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+  <div class="toast-header">
+   
+    <strong class="mr-auto text-danger toastMessage" >Notification</strong>
+    
+    <
+  </div>
+  <div class="toast-body" id="toastMessage2" >
+  
+  </div>  
+  
+</div>
+
+<div class="toast toast3" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+  <div class="toast-header">
+   
+    <strong class="mr-auto text-danger toastMessage" >Notification</strong>
+    
+   
+  </div>
+  <div class="toast-body" id="toastMessage3" >
+  
+  </div>  
+  
+</div>
+
+
+<div class="toast toast4" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+  <div class="toast-header">
+   
+    <strong class="mr-auto text-danger toastMessage" >Notification</strong>
+    
+  
+  </div>
+  <div class="toast-body" id="toastMessage4" >
+  
+  </div>  
+  
+</div>
+
+<div class="toast toast5" role="alert" aria-live="assertive" aria-atomic="true"data-delay="5000" >
+  <div class="toast-header">
+   
+    <strong class="mr-auto text-danger toastMessage" >Notification</strong>
+    
+   
+  </div>
+  <div class="toast-body" id="toastMessage5" >
+  
+  </div>  
+  
+</div>
+
+</div>
+
 			<!-- #modal -->
-			<div class="toast" role="alert" aria-live="assertive"
-				aria-atomic="true"
-				style="position: absolute; bottom: 20px; right: 20px;">
-				<div class="toast-header">
-
-					<strong class="mr-auto">Alert</strong>
-
-					<button type="button" class="ml-2 mb-1 close" data-dismiss="toast"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="toast-body" id="toastMessage">Hello, world! This
-					is a toast message.</div>
-			</div>
-
-
+		
 
 
 			<div class="modal fade" id="confirm-delete" tabindex="-1"
@@ -174,7 +227,7 @@
 							
 
 							
-								<div id="log"
+								<div id="loguser"
 									style="    max-height: 200px;  width: 300px;   overflow: auto;   display:none; position: absolute;    z-index: 99;   "
 									class="ui-widget-content"></div>
 							
@@ -190,9 +243,7 @@
 						<div></div>
 
 
-						<div class="form-group">
-							<label for="" id="f_status" class="col-form-label text-danger"></label>
-						</div>
+					
 					</form>
 				</div>
 				<div class="modal-footer">
@@ -231,17 +282,24 @@
 
 		function validate() {
 			
-			
+			 $('.toast').each(function(index,val){
+				 
+				 $(this).toast('dispose')
+			 });
 			formValid = true;
 
 			if ($("#f_groupname").val().trim().length < 4) {
-				$("#f_status").html(
-						"Group Name should be atleast 4 characters long");
+				
+				
+				 $("#toastMessage1").html("Group Name should be atleast 4 characters long");
+  				
+			 	 $('.toast1').toast('show');
 				formValid = false;
 			} else if (!groupValid) {
-				$("#f_status")
-						.html(
-								"Group Name Already Exist. Choose a different groupname");
+				
+				 $("#toastMessage1").html("Group Name Already Exist. Choose a different groupname");
+  			
+			 	 $('.toast1').toast('show');
 				formValid = false;
 			}
 
@@ -263,17 +321,17 @@
 								if (data == "success") {
 									getTableData($("#searchInput").val());
 									$("#closeModal").click();
-									$("#toastMessage").html(
+									$("#toastMessage1").html(
 											"<span class='text-success'>Group "
 													+ groupname
 													+ " created!</span>");
-									$('.toast').toast('show');
+									$('.toast1').toast('show');
 								} else {
 									getTableData($("#searchInput").val());
-									$("#toastMessage")
+									$("#toastMessage1")
 											.html(
 													"<span class='text-danger'>User creation failed!</span>");
-									$('.toast').toast('show');
+									$('.toast1').toast('show');
 								}
 							}
 
@@ -285,10 +343,17 @@
 
 		function validateEdit() {
 			formValid = true;
-
+ 			$('.toast').each(function(index,val){
+				 
+				 $(this).toast('dispose')
+			 });
 			if ($("#f_groupname").val().trim().length < 4) {
-				$("#f_status").html(
-						"Group name should be atleast 4 characters long");
+			
+				
+				 $("#toastMessage1").html("Group name should be atleast 4 characters long");
+  				
+			 	 $('.toast1').toast('show');
+			 	 
 				formValid = false;
 			}
 
@@ -316,17 +381,17 @@
 									resetValues();
 									getTableData($("#searchInput").val());
 									$("#closeModal").click();
-									$("#toastMessage").html(
+									$("#toastMessage1").html(
 											"<span class='text-success'>Group "
 													+ groupname
 													+ " updated!</span>");
-									$('.toast').toast('show');
+									$('.toast1').toast('show');
 								} else {
 									getTableData($("#searchInput").val());
-									$("#toastMessage")
+									$("#toastMessage1")
 											.html(
 													"<span class='text-danger'>Group updation failed!</span>");
-									$('.toast').toast('show');
+									$('.toast1').toast('show');
 								}
 							}
 
@@ -346,7 +411,7 @@
 			$("#f_groupname").prop('disabled', false);
 			
 			userList = {};
-			generateList();
+			generateUserList();
 
 		}
 
@@ -370,58 +435,15 @@
 				$("#f_id").val(data.id);
 				userList = {};
 				$(data.users).each(function(val,obj){
-					 addToList(obj.username,obj.name);
+					 addToUserList(obj.username,obj.name);
 					
 					
 				});
-				generateList();
+				generateUserList();
 
 			});
 		}
 
-		var userList = {};
-
-		function removeFromList(username)
-		{
-			delete userList[username];
-			generateList();
-		}
-		
-		function addToList(username,name) {
-			
-			
-			userList[username] = name;
-			
-			console.log(userList);
-			
-			$("#f_name").val("");
-			performUserSearch("");
-			generateList();
-		}
-
-		function generateList() {
-			content ="";
-			
-		
-		
-			Object.entries(userList).forEach(function([key, value])  {
-			
-				content+=	'<div class="userListItem border rounded"><div class="text-primary nameitem">'+
-				value
-				+'</div><div class="deleteUser" data-username="'+key+'"><i class="fa fa-close" style="color: red"></i></div></div>'
-				
-			
-		});
-			
-		
-			
-			$("#userlist").html(content);
-			$(".deleteUser").off("click");
-			$(".deleteUser").on("click",function(){
-				removeFromList($(event.currentTarget).data('username'));
-			});
-		
-		}
 		
 	
 		
@@ -496,11 +518,11 @@
 							function() {
 								$modalDiv.modal('hide').removeClass('loading');
 								getTableData($("#searchInput").val());
-								$("#toastMessage").html(
+								$("#toastMessage1").html(
 										"<span class='text-success'>Group "
 												+ groupname
 												+ " deleted!</span>");
-								$('.toast').toast('show');
+								$('.toast1').toast('show');
 								$('#cModalCancel').click();
 							});
 				});
@@ -527,7 +549,7 @@
 			
 			userList = {};
 			
-			generateList();
+			generateUserList();
 
 			var button = $(event.relatedTarget) // Button that triggered the modal
 			var id = button.data('id') // Extract info from data-* attributes
@@ -564,64 +586,7 @@
 			//modal.find('.modal-body input').val(recipient)
 		})
 	</script>
-  <script>
-  
-  function log( message ) {
-	   // console.log(message);
-	   	$("#log").show();
-	  
-	    content = "<div class=\"list-group\">";
-	    	
-	     $(message).each(function(index,val){
-	    	 if(userList[val.username] == undefined)
-	    	 {
-	    	   
-	    	 
-	    	 content+= '<a  class="list-group-item list-group-item-action suggestion-list-item" data-username="'+val.username+'" style="cursor:pointer">' +val.name + "</a>";
-	    	 }
-	    	});
-	     
-	     content+= "</div>";
-	    
-	      $( "#log" ).html( content );
-	      $( "#log" ).scrollTop( 0 );
-	      
-	      $('.suggestion-list-item').off("click");
-	      $('.suggestion-list-item').on('click', function(event) {
-			    // 'this' here = externalObject
-			  addToList( $(event.currentTarget).data('username'), $(event.currentTarget).text());
-			});
-	    }
-  
-  function performUserSearch(keyword)
-  {
-	  if(keyword.length>3)
-		{    		
- 		 $.ajax( {
-  		  url:  "ajax/getUserDetails?keyword="+ keyword,        
-  
- 			   success: function( data ) {
-  		    log( data );
- 		   }
-		   } );
-		}
-	else
-		{    		
-		   	$("#log").hide();
-		      		
-		}
-  }
-  
-  $( function() {
-   
- 
-    $( "#f_name" ).on("keyup",function() {
-    	
-    	performUserSearch($(this).val());
-        
-      });
-  } );
-  </script>
+ <script src="js/userSuggestion.js"></script>
 	
 </body>
 </html>

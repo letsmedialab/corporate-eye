@@ -32,8 +32,22 @@
 	crossorigin="anonymous">
 
 <link href="css/styles.css" rel="stylesheet" />
+<link href="css/commonstyles.css" rel="stylesheet" />
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
 	crossorigin="anonymous"></script>
+
+
+<style>
+#userlist, #grouplist {
+	list-style: none;
+	float: none;
+	display: block;
+	padding: 0px;
+	height: 60px;
+	overflow: auto;
+	padding: 5px;
+}
+</style>
 </head>
 <body class="sb-nav-fixed">
 
@@ -70,8 +84,9 @@
 												</div>
 												<div class="offset-4 col-sm-2" style="margin-top: 10px">
 													<button class="btn btn-success" style="float: right"
-														data-toggle="modal" data-target="#addModal" data-mode="add" data-id="Add">Add
-														Keyword Configuration</button>
+														data-toggle="modal" data-target="#addModal"
+														data-mode="add" data-id="Add">Add Keyword
+														Configuration</button>
 												</div>
 											</div>
 											<div id="tableContent"></div>
@@ -88,42 +103,93 @@
 			</main>
 
 
-<!-- #modal -->
-<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute;
-    bottom: 20px;
-    right: 20px;">
-  <div class="toast-header">
-   
-    <strong class="mr-auto">Alert</strong>
-    
-    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="toast-body" id="toastMessage">
-    Hello, world! This is a toast message.
-  </div>
-</div>
+
+
+			<!-- notification -->
+
+
+			<div class="toast-container">
+
+				<div class="toast toast1" role="alert" aria-live="assertive"
+					aria-atomic="true" data-delay="2000">
+					<div class="toast-header">
+
+						<strong class="mr-auto text-danger toastMessage">Alert</strong>
+
+					</div>
+					<div class="toast-body" id="toastMessage1"></div>
+
+				</div>
+
+				<div class="toast toast2" role="alert" aria-live="assertive"
+					aria-atomic="true" data-delay="2000">
+					<div class="toast-header">
+
+						<strong class="mr-auto text-danger toastMessage">Alert</strong>
+
+						
+					</div>
+					<div class="toast-body" id="toastMessage2"></div>
+
+				</div>
+
+				<div class="toast toast3" role="alert" aria-live="assertive"
+					aria-atomic="true" data-delay="2000">
+					<div class="toast-header">
+
+						<strong class="mr-auto text-danger toastMessage">Alert</strong>
+
+					
+					</div>
+					<div class="toast-body" id="toastMessage3"></div>
+
+				</div>
+
+
+				<div class="toast toast4" role="alert" aria-live="assertive"
+					aria-atomic="true" data-delay="2000">
+					<div class="toast-header">
+
+						<strong class="mr-auto text-danger toastMessage">Alert</strong>
+
+						
+					</div>
+					<div class="toast-body" id="toastMessage4"></div>
+
+				</div>
+
+				<div class="toast toast5" role="alert" aria-live="assertive"
+					aria-atomic="true" data-delay="5000">
+					<div class="toast-header">
+
+						<strong class="mr-auto text-danger toastMessage">Alert</strong>
+
+					
+					</div>
+					<div class="toast-body" id="toastMessage5"></div>
+
+				</div>
+
+			</div>
+			<!-- #modal -->
 
 
 
 
-	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header" id="confirmHeader">
-                ...
-            </div>
-            <div class="modal-body" id="confirmBody">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" id="cModalCancel" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-danger btn-ok">Delete</a>
-            </div>
-        </div>
-    </div>
-	</div>
+			<div class="modal fade" id="confirm-delete" tabindex="-1"
+				role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header" id="confirmHeader">...</div>
+						<div class="modal-body" id="confirmBody">...</div>
+						<div class="modal-footer">
+							<button type="button" id="cModalCancel" class="btn btn-default"
+								data-dismiss="modal">Cancel</button>
+							<a class="btn btn-danger btn-ok">Delete</a>
+						</div>
+					</div>
+				</div>
+			</div>
 
 
 
@@ -140,7 +206,8 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="addModalLabel">Add Keyword Configuration</h5>
+					<h5 class="modal-title" id="addModalLabel">Add Keyword
+						Configuration</h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -148,60 +215,131 @@
 				</div>
 				<div class="modal-body">
 					<form>
-					
-					<input type="hidden" class="form-control" id="f_id">
-						<div class="form-group">
-							<label for="f_name" class="col-form-label">Name:</label> <input
-								type="text" class="form-control" id="f_name">
+
+						<input type="hidden" class="form-control" id="f_id">
+
+						<div class="row">
+						<div class="form-group-inline col-sm-6">
+							<label for="f_policyname" class="col-form-label">PolicyName:</label>
+							<input type="text" class="form-control" id="f_policyname"
+								placeholder="Atleast 3 characters.">
+							<div style="height: 10px; margin-bottom: 30px">
+								<label for="f_policyname" id="policynameStatus"
+									class="col-form-label text-danger "
+									style="display: none; float: right;">Policy Already
+									Exist</label>
+							</div>
+						</div >
+						<div class="form-group-inline col-sm-6">
+							<label for="f_role" class="col-form-label">Status:</label><br>
+							<div class="form-check-inline">
+
+								<input class="form-check-input" value="true"
+									style="margin: 5px;" type="radio" name="f_enabled" checked>
+								<label class="form-check-label" for="flexRadioDefault1">
+									ENABLED </label>
+							</div>
+							<div class="form-check-inline">
+								<input class="form-check-input" value="false"
+									style="margin: 5px;" type="radio" name="f_enabled"> <label
+									class="form-check-label" for="flexRadioDefault2">
+									DISABLED </label>
+							</div>
+						</div>
+						
 						</div>
 						<div class="form-group">
-							<label for="f_username" class="col-form-label">Username:</label>
-							<input type="text" class="form-control" id="f_username">
-							<div style="height:10px;margin-bottom:30px"><label  for="f_username" id="usernameStatus" class="col-form-label text-danger " style="display:none; float: right;">Username Already Exist</label></div>
+							<label for="f_name" class="col-form-label">Keyword(s):</label> <input
+								type="text" class="form-control" placeholder="Enter multiple values as comma seperated" id="f_keywords">
+						</div>
+						
+						<div class="form-group">
+							<label for="f_name" class="col-form-label">RegEx:</label> <input
+								type="text" class="form-control" id="f_regex">
 						</div>
 						<hr>
-						<label for="f_role" class="col-form-label">Role: </label>
+
+						<label for="f_role" class="col-form-label">Group Rule: </label>
 						<div class="form-check-inline" style="margin-left: 12px;">
 
 							<input class="form-check-input" style="margin: 5px;" type="radio"
-								name="f_role" value="ROLE_ADMIN"> <label
-								class="form-check-label" for="flexRadioDefault1"> ADMIN
+								name="f_restrictgroup" value="false"> <label
+								class="form-check-label" for="flexRadioDefault1"> Allow
 							</label>
 						</div>
 						<div class="form-check-inline">
 							<input class="form-check-input" style="margin: 5px;" type="radio"
-								name="f_role" value="ROLE_USER" checked> <label
-								class="form-check-label" for="flexRadioDefault2"> USER </label>
-						</div>
-						<hr>
-						<label for="f_role" class="col-form-label">Status:</label>
-						<div class="form-check-inline">
-
-							<input class="form-check-input" value="true" style="margin: 5px;"
-								type="radio" name="f_enabled" checked> <label
-								class="form-check-label" for="flexRadioDefault1">
-								ENABLED </label>
-						</div>
-						<div class="form-check-inline">
-							<input class="form-check-input" value="false"
-								style="margin: 5px;" type="radio" name="f_enabled"> <label
+								name="f_restrictgroup" value="true" checked> <label
 								class="form-check-label" for="flexRadioDefault2">
-								DISABLED </label>
+								Restrict </label>
 						</div>
+
+
+						<!-- 						group suggestion -->
+						<div class="form-group">
+
+							<input type="text" class="form-control" id="f_gname"
+								placeholder="Seach by Group Name..."> <label
+								for="f_gname" class="col-form-label" style="display: block">Group(s):</label>
+
+							<div id="loggroup"
+								style="max-height: 200px; width: 300px; overflow: auto; display: none; position: absolute; z-index: 99;"
+								class="ui-widget-content"></div>
+
+						</div>
+
+						<div id="grouplist">
+
+							<div class="alert alert-primary" style="padding: 3px"
+								role="alert">No groups in this rule!</div>
+
+						</div>
+
+						<!-- group end -->
+
+
+
+
 						<hr>
-						<div class="form-group">
-							<label for="recipient-name" class="col-form-label">Password:</label>
-							<input type="password" class="form-control" id="f_password">
+
+						<label for="f_role" class="col-form-label">User Rule: </label>
+						<div class="form-check-inline" style="margin-left: 12px;">
+
+							<input class="form-check-input" style="margin: 5px;" type="radio"
+								name="f_restricteduser" value="false"> <label
+								class="form-check-label" for="flexRadioDefault1"> Allow
+							</label>
 						</div>
-						<div class="form-group">
-							<label for="recipient-name" class="col-form-label">Confirm
-								Password:</label> <input type="password" class="form-control"
-								id="f_confirm_password">
+						<div class="form-check-inline">
+							<input class="form-check-input" style="margin: 5px;" type="radio"
+								name="f_restricteduser" value="true" checked> <label
+								class="form-check-label" for="flexRadioDefault2">
+								Restrict </label>
 						</div>
-						
+						<!-- 						user suggestion -->
 						<div class="form-group">
-							<label for="" id="f_status" class="col-form-label text-danger"></label>
+
+							<input type="text" class="form-control" id="f_name"
+								placeholder="Seach by Username , name or role"> <label
+								for="f_name" class="col-form-label" style="display: block">User(s):</label>
+
+							<div id="loguser"
+								style="max-height: 200px; width: 300px; overflow: auto; display: none; position: absolute; z-index: 99;"
+								class="ui-widget-content"></div>
+
 						</div>
+
+						<div id="userlist">
+
+							<div class="alert alert-primary" style="padding: 3px"
+								role="alert">No users in this rule!</div>
+
+						</div>
+
+						<!-- usersuggestion end -->
+
+
+
 					</form>
 				</div>
 				<div class="modal-footer">
@@ -231,323 +369,374 @@
 	<script src="js/datatables-simple-demo.js"></script>
 
 	<script>
-	
-	var currentUsername = "[[${#httpServletRequest.remoteUser}]]";
-	
-	var userValid = false;
-	
-	function validate()
-	{
-				formValid = true;
-				
-				password = $("#f_password").val();
-				confirmPassword = $("#f_confirm_password").val();
-				
-				if($("#f_name").val().trim().length<3)
-					{
-						formValid = false;
-						$("#f_status").html("Name should be atleast 3 characters long");
-					}
-				
-				else if($("#f_username").val().trim().length<4)
-					{
-						$("#f_status").html("Username should be atleast 4 characters long");formValid = false;
-					}
-				else if(!userValid)
-					{
-						$("#f_status").html("Username Already Exist. Choose a different username");
-						formValid = false;
-					}
-				
-				
+		var currentUsername = "[[${#httpServletRequest.remoteUser}]]";
+
+		var policyValid = false;
+
+		function validate() {
 			
-				else if(password.length <8  )
-		  			{
-		  			
-		  				formValid = false;
-		  				$("#f_status").html("Password should be atleast 8 character long");
-		  			}
-		  		else if(password != confirmPassword)
-		  			{
-		  				formValid = false;
-	  					$("#f_status").html("Password and Confirm passwords doesn't match");
-		  			}
-				if (formValid)
-				{
-					name = $("#f_name").val();
-					username = $("#f_username").val();
-					password = $("#f_password").val();
-					role = $('input[name="f_role"]:checked').val();
-					enabled = $('input[name="f_enabled"]:checked').val();
-					
-					data = '{ "name" : "'+name+'" , "username" : "'+username+'" , "password" : "'+password+'" , "role" : "'+role+'" , "enabled" : "'+enabled+'" }';	
-				
-					$.ajax({
-						  type: "POST",
-						  url: "ajax/addUser",
-						  data: data,
-						  contentType: "application/json; charset=UTF-8",
-						  success: function(data){
-							  if(data == "success")
-								  {
-									  getTableData($("#searchInput").val());
-									  $("#closeModal").click();
-									  $("#toastMessage").html("<span class='text-success'>User "+username+" created!</span>");
-									  $('.toast').toast('show');
-								  }
-							  else
-								  {
-								 	 getTableData($("#searchInput").val());
-								 	 $("#toastMessage").html("<span class='text-danger'>User creation failed!</span>");
-								 	 $('.toast').toast('show');
-								  }
-						  }
-						 
-						});
-					
-					
-					
-				}
-		
-	
-	}
-	
-	
-	function validateEdit()
-	{
-				formValid = true;
-				
-				password = $("#f_password").val();
-				confirmPassword = $("#f_confirm_password").val();
-				
-				if($("#f_name").val().trim().length<3)
-					{
-						formValid = false;
-						$("#f_status").html("Name should be atleast 3 characters long");
-					}
-				
-				else if($("#f_username").val().trim().length<4)
-					{
-						$("#f_status").html("Username should be atleast 4 characters long");formValid = false;
-					}
-							
+			 $('.toast').each(function(index,val){
+				 
+				 $(this).toast('dispose')
+			 });
+			formValid = true;	
+			policyName = $("#f_policyname").val().trim();
+			keywordName = $("#f_keywords").val().trim();
+			regEx = $("#f_regex").val().trim();
+
+			if (policyName.length < 3) {
+				formValid = false;
+				 $("#toastMessage1").html("Policy name should be atleast 3 characters long");
+	  				
+			 	 $('.toast1').toast('show');
+			}
 			
-				else if(password.length >0 && password.length <8  )
-		  			{
-		  			
-		  				formValid = false;
-		  				$("#f_status").html("Password should be atleast 8 character long");
-		  			}
-		  		else if((password != confirmPassword) && password.length >0)
-		  			{
-		  				formValid = false;
-	  					$("#f_status").html("Password and Confirm passwords doesn't match");
-		  			}
+			if (keywordName.length == 0) {
+				formValid = false;
+				 $("#toastMessage2").html("Keywords cannot be empty");
+	  				
+			 	 $('.toast2').toast('show');
+			}
+
+			if (regEx.length == 0) {
+				formValid = false;
+				 $("#toastMessage3").html("RegEx cannot be empty");
+	  				
+			 	 $('.toast3').toast('show');
+			}
+			
+			if (formValid) {
 				
+				policyName = $("#f_policyname").val().trim();
+				keywordName = $("#f_keywords").val().trim();
+				regEx = $("#f_regex").val().trim();
+				userNames = userList;
+				groupNames = Array.from(groupList);
+				console.log(groupNames);
+				enabled = $('input[name="f_enabled"]:checked').val();
+				restrictGroupsByDefault = $('input[name="f_restrictgroup"]:checked').val();
+				restrictUsersByDefault = $('input[name="f_restricteduser"]:checked').val();
 				
-				if (formValid)
-				{
-					name = $("#f_name").val();
-					id = $("#f_id").val();
-					username = $("#f_username").val();
-					password = $("#f_password").val();
-					role = $('input[name="f_role"]:checked').val();
-					enabled = $('input[name="f_enabled"]:checked').val();
+				data = JSON.stringify({  "policyName" :  policyName 
+					, "enabled" : enabled,"restrictUsersByDefault" : restrictUsersByDefault 
+					, "restrictGroupsByDefault" : restrictGroupsByDefault,
+					"keywordName" : keywordName,"regEx" : regEx,
+					userNames ,groupNames })
 					
-					data = '{"id" : '+id+', "name" : "'+name+'" , "username" : "'+username+'" , "password" : "'+password+'" , "role" : "'+role+'" , "enabled" : "'+enabled+'" }';	
 				
-					$.ajax({
-						  type: "POST",
-						  url: "ajax/updateUser",
-						  data: data,
-						  contentType: "application/json; charset=UTF-8",
-						  success: function(data){
-							  if(data == "success")
-								  {
-									  getTableData($("#searchInput").val());
-									  $("#closeModal").click();
-									  $("#toastMessage").html("<span class='text-success'>User "+username+" updated!</span>");
-									  $('.toast').toast('show');
-								  }
-							  else
-								  {
-								 	 getTableData($("#searchInput").val());
-								 	 $("#toastMessage").html("<span class='text-danger'>User updation failed!</span>");
-								 	 $('.toast').toast('show');
-								  }
-						  }
-						 
+
+				$
+						.ajax({
+							type : "POST",
+							url : "ajax/addKeyword",
+							data : data,
+							contentType : "application/json; charset=UTF-8",
+							success : function(data) {
+								if (data == "success") {
+									getTableData($("#searchInput").val());
+									$("#closeModal").click();
+									$("#toastMessage1").html(
+											"<span class='text-success'>Policy "
+													+ policynameme
+													+ " created!</span>");
+									$('.toast1').toast('show');
+								} else {
+									getTableData($("#searchInput").val());
+									$("#toastMessage1")
+											.html(
+													"<span class='text-danger'>Policy creation failed!</span>");
+									$('.toast1').toast('show');
+								}
+							}
+
 						});
-					
-					
-					
-				}
+
+			}
+
+		}
+
+		function validateEdit() {
+			
+			
+			 $('.toast').each(function(index,val){
+				 
+				 $(this).toast('dispose')
+			 });
+			formValid = true;	
+			policyName = $("#f_policyname").val().trim();
+			keywordName = $("#f_keywords").val().trim();
+			regEx = $("#f_regex").val().trim();
+
 		
-	
-	}
-	
-	
+			if (keywordName.length == 0) {
+				formValid = false;
+				 $("#toastMessage2").html("Keywords cannot be empty");
+	  				
+			 	 $('.toast2').toast('show');
+			}
+
+			if (regEx.length == 0) {
+				formValid = false;
+				 $("#toastMessage3").html("RegEx cannot be empty");
+	  				
+			 	 $('.toast3').toast('show');
+			}
+			
+			if (formValid) {
+				
+				policyName = $("#f_policyname").val().trim();
+				keywordName = $("#f_keywords").val().trim();
+				regEx = $("#f_regex").val().trim();
+				userNames = userList;
+				groupNames = Array.from(groupList);
+				console.log(groupNames);
+				enabled = $('input[name="f_enabled"]:checked').val();
+				restrictGroupsByDefault = $('input[name="f_restrictgroup"]:checked').val();
+				restrictUsersByDefault = $('input[name="f_restricteduser"]:checked').val();
+				id = $("#f_id").val();
+				
+				data = JSON.stringify({ "id" : id,  "policyName" :  policyName 
+					, "enabled" : enabled,"restrictUsersByDefault" : restrictUsersByDefault 
+					, "restrictGroupsByDefault" : restrictGroupsByDefault,
+					"keywordName" : keywordName,"regEx" : regEx,
+					userNames , groupNames })
+					
+				
+
+				$
+						.ajax({
+							type : "POST",
+							url : "ajax/updateKeyword",
+							data : data,
+							contentType : "application/json; charset=UTF-8",
+							success : function(data) {
+								if (data == "success") {
+									getTableData($("#searchInput").val());
+									$("#closeModal").click();
+									$("#toastMessage1").html(
+											"<span class='text-success'>Policy "
+													+ policynameme
+													+ " created!</span>");
+									$('.toast1').toast('show');
+								} else {
+									getTableData($("#searchInput").val());
+									$("#toastMessage1")
+											.html(
+													"<span class='text-danger'>Policy creation failed!</span>");
+									$('.toast1').toast('show');
+								}
+							}
+
+						});
+
+			}
+
+		}
+
+		function isValidateRegex(regex)
+		{
+			var isValid = true;
+			try {
+			    new RegExp("the_regex_to_test_goes_here");
+			} catch(e) {
+			    isValid = false;
+			}
+
+			return isValid;
+		}
+		
 		function resetValues() {
 
-			$("#usernameStatus").hide();
+			$("#policynameStatus").hide();
 			$('input[type="text"]').each(function() {
 				$(this).val("");
 			});
-			$('input:radio[name="f_role"]').prop('disabled', false);
-			$('input:radio[name="f_enabled"]').prop('disabled', false);
-			$('input[type="password"]').each(function() {
-				$(this).val("");
-			});
-			$("#f_username").prop('disabled', false);
-			$("input[name=f_role][value=ROLE_USER]").prop('checked', true);
-			$("input[name=f_enabled][value=true]").prop('checked', true);
-			
 		
+			$("#f_policyname").prop('disabled', false);
+			$("input[name=f_restrictgroup][value=true]").prop('checked', true);
+			$("input[name=f_restricteduser][value=true]").prop('checked', true);
+			$("input[name=f_enabled][value=true]").prop('checked', true);
+			userList = {};
+			groupList = new Set([]);
+			
+			generateUserList();
+			generateGroupList();
+
 		}
 
 		function getTableData(keyword) {
 
-			$.get("ajax/keywordTableContent?query=" + keyword, function(data, status) {
+			$.get("ajax/keywordTableContent?query=" + keyword, function(data,
+					status) {
 				//alert("Data: " + data + "\nStatus: " + status);
 				$("#tableContent").html(data);
 
 			});
 
 		}
-		
-		function setValues(id)
-		{
-			$.get("ajax/getUserDataById?id=" + id, function(data, status) {
-				//alert("Data: " + data + "\nStatus: " + status);
-				$("#f_name").val(data.name);
-				$("#f_username").val(data.username);
-				$("#f_username").prop('disabled', true);
-				$("#usernameStatus").hide();
-				$("#f_id").val(data.id);
-				$('input:radio[name="f_role"]').filter('[value="'+data.role+'"]').attr('checked', true);
-				$('input:radio[name="f_enabled"]').filter('[value="'+data.enabled+'"]').attr('checked', true);
-				
-				if(currentUsername == data.username)
-					{
-					$('input:radio[name="f_role"]').prop('disabled', true);
-					$('input:radio[name="f_enabled"]').prop('disabled', true);
-					}
 
-			});
-		}
-		
-		
-		
-		
-		$(document).ready(function() {
-
-			getTableData($("#searchInput").val());
-
-			$("#f_username").on("keyup", function() {
-				var username = $(this).val();
-				$.get("ajax/checkUsername?username=" + username, function(data, status) {
-					//alert("Data: " + data + "\nStatus: " + status);
-					if(data == true)
-						{
-						$("#usernameStatus").show();
-						userValid = false;
-							$("#usernameStatus").html("Username Already Exist");
-							$("#usernameStatus").removeClass("text-success");
-							$("#usernameStatus").addClass("text-danger");
-							
-						}
-					else
-						{
+		function setValues(id) {
+			$.get("ajax/getKeywordDataById?id=" + id,
+					function(data, status) {
+						//alert("Data: " + data + "\nStatus: " + status);
+						$("#f_policyname").val(data.policyName);
+						$('input:radio[name="f_enabled"]').filter(
+								'[value="' + data.enabled + '"]').attr(
+								'checked', true);
+						$("#f_keywords").val(data.restrictedKeyword);
+						$("#f_regex").val(data.restrictedRegex);
+						$("#f_id").val(data.id);			
 						
-						if(username.length>3)
-							{
-							userValid = true;
-								$("#usernameStatus").show();
-								$("#usernameStatus").html("Username Available");
-								$("#usernameStatus").removeClass("text-danger");
-								$("#usernameStatus").addClass("text-success");
-							}
-							else
-							{
-								$("#usernameStatus").hide();
-							}
-							}
+						$("#f_policyname").prop('disabled', true);
+						$("#policynameStatus").hide();
+						
+						$("input[type='radio'][name='f_restrictgroup'][value='"+data.restrictUsersByDefault+"']").prop("checked",true)
+						$("input[type='radio'][name='f_restricteduser'][value='"+data.restrictGroupsByDefault+"']").prop("checked",true)
+						
+						userList = {};
+						$(data.allowedUsers).each(function(val,obj){
+							 addToUserList(obj.username,obj.name);
+							
+							
+						});
+						generateUserList();
+						
+						
+						
+						groupList = new Set([]);;
+						$(data.allowedGroups).each(function(val,obj){
+							 addToGroupList(obj.groupName);
+							
+							
+						});
+						generateGroupList();
+
+					});
+		}
+
+		$(document).ready(
+				function() {
+
+					getTableData($("#searchInput").val());
+
+					$("#f_policyname").on(
+							"keyup",
+							function() {
+								var policyname = $(this).val();
+								$.get("ajax/checkPolicyname?policyname="
+										+ policyname, function(data, status) {
+									//alert("Data: " + data + "\nStatus: " + status);
+									if (data == true) {
+										$("#policynameStatus").show();
+										policyValid = false;
+										$("#policynameStatus").html(
+												"Policy Name Already Exist");
+										$("#policynameStatus").removeClass(
+												"text-success");
+										$("#policynameStatus").addClass(
+												"text-danger");
+
+									} else {
+
+										if (policyname.length > 2) {
+											policyValid = true;
+											$("#policynameStatus").show();
+											$("#policynameStatus").html(
+													"Policy Name Available");
+											$("#policynameStatus").removeClass(
+													"text-danger");
+											$("#policynameStatus").addClass(
+													"text-success");
+										} else {
+											$("#policynameStatus").hide();
+										}
+									}
+
+								});
+
+							});
 
 				});
-				
-			});
-			
-			
-			
-			
-		
-			
 
-		});
+		$('#confirm-delete').on(
+				'click',
+				'.btn-ok',
+				function(e) {
 
-		$('#confirm-delete').on('click', '.btn-ok', function(e) {
+					var $modalDiv = $(e.delegateTarget);
+					var id = $(this).data('recordId');
+					var policyname = $(this).data('policyname');
+					$modalDiv.addClass('loading');
+					$.post('/ajax/deleteKeyword/' + id).then(
+							function() {
+								$modalDiv.modal('hide').removeClass('loading');
+								getTableData($("#searchInput").val());
+								$("#toastMessage1").html(
+										"<span class='text-success'>User "
+												+ policyname
+												+ " deleted!</span>");
+								$('.toast1').toast('show');
+								$('#cModalCancel').click();
+							});
+				});
 
-			  var $modalDiv = $(e.delegateTarget);
-			  var id = $(this).data('recordId');
-			  var username = $(this).data('username');
-			  $modalDiv.addClass('loading');
-			  $.post('/ajax/deleteUser/' + id).then(function() {
-			     $modalDiv.modal('hide').removeClass('loading');
-			     getTableData($("#searchInput").val());
-			 	 $("#toastMessage").html("<span class='text-success'>User "+username +" deleted!</span>");
-			 	 $('.toast').toast('show');
-			 	 $('#cModalCancel').click();
-			  });
-			});
+		// Bind to modal opening to set necessary data properties to be used to make request
+		$('#confirm-delete').on(
+				'show.bs.modal',
+				function(e) {
+					var button = $(e.relatedTarget);
 
-			// Bind to modal opening to set necessary data properties to be used to make request
-			$('#confirm-delete').on('show.bs.modal', function(e) {
-			  var button = $(e.relatedTarget) ;
-			  
-			  console.log(button.data('id'));
-			  $("#confirmHeader").text("Confirm Delete?");
-			  $("#confirmBody").text("Do you really want to delete user "+ button.data("username") + "?");
-			  $('.title', this).text("Do you really want to delete user "+ button.data("username") + "?");
-			  $('.btn-ok', this).data('recordId', button.data("id")).data('username', button.data("username"));
-			});
-		
+					console.log(button.data('id'));
+					$("#confirmHeader").text("Confirm Delete?");
+					$("#confirmBody").text(
+							"Do you really want to delete policy "
+									+ button.data("policyname") + "?");
+					$('.title', this).text(
+							"Do you really want to delete policy "
+									+ button.data("policyname") + "?");
+					$('.btn-ok', this).data('recordId', button.data("id"))
+							.data('policyname', button.data("policyname"));
+				});
+
 		$('#addModal').on('show.bs.modal', function(event) {
 			var button = $(event.relatedTarget) // Button that triggered the modal
 			var id = button.data('id') // Extract info from data-* attributes
 			// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
 			// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 			var mode = button.data('mode')
-			
+
 			var modal = $(this)
 
-			if(mode == "add")
-				{
+			if (mode == "add") {
 				$("#submitButton").off("click");
-				
-				$("#submitButton").on("click",function(){
-					
+
+				$("#submitButton").on("click", function() {
+
 					validate();
-					
+
 				});
-					resetValues();
-				}
-			else if(mode =="edit")
-				{
-				
+				resetValues();
+			} else if (mode == "edit") {
+
 				$("#submitButton").off("click");
-				
-				$("#submitButton").on("click",function(){
-					
+
+				$("#submitButton").on("click", function() {
+
 					validateEdit();
-					
+
 				});
 				setValues(id);
-					
-				}
-				
+
+			}
+
 			//	modal.find('.modal-title').text('New message to ' + recipient)
 			//modal.find('.modal-body input').val(recipient)
 		})
 	</script>
+
+	<script src="js/userSuggestion.js"></script>
+	<script src="js/groupSuggestion.js"></script>
+
+
 </body>
 </html>
