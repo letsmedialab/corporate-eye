@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Rau/AdKjaRVLXkNfX0/7MT7g6BmK9xK0HEajLfPoq4qm0rKPkHNYWM+WhUAusYQ9ofXg/XS2Al1Xa38kOLYwEA==",
+  "dgSpecHash": "596je6xf7KjcZ8jVqEc188dXsusNUONvNeTMa5L5FowzB9idof5K368u4B4RHvLeSJnKXYLLPjf9+wkfohvEUQ==",
   "success": true,
   "projectFilePath": "E:\\WorkOnedrive\\OneDrive\\MScProjects\\SourceCode\\corporate-eye\\NativeSupportServiceApplication\\NativeSupportServiceApplication\\NativeSupportServiceApplication.csproj",
   "expectedPackageFiles": [
@@ -15,6 +15,7 @@
     "C:\\Users\\workp\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\workp\\.nuget\\packages\\mysql.data\\8.0.30\\mysql.data.8.0.30.nupkg.sha512",
     "C:\\Users\\workp\\.nuget\\packages\\mysqlconnector\\2.1.11\\mysqlconnector.2.1.11.nupkg.sha512",
+    "C:\\Users\\workp\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\workp\\.nuget\\packages\\portable.bouncycastle\\1.9.0\\portable.bouncycastle.1.9.0.nupkg.sha512",
     "C:\\Users\\workp\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\workp\\.nuget\\packages\\system.configuration.configurationmanager\\4.4.1\\system.configuration.configurationmanager.4.4.1.nupkg.sha512",

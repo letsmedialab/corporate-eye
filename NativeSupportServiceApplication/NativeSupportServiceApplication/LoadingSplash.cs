@@ -168,9 +168,9 @@ namespace NativeSupportServiceApplication
 
         private void LoadingSplash_Load(object sender, EventArgs e)
         {
-            buildCache();
+           // buildCache();
 
-            startServices();
+           // startServices();
             currentForm = this;
             Debug.WriteLine("staring work");
             
@@ -201,3 +201,4 @@ namespace NativeSupportServiceApplication
         }
     }
 }
+
