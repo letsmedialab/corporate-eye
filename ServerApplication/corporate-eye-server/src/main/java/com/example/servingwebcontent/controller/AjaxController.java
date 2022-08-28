@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,15 +21,24 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.servingwebcontent.ServingWebContentApplication;
 import com.example.servingwebcontent.dto.GroupDTO;
 import com.example.servingwebcontent.dto.GroupEditDTO;
+import com.example.servingwebcontent.dto.RestrictedEmailDTO;
+import com.example.servingwebcontent.dto.RestrictedFileDTO;
 import com.example.servingwebcontent.dto.RestrictedKeywordDTO;
 import com.example.servingwebcontent.dto.RestrictedProcessDTO;
+import com.example.servingwebcontent.dto.RestrictedUrlDTO;
 import com.example.servingwebcontent.model.CGroup;
 import com.example.servingwebcontent.model.CUser;
+import com.example.servingwebcontent.model.RestrictedEmail;
+import com.example.servingwebcontent.model.RestrictedFile;
 import com.example.servingwebcontent.model.RestrictedKeyword;
 import com.example.servingwebcontent.model.RestrictedProcess;
+import com.example.servingwebcontent.model.RestrictedUrl;
 import com.example.servingwebcontent.repo.GroupRepository;
+import com.example.servingwebcontent.repo.RestrictedEmailRepository;
+import com.example.servingwebcontent.repo.RestrictedFileRepository;
 import com.example.servingwebcontent.repo.RestrictedKeywordRepository;
 import com.example.servingwebcontent.repo.RestrictedProcessRepository;
+import com.example.servingwebcontent.repo.RestrictedUrlRepository;
 import com.example.servingwebcontent.repo.UserRepository;
 import com.example.servingwebcontent.util.GeneralUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -52,6 +60,15 @@ public class AjaxController {
 	
 	@Autowired
 	private RestrictedProcessRepository processRepository;
+	
+	@Autowired
+	private RestrictedEmailRepository emailRepository;
+	
+	@Autowired
+	private RestrictedUrlRepository urlRepository;
+	
+	@Autowired
+	private RestrictedFileRepository fileRepository;
 
 	@GetMapping(value = "checkUsername", produces = MediaType.APPLICATION_JSON_VALUE)
 	public String checkUsername(@RequestParam(name = "username", required = false, defaultValue = "") String username) {
@@ -131,6 +148,33 @@ public class AjaxController {
 		return GeneralUtils.convertToJson(data.get());
 	}
 	
+	@GetMapping(value = "getUrlDataById", produces = MediaType.APPLICATION_JSON_VALUE)
+	public String getUrlDataById(@RequestParam(name = "id", required = false, defaultValue = "") Long id) throws JsonProcessingException {
+
+		Optional<RestrictedUrl> data = urlRepository.findById(id);	
+		
+		
+		return GeneralUtils.convertToJson(data.get());
+	}
+	
+	@GetMapping(value = "getFileDataById", produces = MediaType.APPLICATION_JSON_VALUE)
+	public String getFileDataById(@RequestParam(name = "id", required = false, defaultValue = "") Long id) throws JsonProcessingException {
+
+		Optional<RestrictedFile> data = fileRepository.findById(id);	
+		
+		
+		return GeneralUtils.convertToJson(data.get());
+	}
+	
+	@GetMapping(value = "getEmailDataById", produces = MediaType.APPLICATION_JSON_VALUE)
+	public String getEmailDataById(@RequestParam(name = "id", required = false, defaultValue = "") Long id) throws JsonProcessingException {
+
+		Optional<RestrictedEmail> data = emailRepository.findById(id);	
+		
+		
+		return GeneralUtils.convertToJson(data.get());
+	}
+	
 	@PostMapping(value = "addUser" ,consumes = MediaType.APPLICATION_JSON_VALUE )
 	public String addUser(@RequestBody CUser user) {
 		try {
@@ -187,24 +231,63 @@ public class AjaxController {
 			
 			Set<CGroup> groups = groupRepository.findAllByGroupNameIn(group.getGroupNames());
 			
-			RestrictedKeyword keyword = new RestrictedKeyword();
+			RestrictedKeyword data = new RestrictedKeyword();
 			
-			keyword.setAllowedGroups(groups);
-			keyword.setAllowedUsers(users);
-			keyword.setEnabled(group.getEnabled());
-			keyword.setPolicyName(group.getPolicyName());
-			keyword.setRestrictGroupsByDefault(group.getRestrictGroupsByDefault());
-			keyword.setRestrictUsersByDefault(group.getRestrictUsersByDefault());
-			keyword.setRestrictedKeyword(group.getKeywordName());
-			keyword.setRestrictedRegex(group.getRegEx());
+			data.setAllowedGroups(groups);
+			data.setAllowedUsers(users);
+			data.setEnabled(group.getEnabled());
+			data.setPolicyName(group.getPolicyName());
+			data.setRestrictGroupsByDefault(group.getRestrictGroupsByDefault());
+			data.setRestrictUsersByDefault(group.getRestrictUsersByDefault());
+			data.setRestrictedKeyword(group.getKeywordName());
+			data.setRestrictedRegex(group.getRegEx());
 			
-			users.stream().forEach(u -> u.getKeywords().add(keyword));
-			groups.stream().forEach(u -> u.getKeywords().add(keyword));
+			users.stream().forEach(u -> u.getKeywords().add(data));
+			groups.stream().forEach(u -> u.getKeywords().add(data));
 			
 			//userRepository.saveAll(users);
 			//groupRepository.saveAll(groups);
 			
-			keywordRepository.save(keyword);
+			keywordRepository.save(data);
+		
+		} catch (Exception ex) {
+			
+			ex.printStackTrace();
+			return "failed";
+		}
+
+		return "success";
+
+	}
+	
+	@PostMapping("addFile")
+	public String addFile(@RequestBody RestrictedFileDTO group) {
+		try {
+
+			Set<CUser> users  = userRepository.findAllByUsernameIn(group.getUserNames().keySet());
+			
+			
+			
+			Set<CGroup> groups = groupRepository.findAllByGroupNameIn(group.getGroupNames());
+			
+			RestrictedFile data = new RestrictedFile();
+			
+			data.setAllowedGroups(groups);
+			data.setAllowedUsers(users);
+			data.setEnabled(group.getEnabled());
+			data.setPolicyName(group.getPolicyName());
+			data.setRestrictGroupsByDefault(group.getRestrictGroupsByDefault());
+			data.setRestrictUsersByDefault(group.getRestrictUsersByDefault());
+			data.setRestrictedFileName(group.getFileName());
+			data.setHashValue(group.getHash());
+			
+			users.stream().forEach(u -> u.getFiles().add(data));
+			groups.stream().forEach(u -> u.getFiles().add(data));
+			
+			//userRepository.saveAll(users);
+			//groupRepository.saveAll(groups);
+			
+			fileRepository.save(data);
 		
 		} catch (Exception ex) {
 			
@@ -226,24 +309,102 @@ public class AjaxController {
 			
 			Set<CGroup> groups = groupRepository.findAllByGroupNameIn(group.getGroupNames());
 			
-			RestrictedProcess keyword = new RestrictedProcess();
+			RestrictedProcess data = new RestrictedProcess();
 			
-			keyword.setAllowedGroups(groups);
-			keyword.setAllowedUsers(users);
-			keyword.setEnabled(group.getEnabled());
-			keyword.setPolicyName(group.getPolicyName());
-			keyword.setRestrictGroupsByDefault(group.getRestrictGroupsByDefault());
-			keyword.setRestrictUsersByDefault(group.getRestrictUsersByDefault());
-			keyword.setRestrictedProcess(group.getProcessName());
+			data.setAllowedGroups(groups);
+			data.setAllowedUsers(users);
+			data.setEnabled(group.getEnabled());
+			data.setPolicyName(group.getPolicyName());
+			data.setRestrictGroupsByDefault(group.getRestrictGroupsByDefault());
+			data.setRestrictUsersByDefault(group.getRestrictUsersByDefault());
+			data.setRestrictedProcess(group.getProcessName());
 			
 			
-			users.stream().forEach(u -> u.getProcesses().add(keyword));
-			groups.stream().forEach(u -> u.getProcesses().add(keyword));
+			users.stream().forEach(u -> u.getProcesses().add(data));
+			groups.stream().forEach(u -> u.getProcesses().add(data));
 			
 			//userRepository.saveAll(users);
 			//groupRepository.saveAll(groups);
 			
-			processRepository.save(keyword);
+			processRepository.save(data);
+		
+		} catch (Exception ex) {
+			
+			ex.printStackTrace();
+			return "failed";
+		}
+
+		return "success";
+
+	}
+	
+	@PostMapping("addUrl")
+	public String addUrl(@RequestBody RestrictedUrlDTO group) {
+		try {
+
+			Set<CUser> users  = userRepository.findAllByUsernameIn(group.getUserNames().keySet());
+			
+			
+			
+			Set<CGroup> groups = groupRepository.findAllByGroupNameIn(group.getGroupNames());
+			
+			RestrictedUrl data = new RestrictedUrl();
+			
+			data.setAllowedGroups(groups);
+			data.setAllowedUsers(users);
+			data.setEnabled(group.getEnabled());
+			data.setPolicyName(group.getPolicyName());
+			data.setRestrictGroupsByDefault(group.getRestrictGroupsByDefault());
+			data.setRestrictUsersByDefault(group.getRestrictUsersByDefault());
+			data.setRestrictedUrl(group.getUrlName());
+			
+			
+			users.stream().forEach(u -> u.getUrls().add(data));
+			groups.stream().forEach(u -> u.getUrls().add(data));
+			
+			//userRepository.saveAll(users);
+			//groupRepository.saveAll(groups);
+			
+			urlRepository.save(data);
+		
+		} catch (Exception ex) {
+			
+			ex.printStackTrace();
+			return "failed";
+		}
+
+		return "success";
+
+	}
+	
+	@PostMapping("addEmail")
+	public String addEmail(@RequestBody RestrictedEmailDTO group) {
+		try {
+
+			Set<CUser> users  = userRepository.findAllByUsernameIn(group.getUserNames().keySet());
+			
+			
+			
+			Set<CGroup> groups = groupRepository.findAllByGroupNameIn(group.getGroupNames());
+			
+			RestrictedEmail data = new RestrictedEmail();
+			
+			data.setAllowedGroups(groups);
+			data.setAllowedUsers(users);
+			data.setEnabled(group.getEnabled());
+			data.setPolicyName(group.getPolicyName());
+			data.setRestrictGroupsByDefault(group.getRestrictGroupsByDefault());
+			data.setRestrictUsersByDefault(group.getRestrictUsersByDefault());
+			data.setRestrictedEmail(group.getEmailName());
+			
+			
+			users.stream().forEach(u -> u.getEmails().add(data));
+			groups.stream().forEach(u -> u.getEmails().add(data));
+			
+			//userRepository.saveAll(users);
+			//groupRepository.saveAll(groups);
+			
+			emailRepository.save(data);
 		
 		} catch (Exception ex) {
 			
@@ -336,23 +497,62 @@ public class AjaxController {
 			
 			Set<CGroup> groups = groupRepository.findAllByGroupNameIn(group.getGroupNames());
 			
-			RestrictedKeyword keyword = keywordRepository.findById(group.getId()).get();
+			RestrictedKeyword data = keywordRepository.findById(group.getId()).get();
 			
-			keyword.setAllowedGroups(groups);
-			keyword.setAllowedUsers(users);
-			keyword.setEnabled(group.getEnabled());
-			keyword.setRestrictGroupsByDefault(group.getRestrictGroupsByDefault());
-			keyword.setRestrictUsersByDefault(group.getRestrictUsersByDefault());
-			keyword.setRestrictedKeyword(group.getKeywordName());
-			keyword.setRestrictedRegex(group.getRegEx());
+			data.setAllowedGroups(groups);
+			data.setAllowedUsers(users);
+			data.setEnabled(group.getEnabled());
+			data.setRestrictGroupsByDefault(group.getRestrictGroupsByDefault());
+			data.setRestrictUsersByDefault(group.getRestrictUsersByDefault());
+			data.setRestrictedKeyword(group.getKeywordName());
+			data.setRestrictedRegex(group.getRegEx());
 			
-			users.stream().forEach(u -> u.getKeywords().add(keyword));
-			groups.stream().forEach(u -> u.getKeywords().add(keyword));
+			users.stream().forEach(u -> u.getKeywords().add(data));
+			groups.stream().forEach(u -> u.getKeywords().add(data));
 			
 			//userRepository.saveAll(users);
 			//groupRepository.saveAll(groups);
 			
-			keywordRepository.save(keyword);
+			keywordRepository.save(data);
+		
+		} catch (Exception ex) {
+			
+			ex.printStackTrace();
+			return "failed";
+		}
+
+		return "success";
+
+	}
+	
+	@PostMapping("updateFile")
+	public String updateFile(@RequestBody RestrictedFileDTO group) {
+		
+		try {
+
+			Set<CUser> users  = userRepository.findAllByUsernameIn(group.getUserNames().keySet());
+			
+			
+			
+			Set<CGroup> groups = groupRepository.findAllByGroupNameIn(group.getGroupNames());
+			
+			RestrictedFile data = fileRepository.findById(group.getId()).get();
+			
+			data.setAllowedGroups(groups);
+			data.setAllowedUsers(users);
+			data.setEnabled(group.getEnabled());
+			data.setRestrictGroupsByDefault(group.getRestrictGroupsByDefault());
+			data.setRestrictUsersByDefault(group.getRestrictUsersByDefault());
+			data.setRestrictedFileName(group.getFileName());
+			data.setHashValue(group.getHash());
+			
+			users.stream().forEach(u -> u.getFiles().add(data));
+			groups.stream().forEach(u -> u.getFiles().add(data));
+			
+			//userRepository.saveAll(users);
+			//groupRepository.saveAll(groups);
+			
+			fileRepository.save(data);
 		
 		} catch (Exception ex) {
 			
@@ -375,20 +575,20 @@ public class AjaxController {
 			
 			Set<CGroup> groups = groupRepository.findAllByGroupNameIn(group.getGroupNames());
 			
-			RestrictedProcess process = processRepository.findById(group.getId()).get();
+			RestrictedProcess data = processRepository.findById(group.getId()).get();
 			
-			process.setAllowedGroups(groups);
-			process.setAllowedUsers(users);
-			process.setEnabled(group.getEnabled());
-			process.setRestrictGroupsByDefault(group.getRestrictGroupsByDefault());
-			process.setRestrictUsersByDefault(group.getRestrictUsersByDefault());
-			process.setRestrictedProcess(group.getProcessName());
+			data.setAllowedGroups(groups);
+			data.setAllowedUsers(users);
+			data.setEnabled(group.getEnabled());
+			data.setRestrictGroupsByDefault(group.getRestrictGroupsByDefault());
+			data.setRestrictUsersByDefault(group.getRestrictUsersByDefault());
+			data.setRestrictedProcess(group.getProcessName());
 			
-			users.stream().forEach(u -> u.getProcesses().add(process));
-			groups.stream().forEach(u -> u.getProcesses().add(process));
+			users.stream().forEach(u -> u.getProcesses().add(data));
+			groups.stream().forEach(u -> u.getProcesses().add(data));
 		
 			
-			processRepository.save(process);
+			processRepository.save(data);
 		
 		} catch (Exception ex) {
 			
@@ -399,6 +599,79 @@ public class AjaxController {
 		return "success";
 
 	}
+	
+	@PostMapping("updateEmail")
+	public String updateEmail(@RequestBody RestrictedEmailDTO group) {
+		
+		try {
+
+			Set<CUser> users  = userRepository.findAllByUsernameIn(group.getUserNames().keySet());
+			
+			
+			
+			Set<CGroup> groups = groupRepository.findAllByGroupNameIn(group.getGroupNames());
+			
+			RestrictedEmail data = emailRepository.findById(group.getId()).get();
+			
+			data.setAllowedGroups(groups);
+			data.setAllowedUsers(users);
+			data.setEnabled(group.getEnabled());
+			data.setRestrictGroupsByDefault(group.getRestrictGroupsByDefault());
+			data.setRestrictUsersByDefault(group.getRestrictUsersByDefault());
+			data.setRestrictedEmail(group.getEmailName());
+			
+			users.stream().forEach(u -> u.getEmails().add(data));
+			groups.stream().forEach(u -> u.getEmails().add(data));
+		
+			
+			emailRepository.save(data);
+		
+		} catch (Exception ex) {
+			
+			ex.printStackTrace();
+			return "failed";
+		}
+
+		return "success";
+
+	}
+	
+	@PostMapping("updateUrl")
+	public String updateUrl(@RequestBody RestrictedUrlDTO group) {
+		
+		try {
+
+			Set<CUser> users  = userRepository.findAllByUsernameIn(group.getUserNames().keySet());
+			
+			
+			
+			Set<CGroup> groups = groupRepository.findAllByGroupNameIn(group.getGroupNames());
+			
+			RestrictedUrl data = urlRepository.findById(group.getId()).get();
+			
+			data.setAllowedGroups(groups);
+			data.setAllowedUsers(users);
+			data.setEnabled(group.getEnabled());
+			data.setRestrictGroupsByDefault(group.getRestrictGroupsByDefault());
+			data.setRestrictUsersByDefault(group.getRestrictUsersByDefault());
+			data.setRestrictedUrl(group.getUrlName());
+			
+			users.stream().forEach(u -> u.getUrls().add(data));
+			groups.stream().forEach(u -> u.getUrls().add(data));
+		
+			
+			urlRepository.save(data);
+		
+		} catch (Exception ex) {
+			
+			ex.printStackTrace();
+			return "failed";
+		}
+
+		return "success";
+
+	}
+	
 	
 	@PostMapping("deleteUser/{userId}")
 	public String deleteUser(@PathVariable (required = true) Long userId) {
@@ -462,11 +735,11 @@ public class AjaxController {
 
 	}
 	
-	@PostMapping("deleteProcess/{keywordId}")
-	public String deleteProcess(@PathVariable (required = true) Long processId) {
+	@PostMapping("deleteProcess/{keyId}")
+	public String deleteProcess(@PathVariable (required = true) Long keyId) {
 		try {	
 						
-			processRepository.deleteById(processId);
+			processRepository.deleteById(keyId);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -477,5 +750,48 @@ public class AjaxController {
 
 	}
 	
+	@PostMapping("deleteEmail/{keyId}")
+	public String deleteEmail(@PathVariable (required = true) Long keyId) {
+		try {	
+						
+			emailRepository.deleteById(keyId);
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return "failed";
+		}
+
+		return "success";
+
+	}
 	
+	@PostMapping("deleteUrl/{keyId}")
+	public String deleteUrl(@PathVariable (required = true) Long keyId) {
+		try {	
+						
+			urlRepository.deleteById(keyId);
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return "failed";
+		}
+
+		return "success";
+
+	}
+	
+	@PostMapping("deleteFile/{keyId}")
+	public String deleteFile(@PathVariable (required = true) Long keyId) {
+		try {	
+						
+			fileRepository.deleteById(keyId);
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return "failed";
+		}
+
+		return "success";
+
+	}
 }

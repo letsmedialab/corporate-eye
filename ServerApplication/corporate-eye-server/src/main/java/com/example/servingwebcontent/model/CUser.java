@@ -52,5 +52,17 @@ public class CUser {
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,  }, mappedBy = "allowedUsers")
 	@JsonIgnore
 	Set<RestrictedProcess> processes = new HashSet<>();
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,  }, mappedBy = "allowedUsers")
+	@JsonIgnore
+	Set<RestrictedFile> files = new HashSet<>();
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,  }, mappedBy = "allowedUsers")
+	@JsonIgnore
+	Set<RestrictedEmail> emails = new HashSet<>();
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,  }, mappedBy = "allowedUsers")
+	@JsonIgnore
+	Set<RestrictedUrl> urls = new HashSet<>();
 
 }

@@ -44,4 +44,16 @@ public class CGroup {
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,  }, mappedBy = "allowedGroups")
 	@JsonIgnore
 	Set<RestrictedProcess> processes = new HashSet<>();
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,  }, mappedBy = "allowedGroups")
+	@JsonIgnore
+	Set<RestrictedFile> files = new HashSet<>();
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,  }, mappedBy = "allowedGroups")
+	@JsonIgnore
+	Set<RestrictedEmail> emails = new HashSet<>();
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,  }, mappedBy = "allowedGroups")
+	@JsonIgnore
+	Set<RestrictedUrl> urls = new HashSet<>();
 }

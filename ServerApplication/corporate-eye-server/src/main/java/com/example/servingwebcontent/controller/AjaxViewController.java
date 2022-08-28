@@ -11,11 +11,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.servingwebcontent.model.CGroup;
 import com.example.servingwebcontent.model.CUser;
+import com.example.servingwebcontent.model.RestrictedEmail;
+import com.example.servingwebcontent.model.RestrictedFile;
 import com.example.servingwebcontent.model.RestrictedKeyword;
 import com.example.servingwebcontent.model.RestrictedProcess;
+import com.example.servingwebcontent.model.RestrictedUrl;
 import com.example.servingwebcontent.repo.GroupRepository;
+import com.example.servingwebcontent.repo.RestrictedEmailRepository;
+import com.example.servingwebcontent.repo.RestrictedFileRepository;
 import com.example.servingwebcontent.repo.RestrictedKeywordRepository;
 import com.example.servingwebcontent.repo.RestrictedProcessRepository;
+import com.example.servingwebcontent.repo.RestrictedUrlRepository;
 import com.example.servingwebcontent.repo.UserRepository;
 
 @Controller
@@ -32,6 +38,15 @@ public class AjaxViewController {
 	
 	@Autowired
 	private RestrictedProcessRepository processRepository;
+	
+	@Autowired
+	private RestrictedEmailRepository emailRepository;
+	
+	@Autowired
+	private RestrictedUrlRepository urlRepository;
+	
+	@Autowired
+	private RestrictedFileRepository fileRepository;
 	
 	@GetMapping("userTableContent")
 	public String userTableContent( @RequestParam(name = "query", required = false, defaultValue = "") 
@@ -77,6 +92,34 @@ public class AjaxViewController {
 		model.addAttribute("keyword",keyword);
 		model.addAttribute("data",data);
 		return "ajax/processTableContent";
+	}
+	
+	@GetMapping("emailTableContent")
+	public String emailTableContent( @RequestParam(name = "query", required = false, defaultValue = "") 
+	String keyword ,Model model)
+	{
+		List<RestrictedEmail> data = emailRepository.search(keyword);
+		model.addAttribute("keyword",keyword);
+		model.addAttribute("data",data);
+		return "ajax/emailTableContent";
+	}
+	@GetMapping("urlTableContent")
+	public String urlTableContent( @RequestParam(name = "query", required = false, defaultValue = "") 
+	String keyword ,Model model)
+	{
+		List<RestrictedUrl> data = urlRepository.search(keyword);
+		model.addAttribute("keyword",keyword);
+		model.addAttribute("data",data);
+		return "ajax/urlTableContent";
+	}
+	@GetMapping("fileTableContent")
+	public String fileTableContent( @RequestParam(name = "query", required = false, defaultValue = "") 
+	String keyword ,Model model)
+	{
+		List<RestrictedFile> data = fileRepository.search(keyword);
+		model.addAttribute("keyword",keyword);
+		model.addAttribute("data",data);
+		return "ajax/fileTableContent";
 	}
 	
 }

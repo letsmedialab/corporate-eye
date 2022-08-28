@@ -54,6 +54,39 @@ public class ViewController {
 		return "configProcesses";
 	}
 	
+	@GetMapping("configEmails")
+	public String configEmails( @RequestParam(name = "query", required = false, defaultValue = "") 
+	String keyword ,Model model)
+	{
+		
+		model.addAttribute("keyword",keyword);
+		
+		return "configEmail";
+	}
+	
+	
+	@GetMapping("configFiles")
+	public String configFiles( @RequestParam(name = "query", required = false, defaultValue = "") 
+	String keyword ,Model model)
+	{
+		
+		model.addAttribute("keyword",keyword);
+		
+		return "configFile";
+	}
+	
+	
+	@GetMapping("configUrls")
+	public String configUrls( @RequestParam(name = "query", required = false, defaultValue = "") 
+	String keyword ,Model model)
+	{
+		
+		model.addAttribute("keyword",keyword);
+		
+		return "configUrl";
+	}
+	
+	
 	@GetMapping("groups")
 	public String groups( @RequestParam(name = "query", required = false, defaultValue = "") 
 	String keyword ,Model model)
