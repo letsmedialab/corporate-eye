@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder())
             .dataSource(dataSource)
-            .usersByUsernameQuery("select username, password, enabled from cuser where username=? and role='role_admin'")
+            .usersByUsernameQuery("select username, password, enabled from cuser where username=? ")
             .authoritiesByUsernameQuery("select username, role from cuser where username=?")
         ;
     }
@@ -30,9 +30,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	http.cors().and().csrf().disable();
-        http.authorizeRequests()
-            .anyRequest().authenticated()
-            .and()
+        http
+        .authorizeRequests()
+        .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+        .antMatchers("/api/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+        .anyRequest().authenticated()
+        
+        .and()
+        
+        .exceptionHandling().accessDeniedPage("/403")
+        .and()      
+           
+           
             .formLogin().permitAll()
             .and()
             .logout().permitAll().and().httpBasic();     

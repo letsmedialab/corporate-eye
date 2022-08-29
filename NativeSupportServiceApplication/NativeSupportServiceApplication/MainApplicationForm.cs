@@ -1,4 +1,5 @@
 ﻿
+using NativeSupportServiceApplication.Api;
 using NativeSupportServiceApplication.Dto;
 using System;
 using System.Collections.Generic;
@@ -50,9 +51,9 @@ namespace NativeSupportServiceApplication
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ApiResponse<TestApiResponse> response =  ApiUtils.ApiTest.callApi<TestApiResponse>("http://localhost:8080/api/v1/testAPI");
+            //ApiResponse<TestApiResponse> response =  ApiUtils.callApi<TestApiResponse>("http://localhost:8080/api/v1/testAPI");
 
-            Debug.WriteLine(response.RawResponse);
+            //Debug.WriteLine(response.RawResponse);
 
         }
     }

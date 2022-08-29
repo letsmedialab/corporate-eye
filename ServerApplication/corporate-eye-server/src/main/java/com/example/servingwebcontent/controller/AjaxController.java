@@ -44,7 +44,7 @@ import com.example.servingwebcontent.util.GeneralUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 @RestController
-@RequestMapping("ajax")
+@RequestMapping("admin/ajax")
 public class AjaxController {
 
 	private Logger logger = LoggerFactory.getLogger(ServingWebContentApplication.class);

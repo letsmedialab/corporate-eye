@@ -25,7 +25,7 @@ import com.example.servingwebcontent.repo.RestrictedUrlRepository;
 import com.example.servingwebcontent.repo.UserRepository;
 
 @Controller
-@RequestMapping("ajax")
+@RequestMapping("admin/ajax")
 public class AjaxViewController {
 	@Autowired
 	private UserRepository userRepository;

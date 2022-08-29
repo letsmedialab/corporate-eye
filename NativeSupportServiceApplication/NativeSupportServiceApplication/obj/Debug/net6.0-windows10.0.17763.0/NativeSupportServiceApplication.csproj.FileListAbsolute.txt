@@ -13,11 +13,13 @@ E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServi
 E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\bin\Debug\net6.0-windows10.0.17763.0\Ubiety.Dns.Core.dll
 E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\bin\Debug\net6.0-windows10.0.17763.0\ZstdNet.dll
 E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\bin\Debug\net6.0-windows10.0.17763.0\MySqlConnector.dll
+E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\bin\Debug\net6.0-windows10.0.17763.0\Newtonsoft.Json.dll
 E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\bin\Debug\net6.0-windows10.0.17763.0\BouncyCastle.Crypto.dll
 E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\bin\Debug\net6.0-windows10.0.17763.0\Microsoft.Windows.SDK.NET.dll
 E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\bin\Debug\net6.0-windows10.0.17763.0\WinRT.Runtime.dll
 E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\obj\Debug\net6.0-windows10.0.17763.0\NativeSupportServiceApplication.csproj.AssemblyReference.cache
 E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\obj\Debug\net6.0-windows10.0.17763.0\NativeSupportServiceApplication.LoadingSplash.resources
+E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\obj\Debug\net6.0-windows10.0.17763.0\NativeSupportServiceApplication.Forms.Login.resources
 E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\obj\Debug\net6.0-windows10.0.17763.0\NativeSupportServiceApplication.MainApplicationForm.resources
 E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\obj\Debug\net6.0-windows10.0.17763.0\NativeSupportServiceApplication.Properties.Resources.resources
 E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\obj\Debug\net6.0-windows10.0.17763.0\NativeSupportServiceApplication.Modules.NativeMethods.resources
@@ -34,4 +36,3 @@ E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServi
 E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\obj\Debug\net6.0-windows10.0.17763.0\Corporate Eye.pdb
 E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\obj\Debug\net6.0-windows10.0.17763.0\NativeSupportServiceApplication.genruntimeconfig.cache
 E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\obj\Debug\net6.0-windows10.0.17763.0\ref\Corporate Eye.dll
-E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\bin\Debug\net6.0-windows10.0.17763.0\Newtonsoft.Json.dll

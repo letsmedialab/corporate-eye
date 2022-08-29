@@ -1,3 +1,4 @@
+using NativeSupportServiceApplication.Forms;
 using NativeSupportServiceApplication.Modules;
 
 namespace NativeSupportServiceApplication
@@ -16,7 +17,7 @@ namespace NativeSupportServiceApplication
             ApplicationConfiguration.Initialize();
             
             
-            Application.Run(new LoadingSplash());
+            Application.Run(new Login());
           
             //Console.WriteLine("sfas");
            

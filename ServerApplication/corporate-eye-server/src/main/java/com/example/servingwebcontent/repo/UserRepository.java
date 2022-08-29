@@ -20,5 +20,7 @@ public interface UserRepository extends JpaRepository<CUser, Long>{
 	public Optional<CUser> findByUsername(String username);
 
 	public Set<CUser> findAllByUsernameIn(Set<String> keySet);
+
+	public Optional<CUser> findByUsernameAndPassword(String userName, String password);
 	
 }
