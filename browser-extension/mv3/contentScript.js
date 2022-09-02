@@ -78,5 +78,9 @@ function eventSetter() {
 const init = function () {
   setInterval(eventSetter, 5000);
   eventSetter();
+  
 };
+
+
+
 init();

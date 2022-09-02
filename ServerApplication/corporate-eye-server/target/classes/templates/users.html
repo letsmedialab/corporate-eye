@@ -605,7 +605,7 @@
 			  var id = $(this).data('recordId');
 			  var username = $(this).data('username');
 			  $modalDiv.addClass('loading');
-			  $.post('/ajax/deleteUser/' + id).then(function() {
+			  $.post('ajax/deleteUser/' + id).then(function() {
 			     $modalDiv.modal('hide').removeClass('loading');
 			     getTableData($("#searchInput").val());
 			 	 $("#toastMessage1").html("<span class='text-success'>User "+username +" deleted!</span>");

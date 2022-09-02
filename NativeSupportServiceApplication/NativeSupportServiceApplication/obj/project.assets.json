@@ -5,10 +5,14 @@
       "Google.Protobuf/3.19.4": {
         "type": "package",
         "compile": {
-          "lib/net5.0/Google.Protobuf.dll": {}
+          "lib/net5.0/Google.Protobuf.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/net5.0/Google.Protobuf.dll": {}
+          "lib/net5.0/Google.Protobuf.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "IPC.NamedPipe/0.9.3": {
@@ -26,10 +30,14 @@
           "System.Memory": "4.5.4"
         },
         "compile": {
-          "lib/netstandard2.0/K4os.Compression.LZ4.dll": {}
+          "lib/netstandard2.0/K4os.Compression.LZ4.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/K4os.Compression.LZ4.dll": {}
+          "lib/netstandard2.0/K4os.Compression.LZ4.dll": {
+            "related": ".xml"
+          }
         }
       },
       "K4os.Compression.LZ4.Streams/1.2.6": {
@@ -39,10 +47,14 @@
           "K4os.Hash.xxHash": "1.0.6"
         },
         "compile": {
-          "lib/netstandard2.1/K4os.Compression.LZ4.Streams.dll": {}
+          "lib/netstandard2.1/K4os.Compression.LZ4.Streams.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.1/K4os.Compression.LZ4.Streams.dll": {}
+          "lib/netstandard2.1/K4os.Compression.LZ4.Streams.dll": {
+            "related": ".xml"
+          }
         }
       },
       "K4os.Hash.xxHash/1.0.6": {
@@ -51,10 +63,23 @@
           "System.Memory": "4.5.3"
         },
         "compile": {
-          "lib/netstandard2.0/K4os.Hash.xxHash.dll": {}
+          "lib/netstandard2.0/K4os.Hash.xxHash.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/K4os.Hash.xxHash.dll": {}
+          "lib/netstandard2.0/K4os.Hash.xxHash.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "KeystrokeAPI/1.0.6.4": {
+        "type": "package",
+        "compile": {
+          "lib/net46/KeystrokeAPI.dll": {}
+        },
+        "runtime": {
+          "lib/net46/KeystrokeAPI.dll": {}
         }
       },
       "Microsoft.NETCore.Platforms/3.1.0": {
@@ -75,10 +100,14 @@
           "System.ValueTuple": "4.5.0"
         },
         "compile": {
-          "lib/net5.0-windows10.0.17763/Microsoft.Toolkit.Uwp.Notifications.dll": {}
+          "lib/net5.0-windows10.0.17763/Microsoft.Toolkit.Uwp.Notifications.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/net5.0-windows10.0.17763/Microsoft.Toolkit.Uwp.Notifications.dll": {}
+          "lib/net5.0-windows10.0.17763/Microsoft.Toolkit.Uwp.Notifications.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "Microsoft.Win32.Registry/4.7.0": {
@@ -88,10 +117,14 @@
           "System.Security.Principal.Windows": "4.7.0"
         },
         "compile": {
-          "ref/netstandard2.0/Microsoft.Win32.Registry.dll": {}
+          "ref/netstandard2.0/Microsoft.Win32.Registry.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/Microsoft.Win32.Registry.dll": {}
+          "lib/netstandard2.0/Microsoft.Win32.Registry.dll": {
+            "related": ".xml"
+          }
         },
         "runtimeTargets": {
           "runtimes/unix/lib/netstandard2.0/Microsoft.Win32.Registry.dll": {
@@ -110,10 +143,14 @@
           "Microsoft.NETCore.Platforms": "3.1.0"
         },
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/Microsoft.Win32.SystemEvents.dll": {}
+          "lib/netstandard2.0/Microsoft.Win32.SystemEvents.dll": {
+            "related": ".xml"
+          }
         },
         "runtimeTargets": {
           "runtimes/win/lib/netcoreapp3.0/Microsoft.Win32.SystemEvents.dll": {
@@ -135,12 +172,16 @@
           "System.Text.Encoding.CodePages": "4.4.0"
         },
         "compile": {
-          "lib/net6.0/MySql.Data.dll": {},
+          "lib/net6.0/MySql.Data.dll": {
+            "related": ".xml"
+          },
           "lib/net6.0/Ubiety.Dns.Core.dll": {},
           "lib/net6.0/ZstdNet.dll": {}
         },
         "runtime": {
-          "lib/net6.0/MySql.Data.dll": {},
+          "lib/net6.0/MySql.Data.dll": {
+            "related": ".xml"
+          },
           "lib/net6.0/Ubiety.Dns.Core.dll": {},
           "lib/net6.0/ZstdNet.dll": {}
         }
@@ -148,28 +189,40 @@
       "MySqlConnector/2.1.11": {
         "type": "package",
         "compile": {
-          "lib/net6.0/MySqlConnector.dll": {}
+          "lib/net6.0/MySqlConnector.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/MySqlConnector.dll": {}
+          "lib/net6.0/MySqlConnector.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Newtonsoft.Json/13.0.1": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Portable.BouncyCastle/1.9.0": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {}
+          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {}
+          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Buffers/4.5.1": {
@@ -187,7 +240,9 @@
           "System.Security.Cryptography.ProtectedData": "4.4.0"
         },
         "compile": {
-          "ref/netstandard2.0/System.Configuration.ConfigurationManager.dll": {}
+          "ref/netstandard2.0/System.Configuration.ConfigurationManager.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
           "lib/netstandard2.0/System.Configuration.ConfigurationManager.dll": {}
@@ -200,7 +255,9 @@
           "Microsoft.Win32.SystemEvents": "4.7.0"
         },
         "compile": {
-          "ref/netcoreapp3.0/System.Drawing.Common.dll": {}
+          "ref/netcoreapp3.0/System.Drawing.Common.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
           "lib/netstandard2.0/System.Drawing.Common.dll": {}
@@ -237,10 +294,14 @@
       "System.Runtime.CompilerServices.Unsafe/5.0.0": {
         "type": "package",
         "compile": {
-          "ref/netstandard2.1/System.Runtime.CompilerServices.Unsafe.dll": {}
+          "ref/netstandard2.1/System.Runtime.CompilerServices.Unsafe.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+          "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Security.AccessControl/4.7.0": {
@@ -250,10 +311,14 @@
           "System.Security.Principal.Windows": "4.7.0"
         },
         "compile": {
-          "ref/netstandard2.0/System.Security.AccessControl.dll": {}
+          "ref/netstandard2.0/System.Security.AccessControl.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Security.AccessControl.dll": {}
+          "lib/netstandard2.0/System.Security.AccessControl.dll": {
+            "related": ".xml"
+          }
         },
         "runtimeTargets": {
           "runtimes/win/lib/netcoreapp2.0/System.Security.AccessControl.dll": {
@@ -265,7 +330,9 @@
       "System.Security.Cryptography.ProtectedData/4.4.0": {
         "type": "package",
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
           "lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll": {}
@@ -284,19 +351,27 @@
           "System.Windows.Extensions": "4.7.0"
         },
         "compile": {
-          "ref/netcoreapp3.0/System.Security.Permissions.dll": {}
+          "ref/netcoreapp3.0/System.Security.Permissions.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netcoreapp3.0/System.Security.Permissions.dll": {}
+          "lib/netcoreapp3.0/System.Security.Permissions.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Security.Principal.Windows/4.7.0": {
         "type": "package",
         "compile": {
-          "ref/netcoreapp3.0/System.Security.Principal.Windows.dll": {}
+          "ref/netcoreapp3.0/System.Security.Principal.Windows.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Security.Principal.Windows.dll": {}
+          "lib/netstandard2.0/System.Security.Principal.Windows.dll": {
+            "related": ".xml"
+          }
         },
         "runtimeTargets": {
           "runtimes/unix/lib/netcoreapp2.1/System.Security.Principal.Windows.dll": {
@@ -315,7 +390,9 @@
           "Microsoft.NETCore.Platforms": "2.0.0"
         },
         "compile": {
-          "ref/netstandard2.0/System.Text.Encoding.CodePages.dll": {}
+          "ref/netstandard2.0/System.Text.Encoding.CodePages.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
           "lib/netstandard2.0/System.Text.Encoding.CodePages.dll": {}
@@ -342,10 +419,14 @@
           "System.Drawing.Common": "4.7.0"
         },
         "compile": {
-          "ref/netcoreapp3.0/System.Windows.Extensions.dll": {}
+          "ref/netcoreapp3.0/System.Windows.Extensions.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netcoreapp3.0/System.Windows.Extensions.dll": {}
+          "lib/netcoreapp3.0/System.Windows.Extensions.dll": {
+            "related": ".xml"
+          }
         },
         "runtimeTargets": {
           "runtimes/win/lib/netcoreapp3.0/System.Windows.Extensions.dll": {
@@ -449,6 +530,21 @@
         "lib/netstandard1.6/K4os.Hash.xxHash.xml",
         "lib/netstandard2.0/K4os.Hash.xxHash.dll",
         "lib/netstandard2.0/K4os.Hash.xxHash.xml"
+      ]
+    },
+    "KeystrokeAPI/1.0.6.4": {
+      "sha512": "mp7zUUM3wV3UdNrpNNti0nun0koMLNzDTisHqNNIa24VKl4FYOcfmrY14+wShUIFbkt/qVvvuvglfBpFGszQcw==",
+      "type": "package",
+      "path": "keystrokeapi/1.0.6.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "keystrokeapi.1.0.6.4.nupkg.sha512",
+        "keystrokeapi.nuspec",
+        "lib/net35/KeystrokeAPI.dll",
+        "lib/net40/KeystrokeAPI.dll",
+        "lib/net45/KeystrokeAPI.dll",
+        "lib/net46/KeystrokeAPI.dll"
       ]
     },
     "Microsoft.NETCore.Platforms/3.1.0": {
@@ -1176,6 +1272,7 @@
   "projectFileDependencyGroups": {
     "net6.0-windows10.0.17763": [
       "IPC.NamedPipe >= 0.9.3",
+      "KeystrokeAPI >= 1.0.6.4",
       "Microsoft.Toolkit.Uwp.Notifications >= 7.1.2",
       "MySql.Data >= 8.0.30",
       "MySqlConnector >= 2.1.11",
@@ -1199,7 +1296,7 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net6.0-windows10.0.17763"
+        "net6.0-windows10.0.17763.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -1225,6 +1322,10 @@
             "target": "Package",
             "version": "[0.9.3, )"
           },
+          "KeystrokeAPI": {
+            "target": "Package",
+            "version": "[1.0.6.4, )"
+          },
           "Microsoft.Toolkit.Uwp.Notifications": {
             "target": "Package",
             "version": "[7.1.2, )"
@@ -1248,7 +1349,8 @@
           "net47",
           "net471",
           "net472",
-          "net48"
+          "net48",
+          "net481"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -1269,8 +1371,20 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.303\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'KeystrokeAPI 1.0.6.4' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0-windows10.0.17763'. This package may not be fully compatible with your project.",
+      "libraryId": "KeystrokeAPI",
+      "targetGraphs": [
+        "net6.0-windows10.0.17763"
+      ]
+    }
+  ]
 }

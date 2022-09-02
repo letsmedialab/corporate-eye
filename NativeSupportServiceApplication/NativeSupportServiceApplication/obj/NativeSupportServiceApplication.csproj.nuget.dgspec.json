@@ -18,7 +18,7 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0-windows10.0.17763"
+          "net6.0-windows10.0.17763.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -44,6 +44,10 @@
               "target": "Package",
               "version": "[0.9.3, )"
             },
+            "KeystrokeAPI": {
+              "target": "Package",
+              "version": "[1.0.6.4, )"
+            },
             "Microsoft.Toolkit.Uwp.Notifications": {
               "target": "Package",
               "version": "[7.1.2, )"
@@ -67,7 +71,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -88,7 +93,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.303\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

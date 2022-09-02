@@ -78,7 +78,7 @@ namespace NativeSupportServiceApplication.Utils
 
                             if (action.Equals(ActionType.EXECUTE))
                             {
-                                deleteProcess(processName);
+                                GeneralUtil.terminateProcess(processName);
                             }
                             else
                             {
@@ -94,7 +94,7 @@ namespace NativeSupportServiceApplication.Utils
 
                             if (action.Equals(ActionType.EXECUTE))
                             {
-                                deleteFile(fileName);
+                                GeneralUtil.deleteFile(fileName);
                             }
                             else
                             {
@@ -245,33 +245,7 @@ namespace NativeSupportServiceApplication.Utils
             }
 
         }
-        private static void deleteFile(string fileName)
-        {
-            try
-            {
-                File.Delete(fileName);
-            }
-            catch
-            {
-            }
-        }
-        private static void deleteProcess(String processName)
-        {
-            try
-            {
-                Process[] workers = Process.GetProcessesByName(processName);
-                foreach (Process worker in workers)
-                {
-                    worker.Kill();
-                    worker.WaitForExit();
-                    worker.Dispose();
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.Write(e);
-            }
-        }
+      
 
         public static void handle(RestrictedFile restrictedFile)
         {
