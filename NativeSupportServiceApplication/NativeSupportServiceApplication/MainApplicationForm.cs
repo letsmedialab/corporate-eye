@@ -1,6 +1,7 @@
 ﻿
 using NativeSupportServiceApplication.Api;
 using NativeSupportServiceApplication.Dto;
+using NativeSupportServiceApplication.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -51,9 +52,11 @@ namespace NativeSupportServiceApplication
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //ApiResponse<TestApiResponse> response =  ApiUtils.callApi<TestApiResponse>("http://localhost:8080/api/v1/testAPI");
+            //ApiResponse<FileUploadResponse> response =  ApiUtils.uploadFile("E:\\WorkOnedrive\\OneDrive\\Pictures\\les-brown-shoot-for-the-moon.jpg");
 
-            //Debug.WriteLine(response.RawResponse);
+           
+
+           // Debug.WriteLine(response.RawResponse);
 
         }
     }

@@ -10,7 +10,15 @@ namespace NativeSupportServiceApplication.Utils
 {
     internal class GlobalConstants
     {
+        
+
         private   static readonly UserDto currentUser = new UserDto();
+        internal static Task taskKeyMonitor;
+        internal static Task taskClipboardMonitor;
+        internal static Task taskProcessMonitor;
+        internal static Task taskFileMonitor;
+        internal static Task iPC;
+        internal static Task updateChecker;
 
         internal static void setCurrentUser(UserDto newUser)
         {

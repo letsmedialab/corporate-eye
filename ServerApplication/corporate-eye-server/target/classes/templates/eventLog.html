@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
+
+
+
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	crossorigin="anonymous"></script>
+
+<title>Corporate Eye Admin - Event Log</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"
+	rel="stylesheet" />
+
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+
+<link href="css/styles.css" rel="stylesheet" />
+<link href="css/commonstyles.css" rel="stylesheet" />
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
+	crossorigin="anonymous"></script>
+
+
+<style>
+#userlist, #grouplist {
+	list-style: none;
+	float: none;
+	display: block;
+	padding: 0px;
+	height: 60px;
+	overflow: auto;
+	padding: 5px;
+}
+</style>
+</head>
+<body class="sb-nav-fixed">
+
+	<span th:replace="fragments/header :: nav"></span>
+	<div id="layoutSidenav">
+
+		<span th:replace="fragments/nav :: navside"></span>
+
+		<div id="layoutSidenav_content">
+			<main>
+				<div class="container-fluid px-4">
+					<h1 class="mt-4">Event Log</h1>
+
+
+					<div class="row">
+
+						<div class="col-xl-12">
+							<div class="card">
+								<div class="card-body">
+
+									<div class="table-responsive">
+										<div id="zero_config_wrapper"
+											class="dataTables_wrapper container-fluid dt-bootstrap4">
+
+											<div class="row" style="margin-bottom: 10px">
+
+												<div class="col-sm-6">
+
+													<label>User:<input id="userInput"
+														style="width: 260px"
+														onKeyUp="getUserSuggestion(this.value)" onfocusin="resetSearch()" onfocusout="revertSearch(this.value)" type="search"
+														class="form-control form-control-sm" placeholder="" 
+														aria-controls="zero_config"></label>
+
+												</div>
+												<div id="loguser"
+													style="max-height: 200px; width: 260px; overflow: auto; display: none; position: absolute; z-index: 99; top: 68%; padding: 0px; left: 40px;"
+													class="ui-widget-content border border-default rounded">
+
+
+													<a
+														class="list-group-item list-group-item-action suggestion-list-item"
+														data-username="' + val.username + '"
+														style="cursor: pointer">cccc</a> <a
+														class="list-group-item list-group-item-action suggestion-list-item"
+														data-username="' + val.username + '"
+														style="cursor: pointer">cccc</a> <a
+														class="list-group-item list-group-item-action suggestion-list-item"
+														data-username="' + val.username + '"
+														style="cursor: pointer">cccc</a> <a
+														class="list-group-item list-group-item-action suggestion-list-item"
+														data-username="' + val.username + '"
+														style="cursor: pointer">cccc</a> <a
+														class="list-group-item list-group-item-action suggestion-list-item"
+														data-username="' + val.username + '"
+														style="cursor: pointer">cccc</a>
+
+												</div>
+												<div class="col-sm-6">
+
+													<label>Search:<input id="searchInput"
+														onKeyUp="getTableData(this.value)" type="search"
+														class="form-control form-control-sm" th:value="${keyword}"
+														placeholder="" aria-controls="zero_config"></label>
+
+												</div>
+
+											</div>
+											<div id="tableContent"></div>
+
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</main>
+
+
+
+
+			<span th:replace="fragments/footer :: footer"></span>
+
+		</div>
+	</div>
+
+
+
+
+
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		crossorigin="anonymous"></script>
+	<script src="js/scripts.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+		crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
+		crossorigin="anonymous"></script>
+	<script src="js/datatables-simple-demo.js"></script>
+
+	<script>
+		var selectedUserName = "";
+		var selectedName = "";
+		var newVal = "";
+		function revertSearch(value)
+		{
+			console.log(value);
+			if(value == selectedUserName)
+				{
+					$("#userInput").val(selectedName+"(" + selectedUserName+")");
+					$("#searchInput").prop("disabled",false);
+					getTableData($("#searchInput").val());
+				}
+			
+		}
+		
+		function resetSearch()
+		{
+			$("#userInput").val(selectedUserName);
+			$("#tableContent").html("");
+			$("#searchInput").prop("disabled",true);
+			$("#loguser").hide();
+			
+		}
+		
+		function setUser (username,name)
+		{
+			selectedUserName = username;
+			selectedName = name;
+			$("#userInput").val(name+"(" + username+")");
+			$("#loguser").hide();
+			$("#searchInput").prop("disabled",false);
+			getTableData($("#searchInput").val());
+			
+		}
+		
+		function getUserSuggestion(userNameKey) {
+			$("#searchInput").prop("disabled",true);
+			$("#tableContent").html("");
+			if (userNameKey.length > 3) {
+				$.get("ajax/getUserNames?keyword=" + userNameKey 
+						, function(data, status) {
+				
+					$("#loguser").html(data);
+					$("#loguser").show();
+				});
+			} else {
+				$("#loguser").hide();
+			}
+		}
+
+		function getTableData(keyword) {
+
+			$.get("ajax/getEventLogTableContent?keyword=" + keyword
+					+ "&userid=" + selectedUserName, function(data, status) {
+				//alert("Data: " + data + "\nStatus: " + status);
+				$("#tableContent").html(data);
+
+			});
+
+		}
+
+		$(document).ready(function() {
+
+				$("#searchInput").prop("disabled",true);
+
+		})
+	</script>
+
+
+</body>
+</html>

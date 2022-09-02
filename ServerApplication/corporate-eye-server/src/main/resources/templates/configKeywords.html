@@ -264,14 +264,14 @@
 
 							<input class="form-check-input" style="margin: 5px;" type="radio"
 								name="f_restrictgroup" value="false"> <label
-								class="form-check-label" for="flexRadioDefault1"> Allow
+								class="form-check-label" for="flexRadioDefault1"> Applicable For
 							</label>
 						</div>
 						<div class="form-check-inline">
 							<input class="form-check-input" style="margin: 5px;" type="radio"
 								name="f_restrictgroup" value="true" checked> <label
 								class="form-check-label" for="flexRadioDefault2">
-								Restrict </label>
+								Not Applicable For </label>
 						</div>
 
 
@@ -306,15 +306,15 @@
 						<div class="form-check-inline" style="margin-left: 12px;">
 
 							<input class="form-check-input" style="margin: 5px;" type="radio"
-								name="f_restricteduser" value="false"> <label
-								class="form-check-label" for="flexRadioDefault1"> Allow
+								name="f_restricteduser" value="false" checked> <label
+								class="form-check-label" for="flexRadioDefault1"> Applicable For
 							</label>
 						</div>
 						<div class="form-check-inline">
 							<input class="form-check-input" style="margin: 5px;" type="radio"
-								name="f_restricteduser" value="true" checked> <label
+								name="f_restricteduser" value="true" > <label
 								class="form-check-label" for="flexRadioDefault2">
-								Restrict </label>
+								Not Applicable For </label>
 						</div>
 						<!-- 						user suggestion -->
 						<div class="form-group">
@@ -437,7 +437,7 @@
 									$("#closeModal").click();
 									$("#toastMessage1").html(
 											"<span class='text-success'>Policy "
-													+ policynameme
+													+ policyName
 													+ " created!</span>");
 									$('.toast1').toast('show');
 								} else {
@@ -515,7 +515,7 @@
 									$("#closeModal").click();
 									$("#toastMessage1").html(
 											"<span class='text-success'>Policy "
-													+ policynameme
+													+ policyName
 													+ " created!</span>");
 									$('.toast1').toast('show');
 								} else {
@@ -554,7 +554,7 @@
 		
 			$("#f_policyname").prop('disabled', false);
 			$("input[name=f_restrictgroup][value=true]").prop('checked', true);
-			$("input[name=f_restricteduser][value=true]").prop('checked', true);
+			$("input[name=f_restricteduser][value=false]").prop('checked', true);
 			$("input[name=f_enabled][value=true]").prop('checked', true);
 			userList = {};
 			groupList = new Set([]);
@@ -594,7 +594,7 @@
 						$("input[type='radio'][name='f_restricteduser'][value='"+data.restrictGroupsByDefault+"']").prop("checked",true)
 						
 						userList = {};
-						$(data.allowedUsers).each(function(val,obj){
+						$(data.users).each(function(val,obj){
 							 addToUserList(obj.username,obj.name);
 							
 							
@@ -604,7 +604,7 @@
 						
 						
 						groupList = new Set([]);;
-						$(data.allowedGroups).each(function(val,obj){
+						$(data.groups).each(function(val,obj){
 							 addToGroupList(obj.groupName);
 							
 							
@@ -667,7 +667,7 @@
 					var id = $(this).data('recordId');
 					var policyname = $(this).data('policyname');
 					$modalDiv.addClass('loading');
-					$.post('/ajax/deleteKeyword/' + id).then(
+					$.post('ajax/deleteKeyword/' + id).then(
 							function() {
 								$modalDiv.modal('hide').removeClass('loading');
 								getTableData($("#searchInput").val());

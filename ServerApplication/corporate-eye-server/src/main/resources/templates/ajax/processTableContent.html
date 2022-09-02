@@ -63,9 +63,9 @@
 						th:classappend="${rowstat.odd} ? 'odd' : 'even'" />
 					<h6>
 						<span
-							th:text="${item.restrictUsersByDefault  ? 'Restricted for:' : 'Allowed For:'}" />
+							th:text="${item.restrictUsersByDefault  ? 'Not Applicable:' : 'Applicable For:'}" />
 					</h6>
-					<ul th:each="user , index : ${item.allowedUsers}"
+					<ul th:each="user , index : ${item.users}"
 						style="list-style: none; overflow: auto; max-height: 50px">
 						<li th:text="${ user.name + ' (' + user.username+ ')'}" />
 					</ul>
@@ -76,9 +76,9 @@
 						th:classappend="${rowstat.odd} ? 'odd' : 'even'" />
 					<h6>
 						<span
-							th:text="${item.restrictGroupsByDefault  ? 'Restricted for:' : 'Allowed For:'}" />
+							th:text="${item.restrictGroupsByDefault  ? 'Not Applicable:' : 'Applicable For:'}" />
 					</h6>
-					<ul th:each="group , index : ${item.allowedGroups}"
+					<ul th:each="group , index : ${item.groups}"
 						style="list-style: none; overflow: auto; max-height: 50px">
 						<li th:text="${ group.groupName +'' }" />
 					</ul>

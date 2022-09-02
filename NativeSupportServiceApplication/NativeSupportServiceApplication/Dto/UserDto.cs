@@ -18,6 +18,8 @@ namespace NativeSupportServiceApplication.Dto
         private String passWord;
         
         private String name;
+
+        private List<int> groupIds = new List<int>();
         
         private Boolean isAuthenticated = false;
 
@@ -37,8 +39,9 @@ namespace NativeSupportServiceApplication.Dto
 
         [JsonProperty("passWord")]
         public string PassWord { get => passWord; set => passWord = value; }
+        [JsonProperty("groupIds")]
+        public List<int> GroupIds { get => groupIds; set => groupIds = value; }
 
-        
         public override string ToString()
         {
             return userName + " " + passWord + " " + name + " " + isAuthenticated;

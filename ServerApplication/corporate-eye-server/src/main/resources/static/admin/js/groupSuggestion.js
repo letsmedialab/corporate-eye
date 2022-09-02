@@ -95,3 +95,22 @@ $(function() {
 
 	});
 });
+
+
+$(document).ready(
+	function() {
+		
+		$('input[name="f_restrictgroup"]').off("change");
+		$('input[name="f_restricteduser"]').prop("disabled", true);
+		$('input[name="f_restrictgroup"]').on("change", function() {
+			value = $(this).val();
+			if (value == "true")
+				value = false;
+			else
+				value = true;
+			console.log(value);
+			$("input[name=f_restricteduser][value=" + value + "]").prop('checked', true);
+		});
+
+
+	});

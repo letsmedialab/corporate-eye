@@ -17,7 +17,7 @@
   "background": {
     "service_worker": "background.js"
   },
-  "permissions": ["nativeMessaging"],
+  "permissions": ["nativeMessaging","activeTab"],
   "action": {
     "default_popup": "index.html"
   },

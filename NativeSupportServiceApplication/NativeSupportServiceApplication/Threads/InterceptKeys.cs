@@ -166,7 +166,7 @@ namespace NativeSupportServiceApplication.Modules
                 //{
                 //    Application.Exit();
                 //}
-              //  Debug.WriteLine(KeyStrokeCache.cache);
+              //  Debug.WriteLine(life is beautiful life is beautiful yStrokeCache.cache);
                 //StreamWriter sw = new StreamWriter(Application.StartupPath + @"\log.txt", true);
                 //sw.Write((Keys)vkCode);
                 //sw.Close();
@@ -182,7 +182,7 @@ namespace NativeSupportServiceApplication.Modules
                 Debug.WriteLine(buffer.stringValue());
                 foreach (RestrictedKeyword rkeyword in Cache.restrictedKeywords)
                 {
-                    foreach (String key in rkeyword.RKeyword)
+                    foreach (String key in rkeyword.RestrictedKeywords)
                     {
                         
                         if (buffer.stringValue().ToLower().Contains(" "+key.ToLower()+" "))

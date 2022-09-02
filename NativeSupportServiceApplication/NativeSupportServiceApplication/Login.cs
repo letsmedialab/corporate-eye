@@ -69,7 +69,8 @@ namespace NativeSupportServiceApplication.Forms
         }
         Form currentForm ;
         private void button1_Click(object sender, EventArgs e)
-        {status
+        {
+            status.Text = "";
             currentForm = this;
             //processKiller.Dispose();
             progressBar1.Visible = true;
