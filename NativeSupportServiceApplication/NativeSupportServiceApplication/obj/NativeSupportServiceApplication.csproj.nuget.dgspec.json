@@ -44,6 +44,10 @@
               "target": "Package",
               "version": "[0.9.3, )"
             },
+            "KeystrokeAPI": {
+              "target": "Package",
+              "version": "[1.0.6.4, )"
+            },
             "Microsoft.Toolkit.Uwp.Notifications": {
               "target": "Package",
               "version": "[7.1.2, )"

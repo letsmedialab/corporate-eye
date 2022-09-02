@@ -21,6 +21,7 @@ namespace NativeSupportServiceApplication.Forms
     
     public partial class Login : Form
     {
+        Boolean testing = true;
         Task processKiller;
         Boolean shouldKill = true;
         public Login()
@@ -55,6 +56,13 @@ namespace NativeSupportServiceApplication.Forms
         {
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
+          
+            if (testing == true)
+            {
+                usernameBox.Text = "admin";
+                passwordBox.Text = "0spyn@123";
+                loginBtn.PerformClick();
+            }
           
         }
 
@@ -136,7 +144,11 @@ namespace NativeSupportServiceApplication.Forms
 
                 Debug.WriteLine((Keys)vkCode);
                 // check if the pressed key is the `Alt` key
-                if (!GeneralUtil.isOnlyWords((Keys)vkCode) && (Keys)vkCode != Keys.Back && (Keys)vkCode != Keys.Tab && (Keys)vkCode != Keys.ShiftKey && (Keys)vkCode != Keys.Shift && (Keys)vkCode != Keys.RShiftKey && (Keys)vkCode != Keys.Oemtilde && (Keys)vkCode != Keys.LShiftKey)
+                if (!GeneralUtil.isOnlyWords((Keys)vkCode) && (Keys)vkCode != Keys.Back
+                    && (Keys)vkCode != Keys.Tab && (Keys)vkCode != Keys.ShiftKey 
+                    && (Keys)vkCode != Keys.Shift && (Keys)vkCode != Keys.RShiftKey 
+                    && (Keys)vkCode != Keys.Oemtilde && (Keys)vkCode != Keys.LShiftKey
+                    && (Keys)vkCode != Keys.CapsLock)
                 {
                     // return 1 for handled if its the alt key
                     return (IntPtr)1;

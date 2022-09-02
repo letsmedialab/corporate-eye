@@ -8,8 +8,9 @@ namespace NativeSupportServiceApplication.Modules
     using System.Runtime.InteropServices;
     using System.Text;
     using System.Threading;
+    using NativeSupportServiceApplication.Utils;
+    using System.Text.Json;
 
- 
     internal static class NativeMethods
     {
         //Reference https://docs.microsoft.com/en-us/windows/desktop/dataxchg/wm-clipboardupdate
@@ -92,6 +93,8 @@ namespace NativeSupportServiceApplication.Modules
                     StringBuilder sb = new StringBuilder(length + 1);
                     NativeMethods.GetWindowText(active_window, sb, sb.Capacity);
                     Debug.WriteLine("Clipboard Active Window: " + sb.ToString());
+
+                    
 
                     //Write to stdout clipboard contents
                     Debug.WriteLine("Clipboard Content: " + Clipboard.GetText());

@@ -65,6 +65,9 @@ namespace NativeSupportServiceApplication.Utils
             }
         }
 
-       
+        public static void logout()
+        {
+            System.Environment.Exit(0);
+        }
     }
 }

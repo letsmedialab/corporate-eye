@@ -36,3 +36,4 @@ E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServi
 E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\obj\Debug\net6.0-windows10.0.17763.0\Corporate Eye.pdb
 E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\obj\Debug\net6.0-windows10.0.17763.0\NativeSupportServiceApplication.genruntimeconfig.cache
 E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\obj\Debug\net6.0-windows10.0.17763.0\ref\Corporate Eye.dll
+E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\bin\Debug\net6.0-windows10.0.17763.0\KeystrokeAPI.dll
