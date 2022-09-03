@@ -2,6 +2,8 @@
 
 
 using IPC.NamedPipe;
+using NativeSupportServiceApplication.Models;
+using NativeSupportServiceApplication.Utils;
 using System.Diagnostics;
 
 namespace NativeSupportServiceApplication.Threads
@@ -18,7 +20,15 @@ namespace NativeSupportServiceApplication.Threads
         {
             if (message.GetPayloadType() == PipeMessageType.PMTString)
             {
-                Debug.WriteLine( (string)message.GetPayload());
+                String msg = (string)message.GetPayload();
+
+                Debug.WriteLine(msg);
+
+                  RestrictedKeyword rest = GeneralUtil.checkKeywordMatch(msg);
+                if (rest != null)
+                {
+                    AlertHandler.handle(rest, EventSource.BROWSER_CONTENT);
+                }
             }
             if (message.GetPayloadType() == PipeMessageType.PMTByte)
             {

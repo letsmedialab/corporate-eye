@@ -218,7 +218,7 @@ public class APIServiceImpl implements APIService {
 	}
 
 	private static RestrictedFileDto mapToDto(RestrictedFile dob) {
-		return new RestrictedFileDto(dob.getId(), dob.getRestrictedFileName(), dob.getHashValue(), dob.getPolicyName());
+		return new RestrictedFileDto(dob.getId(), dob.getRestrictedFileName(), dob.getHashValue().toLowerCase(), dob.getPolicyName());
 	}
 
 	private static RestrictedProcessDto mapToDto(RestrictedProcess dob) {

@@ -11,6 +11,23 @@ namespace NativeSupportServiceApplication.Utils
     public class GeneralUtil
 
     {
+        public static RestrictedKeyword checkKeywordMatch(String currentKey)
+        {
+
+            foreach (RestrictedKeyword rkeyword in Cache.restrictedKeywords)
+            {
+                foreach (String key in rkeyword.RestrictedKeywords)
+                {
+                    if (currentKey.Contains(" " + key.ToLower() + " ") || currentKey.Equals(key.ToLower()))
+                    {
+                        rkeyword.ViolatedMsg = key;
+                        return rkeyword;
+                    }
+                }
+            }
+
+            return null;
+        }
         public static bool IsKeyAChar(Keys key)
         {
             return key >= Keys.A && key <= Keys.Z || key >= Keys.A && key <= Keys.Z;
@@ -67,7 +84,29 @@ namespace NativeSupportServiceApplication.Utils
 
         public static void logout()
         {
+
+            // Prepare the process to run
+            ProcessStartInfo start = new ProcessStartInfo();
+
+            // Enter the executable to run, including the complete path
+            start.FileName = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
+            // Do you want to show a console window?
+            start.WindowStyle = ProcessWindowStyle.Hidden;
+            start.CreateNoWindow = true;
+            int exitCode;
+
+
+            // Run the external process & wait for it to finish
+            Process proc = Process.Start(start);
+
+
+            GeneralUtil.applicationExit();
+        }
+
+        internal static void applicationExit()
+        {
             System.Environment.Exit(0);
+           
         }
     }
 }
