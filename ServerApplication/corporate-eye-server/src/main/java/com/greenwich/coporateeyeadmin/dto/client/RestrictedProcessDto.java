@@ -13,7 +13,7 @@ import lombok.Setter;
 public class RestrictedProcessDto
 {
 	  private Long id;
-      private String url;
+      private String processName;
       private String policyName;
 
 }

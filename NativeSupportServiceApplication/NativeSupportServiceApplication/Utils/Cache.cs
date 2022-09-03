@@ -158,12 +158,7 @@ namespace NativeSupportServiceApplication.Utils
             }
             catch (Exception ex)
             {
-                string message = "Program will exit.\nError:\n" + ex.StackTrace;
-                string title = "Critical Error.";
-                MessageBoxButtons buttons = MessageBoxButtons.OK;
-                DialogResult result = MessageBox.Show(message, title, buttons, MessageBoxIcon.Error);
-                Debug.WriteLine(ex.ToString());
-                Application.Exit();
+                GeneralUtil.logout();
 
 
             }

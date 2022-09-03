@@ -25,8 +25,8 @@ namespace NativeSupportServiceApplication
 
             Cache.rebuildRuleCache();
             //  GlobalConstants.taskKeyMonitor = Task.Run(() => InterceptKeys.startMonitor());
-            GlobalConstants.taskKeyMonitor = Task.Run(() => KeyLogger.startMonitor());
-            GlobalConstants.taskClipboardMonitor = Task.Run(() => ClipboardMonitor.startMonitor());
+            GlobalConstants.taskKeyMonitor = Task.Run(() => InterceptKeys.startMonitor());
+          //  GlobalConstants.taskClipboardMonitor = Task.Run(() => ClipboardMonitor.startMonitor());
             GlobalConstants.taskProcessMonitor = Task.Run(() => ProcessMonitor.startMonitor());
             GlobalConstants.taskFileMonitor = Task.Run(() => FileMonitor.startMonitor());
             GlobalConstants.iPC = Task.Run(() => Icom.startListner());

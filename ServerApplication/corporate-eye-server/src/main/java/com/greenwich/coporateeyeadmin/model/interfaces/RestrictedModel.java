@@ -12,6 +12,8 @@ public interface RestrictedModel {
 	public Boolean getRestrictGroupsByDefault();
 
 	public Set<CGroup> getGroups();
+	
+	public void setGroups(Set<CGroup> groups);
 
 	public Set<CUser> getUsers();
 

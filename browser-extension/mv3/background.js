@@ -30,14 +30,6 @@ async function getTab() {
   let tabs = await chrome.tabs.query(queryOptions);
   return tabs[0].url;
 }
-chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
-
-  if (changeInfo.status == 'complete') {
-    
-  
-
-  }
-})
 
 chrome.tabs.onUpdated.addListener(async function () {
   console.log("TAB UPDATED")

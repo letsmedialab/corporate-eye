@@ -15,7 +15,7 @@ namespace NativeSupportServiceApplication.Modules
             {
                 //
 
-                List<RestrictedFile> alertFiles = new List<RestrictedFile>();
+                List<DetectedRestrictedFile> alertFiles = new List<DetectedRestrictedFile>();
                 List<String> currentFiles = listFiles();
 
                 AlertHandlerHelpers.flushExpiredNotifications(REventType.R_FILE, currentFiles);
@@ -25,15 +25,15 @@ namespace NativeSupportServiceApplication.Modules
                 {
                     foreach (RestrictedFile restrictedFile in Cache.restrictedFiles)
                     {
-                        if (restrictedFile.FileSHA.Equals(ChecksumUtil.GetChecksum(file).ToUpper()))
+                        if (restrictedFile.FileSHA.Equals(ChecksumUtil.GetChecksum(file).ToLower()))
                         {
-                            restrictedFile.FileName = file;
-                            alertFiles.Add(restrictedFile);
+                            //restrictedFile.FileName = file;
+                            alertFiles.Add(new DetectedRestrictedFile(restrictedFile,file));
                         }
                     }
                 }
 
-                alertFiles.ForEach(e => AlertHandler.handle(e));
+                alertFiles.ForEach(e => AlertHandler.handle(alertFiles,EventSource.FILE_SCAN));
 
                 Thread.Sleep(10000);
 

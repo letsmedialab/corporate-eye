@@ -14,13 +14,17 @@ namespace NativeSupportServiceApplication.Utils
 
     public enum REventType
     {
-        NONE, R_PROCESS, R_FILE, R_KEYWORD
+        NONE, R_PROCESS, R_FILE, R_KEYWORD, R_URL, R_EMAIL
     }
     enum ActionType
     {
         EXECUTE, SNOOZE
     }
 
+    public enum EventSource
+    {
+        NONE, KEYBOARD, CLIPBOARD, PROCESS, BROWSER_CONTENT, EMAIL_PAGE, BROWSER_URL, FILE_SCAN
+    }
 
     class NotificationDto
     {
@@ -102,7 +106,7 @@ namespace NativeSupportServiceApplication.Utils
                             }
                             break;
 
-                       
+
                     }
 
 
@@ -113,9 +117,9 @@ namespace NativeSupportServiceApplication.Utils
 
 
 
-       
-       
-        private static void notify(string identifier, REventType rEvent, string policyName, String id)
+
+
+        private static void notify(string identifier, REventType rEvent, string policyName, String id, EventSource eventSource)
         {
             if (newNotifierReadyToShow(id, rEvent))
             {
@@ -141,8 +145,28 @@ namespace NativeSupportServiceApplication.Utils
                             break;
 
                         case REventType.R_FILE:
-                            heading = "Restricted File Detected";
-                            message = "Possession of file " + identifier + " violates company policy " + policyName;
+
+                            if (identifier.Contains(","))
+                                heading = "Restricted File Detected";
+                            else
+                                heading = "Restricted Files Detected";
+
+
+                            if (eventSource.Equals(EventSource.CLIPBOARD))
+                                message = "Copying of ";
+                            else
+                                message = "Posession of";
+                            if (identifier.Contains(","))
+                                message += "files ";
+                            else
+                                message += "file ";
+
+                            message += identifier + " violates company ";
+
+                            if (policyName.Contains(","))
+                                message += "policies " + policyName;
+                            else
+                                message += "policy " + policyName;
 
                             args = new ToastArguments();
 
@@ -150,29 +174,39 @@ namespace NativeSupportServiceApplication.Utils
                             args.Add(ID, id);
                             args.Add(VIOLATION_MSG, identifier);
 
-                            toastContentBuilder.AddButton("Delete File", ToastActivationType.Background, args.Add(ACTION, ActionType.EXECUTE).ToString());
+                            if (!identifier.Contains(","))
+                            { 
+                                toastContentBuilder.AddButton("Delete File", ToastActivationType.Background, args.Add(ACTION, ActionType.EXECUTE).ToString());
+                            }
                             args.Remove(ACTION);
                             toastContentBuilder.AddButton("Snooze Notification", ToastActivationType.Background, args.Add(ACTION, ActionType.SNOOZE).ToString());
                             break;
 
                         case REventType.R_KEYWORD:
                             heading = "Restricted message/keyword Detected";
-                            message = "The text you entered contains " + identifier + ", violates company policy " + policyName;
 
+                            if (eventSource.Equals(EventSource.KEYBOARD))
+                                message = "The text you entered contains " + identifier + ", violates company policy " + policyName;
+                            else if (eventSource.Equals(EventSource.CLIPBOARD))
+                                message = "The text you copied contains " + identifier + ", violates company policy " + policyName;
+                            else if (eventSource.Equals(EventSource.BROWSER_CONTENT))
+                                message = "The text you entered into browser contains " + identifier + ", violates company policy " + policyName;
+                            else
+                                message = "custom mesggae";
                             args = new ToastArguments();
 
-                          
+
 
                             args.Add(EVENT_TYPE, rEvent);
                             args.Add(ID, id);
                             args.Add(VIOLATION_MSG, id);
 
-                            
+
                             //toastContentBuilder.AddButton("Snooze Notification", ToastActivationType.Background, args.Add(ACTION, ActionType.SNOOZE).ToString());
                             break;
                     }
 
-                    notifierListRefresh(id, rEvent,identifier );
+                    notifierListRefresh(id, rEvent, identifier);
 
 
 
@@ -235,7 +269,7 @@ namespace NativeSupportServiceApplication.Utils
                 if (r_PROCESS.Equals(REventType.R_KEYWORD))
                 {
                     Debug.WriteLine(cache[0].Identifier + " " + cache[0].Type + " " + (cache[0].LastShown.AddSeconds(NOTIFICATION_DELAY) < DateTime.Now) + " " + cache[0].Snooze);
-                    return (cache[0].Snooze == false && cache[0].LastShown.AddSeconds(NOTIFICATION_DELAY/3) < DateTime.Now);
+                    return (cache[0].Snooze == false && cache[0].LastShown.AddSeconds(NOTIFICATION_DELAY / 3) < DateTime.Now);
                 }
                 else
                 {
@@ -245,23 +279,50 @@ namespace NativeSupportServiceApplication.Utils
             }
 
         }
-      
 
-        public static void handle(RestrictedFile restrictedFile)
+        private static StringBuilder removeComma(StringBuilder input)
         {
+            if (input.ToString().Contains(","))
+            {
+                if (input[input.Length - 1].Equals(','))
+                {
+                    input.Remove(input.Length - 1, 1);
+                }
+            }
+            return input;
+        }
+
+        public static void handle(List<DetectedRestrictedFile> files, EventSource eventSource)
+        {
+            if(files.Count != 0){ 
+            StringBuilder fileNames = new StringBuilder();
+            StringBuilder policies = new StringBuilder();
+            StringBuilder ids = new StringBuilder();
+
+            files.ForEach(f =>
+            {
+                fileNames.Append(f.FileSystemPath + ",");
+                policies.Append(f.RestrictedFile.PolicyName + ",");
+                ids.Append(f.RestrictedFile.Id + ",");
+            });
+
+            fileNames = removeComma(fileNames);
+            policies = removeComma(policies);
+            ids = removeComma(ids);
 
 
-            Debug.WriteLine("notifying for " + restrictedFile.FileName);
 
-            notify(restrictedFile.FileName, REventType.R_FILE, restrictedFile.PolicyName,PRE_FILE + Convert.ToString(restrictedFile.Id));
+            Debug.WriteLine("notifying for " + fileNames);
 
+            notify(fileNames.ToString(), REventType.R_FILE, policies.ToString(), PRE_FILE + ids, eventSource);
+            }
 
         }
-        public static void handle(RestrictedKeyword restrictedKeyword)
+        public static void handle(RestrictedKeyword restrictedKeyword, EventSource eventSource)
         {
             Debug.WriteLine("notifying for " + restrictedKeyword.ViolatedMsg);
 
-            notify(restrictedKeyword.ViolatedMsg, REventType.R_KEYWORD, restrictedKeyword.PolicyName, PRE_KEYWORD + Convert.ToString(restrictedKeyword.Id));
+            notify(restrictedKeyword.ViolatedMsg, REventType.R_KEYWORD, restrictedKeyword.PolicyName, PRE_KEYWORD + Convert.ToString(restrictedKeyword.Id), eventSource);
         }
         public static void handle(RestrictedProcess restrictedProcess)
         {
@@ -269,7 +330,7 @@ namespace NativeSupportServiceApplication.Utils
 
             Debug.WriteLine("notifying for " + restrictedProcess.ProcessName);
 
-            notify(restrictedProcess.ProcessName, REventType.R_PROCESS, restrictedProcess.PolicyName, PRE_PROCESS + Convert.ToString(restrictedProcess.Id));
+            notify(restrictedProcess.ProcessName, REventType.R_PROCESS, restrictedProcess.PolicyName, PRE_PROCESS + Convert.ToString(restrictedProcess.Id), EventSource.PROCESS);
 
 
         }

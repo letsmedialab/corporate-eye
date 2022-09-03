@@ -1,6 +1,7 @@
 ﻿
 using NativeSupportServiceApplication.Api;
 using NativeSupportServiceApplication.Dto;
+using NativeSupportServiceApplication.Models;
 using NativeSupportServiceApplication.Utils;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,12 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using Windows.ApplicationModel.DataTransfer;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace NativeSupportServiceApplication
 {
@@ -26,6 +30,8 @@ namespace NativeSupportServiceApplication
             {
                 toolExit.Enabled = true;
             }
+
+            Windows.ApplicationModel.DataTransfer.Clipboard.ContentChanged += new EventHandler<object>(this.TrackClipboardChanges_EventHandler);
         }
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -34,13 +40,50 @@ namespace NativeSupportServiceApplication
             this.WindowState = FormWindowState.Normal;
             
         }
+        private async void TrackClipboardChanges_EventHandler(object sender, object e)
+        {
+           
 
+            if (System.Windows.Forms.Clipboard.ContainsFileDropList())
+            {
+               
+                    List<DetectedRestrictedFile> detectedFiles = new List<DetectedRestrictedFile>();
+
+                    var files = System.Windows.Forms.Clipboard.GetFileDropList();
+
+                    foreach (String path in files)
+                    {
+                        foreach (RestrictedFile restrictedFile in Cache.restrictedFiles)
+                        {
+                            if (restrictedFile.FileSHA.Equals(ChecksumUtil.GetChecksum(path).ToLower()))
+                            {
+                                detectedFiles.Add(new DetectedRestrictedFile(restrictedFile, path));
+                            }
+                        }
+                    }
+
+                    AlertHandler.handle(detectedFiles, EventSource.CLIPBOARD);
+
+
+                    //System.Windows.Forms.Clipboard.Clear();
+
+               
+            }
+
+            var result = GeneralUtil.checkKeywordMatch(System.Windows.Forms.Clipboard.GetText().ToLower());
+            if (result != null)
+            {
+
+                AlertHandler.handle(result, EventSource.CLIPBOARD);
+
+            }
+        }
         private void MainApplicationForm_Load(object sender, EventArgs e)
         {
            
             //this.WindowState = FormWindowState.Minimized;
-           // this.Close();
-            
+            // this.Close();
+
         }
 
         private void MainApplicationForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -74,28 +117,12 @@ namespace NativeSupportServiceApplication
         private void logOut_Click(object sender, EventArgs e)
         {
 
-
-            // Prepare the process to run
-            ProcessStartInfo start = new ProcessStartInfo();
-            
-            // Enter the executable to run, including the complete path
-            start.FileName = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
-            // Do you want to show a console window?
-            start.WindowStyle = ProcessWindowStyle.Hidden;
-            start.CreateNoWindow = true;
-            int exitCode;
-
-
-            // Run the external process & wait for it to finish
-            Process proc = Process.Start(start);
-         
-
             GeneralUtil.logout();
         }
 
         private void toolExit_Click(object sender, EventArgs e)
         {
-            GeneralUtil.logout();
+            GeneralUtil.applicationExit();
         }
     }
 }
