@@ -27,7 +27,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class EventLog {
+public class EventLog extends AuditBean{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

@@ -9,11 +9,13 @@ namespace NativeSupportServiceApplication.Models
     public class RestrictedEmail
     {
         private int id;
-        private String email;
+        private List<String> email;
         private String policyName;
 
         public int Id { get => id; set => id = value; }
-        public string Email { get => email; set => email = value; }
+
+
         public string PolicyName { get => policyName; set => policyName = value; }
+        public List<string> Email { get => email; set => email = value; }
     }
 }

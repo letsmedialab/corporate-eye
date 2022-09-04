@@ -588,7 +588,17 @@
 						$("#f_id").val(data.id);			
 						
 						$("#f_policyname").prop('disabled', true);
-						$("#policynameStatus").hide();
+$("#policynameStatus").hide();
+						
+						if(data.restrictUsersByDefault == true)
+							data.restrictUsersByDefault = false;
+						else
+							data.restrictUsersByDefault = true;
+						
+						if(data.restrictGroupsByDefault == true)
+							data.restrictGroupsByDefault = false;
+						else
+							data.restrictGroupsByDefault = true;
 						
 						$("input[type='radio'][name='f_restrictgroup'][value='"+data.restrictUsersByDefault+"']").prop("checked",true)
 						$("input[type='radio'][name='f_restricteduser'][value='"+data.restrictGroupsByDefault+"']").prop("checked",true)
@@ -623,7 +633,7 @@
 							"keyup",
 							function() {
 								var policyname = $(this).val();
-								$.get("ajax/checkPolicyname?policyname="
+								$.get("ajax/checkKeywordPolicyname?policyname="
 										+ policyname, function(data, status) {
 									//alert("Data: " + data + "\nStatus: " + status);
 									if (data == true) {

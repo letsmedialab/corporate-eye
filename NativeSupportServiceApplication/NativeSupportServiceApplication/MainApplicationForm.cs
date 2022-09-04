@@ -55,7 +55,7 @@ namespace NativeSupportServiceApplication
                     {
                         foreach (RestrictedFile restrictedFile in Cache.restrictedFiles)
                         {
-                            if (restrictedFile.FileSHA.Equals(ChecksumUtil.GetChecksum(path).ToLower()))
+                            if (restrictedFile.FileSHA.Equals(DigestUtil.GetChecksum(path).ToLower()))
                             {
                                 detectedFiles.Add(new DetectedRestrictedFile(restrictedFile, path));
                             }

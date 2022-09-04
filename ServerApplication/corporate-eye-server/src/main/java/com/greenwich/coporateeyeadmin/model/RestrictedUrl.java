@@ -23,7 +23,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class RestrictedUrl  implements RestrictedModel {
+public class RestrictedUrl  extends AuditBean  implements RestrictedModel {
 
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO) 

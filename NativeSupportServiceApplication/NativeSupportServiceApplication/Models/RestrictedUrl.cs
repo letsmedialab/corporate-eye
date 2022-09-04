@@ -9,11 +9,12 @@ namespace NativeSupportServiceApplication.Models
     public class RestrictedUrl
     {
         private int id;
-        private String url;
+        private List<String> url;
         private String policyName;
 
         public int Id { get => id; set => id = value; }
-        public string Url { get => url; set => url = value; }
+
         public string PolicyName { get => policyName; set => policyName = value; }
+        public List<string> Url { get => url; set => url = value; }
     }
 }

@@ -14,7 +14,11 @@
 						rowspan="1" colspan="1"
 						aria-label="Position: activate to sort column ascending"
 						style="width: 556.219px;">Users</th>
-				
+
+					<th class="sorting" tabindex="0" aria-controls="zero_config"
+						rowspan="1" colspan="1"
+						aria-label="Position: activate to sort column ascending"
+						style="width: 556.219px;">Audit</th>
 
 					<th class="sorting" tabindex="0" aria-controls="zero_config"
 						rowspan="1" colspan="1"
@@ -24,7 +28,7 @@
 				</tr>
 			</thead>
 			<tbody>
-			
+
 				<tr th:if="${#lists.isEmpty(data)}">
 					<td colspan="7"><div class="alert alert-primary" role="alert">
 							No items Found!</div></td>
@@ -34,31 +38,45 @@
 						th:text="${item.groupName}" />
 
 					<td th:classappend="${rowstat.odd} ? 'odd' : 'even'">
-						 
-						<ul th:each="user , index : ${item.users}" style="list-style:none;overflow:auto;max-height:50px">
-							<li th:text="${ user.name + ' (' + user.username+ ')'}"  />
-						</ul>
-						 
-						 </td>
-				
 
+						<ul th:each="user , index : ${item.users}"
+							style="list-style: none; overflow: auto; max-height: 50px">
+							<li th:text="${ user.name + ' (' + user.username+ ')'}" />
+						</ul>
+
+					</td>
+
+					<td style="width: 15%"
+						th:classappend="${rowstat.odd} ? 'odd' : 'even'">
+						<ul style="list-style: none">
+							<li><h6>Created:</h6> <span
+								th:text="${#dates.format(item.getCreatedDate,'dd-MM-yyyy hh:mm a')} " />
+							</li>
+							<br>
+							<li><h6>Modified:</h6> <span
+								th:text="${#dates.format(item.getModifiedDate,'dd-MM-yyyy hh:mm a')} " />
+							</li>
+
+						</ul>
+					</td>
 					<td th:classappend="${rowstat.odd} ? 'odd' : 'even'" />
-					
-					
-					
-					<button  class="btn btn-primary" data-toggle="modal"
-						data-target="#addModal" th:attr="data-id=${item.id}" data-mode="edit">
-						Edit</button>
-					<button class="btn btn-danger" data-toggle="modal"
-						data-target="#confirm-delete" th:attr="data-id=${item.id},data-username=${item.groupName}" >
+
+
+
+					<button class="btn btn-primary actionButton" data-toggle="modal"
+						data-target="#addModal" th:attr="data-id=${item.id}"
+						data-mode="edit">Edit</button>
+					<button class="btn btn-danger actionButton" data-toggle="modal"
+						data-target="#confirm-delete"
+						th:attr="data-id=${item.id},data-username=${item.groupName}">
 						Delete</button>
 					</td>
 
 				</tr>
 
 
-   
-</button>
+
+			
 			</tbody>
 
 		</table>

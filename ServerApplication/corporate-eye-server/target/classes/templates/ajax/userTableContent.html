@@ -25,19 +25,24 @@
 
 					<th class="sorting" tabindex="0" aria-controls="zero_config"
 						rowspan="1" colspan="1"
+						aria-label="Position: activate to sort column ascending"
+						style="width: 556.219px;">Audit</th>
+
+					<th class="sorting" tabindex="0" aria-controls="zero_config"
+						rowspan="1" colspan="1"
 						aria-label="Office: activate to sort column ascending"
 						style="width: 286.141px;">Action</th>
 
 				</tr>
 			</thead>
 			<tbody>
-			
-			
+
+
 				<tr th:if="${#lists.isEmpty(data)}">
 					<td colspan="7"><div class="alert alert-primary" role="alert">
 							No items Found!</div></td>
 				</tr>
-				
+
 				<tr role="row" th:each="item , rowstat : ${data}">
 					<td th:classappend="${rowstat.odd} ? 'odd' : 'even'"
 						th:text="${item.name}" />
@@ -48,24 +53,34 @@
 						th:text="${item.role}" />
 					<td th:classappend="${rowstat.odd} ? 'odd' : 'even'"
 						th:text="${item.enabled} ? 'Enabled' : 'Disabled'" />
+					<td style="width: 15%"
+						th:classappend="${rowstat.odd} ? 'odd' : 'even'">
+						<ul style="list-style: none">
+							<li><h6>Created:</h6> <span
+								th:text="${#dates.format(item.getCreatedDate,'dd-MM-yyyy hh:mm a')} " />
+							</li>
+							<br>
+							<li><h6>Modified:</h6> <span
+								th:text="${#dates.format(item.getModifiedDate,'dd-MM-yyyy hh:mm a')} " />
+							</li>
 
+						</ul>
+					</td>
 					<td th:classappend="${rowstat.odd} ? 'odd' : 'even'" />
-					
-					
-					
-					<button  class="btn btn-primary" data-toggle="modal"
-						data-target="#addModal" th:attr="data-id=${item.id}" data-mode="edit">
-						Edit</button>
-					<button th:if="${#httpServletRequest.remoteUser != item.username}" class="btn btn-danger" data-toggle="modal"
-						data-target="#confirm-delete" th:attr="data-id=${item.id},data-username=${item.username}" >
+
+
+					<button class="btn btn-primary actionButton" data-toggle="modal"
+						data-target="#addModal" th:attr="data-id=${item.id}"
+						data-mode="edit">Edit</button>
+					<button th:if="${#httpServletRequest.remoteUser != item.username}"
+						class="btn btn-danger actionButton" data-toggle="modal"
+						data-target="#confirm-delete"
+						th:attr="data-id=${item.id},data-username=${item.username}">
 						Delete</button>
 					</td>
 
 				</tr>
-
-
-   
-</button>
+				
 			</tbody>
 
 		</table>

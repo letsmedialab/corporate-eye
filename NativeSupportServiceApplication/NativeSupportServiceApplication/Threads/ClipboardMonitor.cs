@@ -105,7 +105,7 @@
 //                        {
 //                            foreach (RestrictedFile restrictedFile in Cache.restrictedFiles)
 //                            {
-//                                if (restrictedFile.FileSHA.Equals(ChecksumUtil.GetChecksum(path).ToUpper()))
+//                                if (restrictedFile.FileSHA.Equals(DigestUtil.GetChecksum(path).ToUpper()))
 //                                {                                  
 //                                    detectedFiles.Add(new DetectedRestrictedFile(restrictedFile,path);
 //                                }

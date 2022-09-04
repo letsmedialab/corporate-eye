@@ -127,7 +127,7 @@
 
 						<strong class="mr-auto text-danger toastMessage">Alert</strong>
 
-						
+
 					</div>
 					<div class="toast-body" id="toastMessage2"></div>
 
@@ -139,7 +139,7 @@
 
 						<strong class="mr-auto text-danger toastMessage">Alert</strong>
 
-					
+
 					</div>
 					<div class="toast-body" id="toastMessage3"></div>
 
@@ -152,7 +152,7 @@
 
 						<strong class="mr-auto text-danger toastMessage">Alert</strong>
 
-						
+
 					</div>
 					<div class="toast-body" id="toastMessage4"></div>
 
@@ -164,7 +164,7 @@
 
 						<strong class="mr-auto text-danger toastMessage">Alert</strong>
 
-					
+
 					</div>
 					<div class="toast-body" id="toastMessage5"></div>
 
@@ -219,41 +219,42 @@
 						<input type="hidden" class="form-control" id="f_id">
 
 						<div class="row">
-						<div class="form-group-inline col-sm-6">
-							<label for="f_policyname" class="col-form-label">PolicyName:</label>
-							<input type="text" class="form-control" id="f_policyname"
-								placeholder="Atleast 3 characters.">
-							<div style="height: 10px; margin-bottom: 30px">
-								<label for="f_policyname" id="policynameStatus"
-									class="col-form-label text-danger "
-									style="display: none; float: right;">Policy Already
-									Exist</label>
+							<div class="form-group-inline col-sm-6">
+								<label for="f_policyname" class="col-form-label">PolicyName:</label>
+								<input type="text" class="form-control" id="f_policyname"
+									placeholder="Atleast 3 characters.">
+								<div style="height: 10px; margin-bottom: 30px">
+									<label for="f_policyname" id="policynameStatus"
+										class="col-form-label text-danger "
+										style="display: none; float: right;">Policy Already
+										Exist</label>
+								</div>
 							</div>
-						</div >
-						<div class="form-group-inline col-sm-6">
-							<label for="f_role" class="col-form-label">Status:</label><br>
-							<div class="form-check-inline">
+							<div class="form-group-inline col-sm-6">
+								<label for="f_role" class="col-form-label">Status:</label><br>
+								<div class="form-check-inline">
 
-								<input class="form-check-input" value="true"
-									style="margin: 5px;" type="radio" name="f_enabled" checked>
-								<label class="form-check-label" for="flexRadioDefault1">
-									ENABLED </label>
+									<input class="form-check-input" value="true"
+										style="margin: 5px;" type="radio" name="f_enabled" checked>
+									<label class="form-check-label" for="flexRadioDefault1">
+										ENABLED </label>
+								</div>
+								<div class="form-check-inline">
+									<input class="form-check-input" value="false"
+										style="margin: 5px;" type="radio" name="f_enabled"> <label
+										class="form-check-label" for="flexRadioDefault2">
+										DISABLED </label>
+								</div>
 							</div>
-							<div class="form-check-inline">
-								<input class="form-check-input" value="false"
-									style="margin: 5px;" type="radio" name="f_enabled"> <label
-									class="form-check-label" for="flexRadioDefault2">
-									DISABLED </label>
-							</div>
-						</div>
-						
+
 						</div>
 						<div class="form-group">
-							<label for="f_name" class="col-form-label">Email Pattern</label> <input
-								type="text" class="form-control" placeholder="Enter Email Pattern or Email" id="f_email">
+							<label for="f_name" class="col-form-label">Email Pattern</label>
+							<input type="text" class="form-control"
+								placeholder="Enter Email Pattern or Email" id="f_email">
 						</div>
-						
-						
+
+
 						<hr>
 
 						<label for="f_role" class="col-form-label">Group Rule: </label>
@@ -261,14 +262,14 @@
 
 							<input class="form-check-input" style="margin: 5px;" type="radio"
 								name="f_restrictgroup" value="false"> <label
-								class="form-check-label" for="flexRadioDefault1"> Applicable For
-							</label>
+								class="form-check-label" for="flexRadioDefault1">
+								Applicable For </label>
 						</div>
 						<div class="form-check-inline">
 							<input class="form-check-input" style="margin: 5px;" type="radio"
 								name="f_restrictgroup" value="true" checked> <label
-								class="form-check-label" for="flexRadioDefault2">
-								Not Applicable For </label>
+								class="form-check-label" for="flexRadioDefault2"> Not
+								Applicable For </label>
 						</div>
 
 
@@ -304,14 +305,14 @@
 
 							<input class="form-check-input" style="margin: 5px;" type="radio"
 								name="f_restricteduser" value="false" checked> <label
-								class="form-check-label" for="flexRadioDefault1"> Applicable For
-							</label>
+								class="form-check-label" for="flexRadioDefault1">
+								Applicable For </label>
 						</div>
 						<div class="form-check-inline">
 							<input class="form-check-input" style="margin: 5px;" type="radio"
-								name="f_restricteduser" value="true" > <label
-								class="form-check-label" for="flexRadioDefault2">
-								Not Applicable For </label>
+								name="f_restricteduser" value="true"> <label
+								class="form-check-label" for="flexRadioDefault2"> Not
+								Applicable For </label>
 						</div>
 						<!-- 						user suggestion -->
 						<div class="form-group">
@@ -578,7 +579,17 @@
 						$("#f_id").val(data.id);			
 						
 						$("#f_policyname").prop('disabled', true);
-						$("#policynameStatus").hide();
+							$("#policynameStatus").hide();
+						
+						if(data.restrictUsersByDefault == true)
+							data.restrictUsersByDefault = false;
+						else
+							data.restrictUsersByDefault = true;
+						
+						if(data.restrictGroupsByDefault == true)
+							data.restrictGroupsByDefault = false;
+						else
+							data.restrictGroupsByDefault = true;
 						
 						$("input[type='radio'][name='f_restrictgroup'][value='"+data.restrictUsersByDefault+"']").prop("checked",true)
 						$("input[type='radio'][name='f_restricteduser'][value='"+data.restrictGroupsByDefault+"']").prop("checked",true)
@@ -616,7 +627,7 @@
 							"keyup",
 							function() {
 								var policyname = $(this).val();
-								$.get("ajax/checkPolicyname?policyname="
+								$.get("ajax/checkEmailPolicyname?policyname="
 										+ policyname, function(data, status) {
 									//alert("Data: " + data + "\nStatus: " + status);
 									if (data == true) {

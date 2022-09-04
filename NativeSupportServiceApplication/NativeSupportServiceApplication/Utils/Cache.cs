@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace NativeSupportServiceApplication.Utils
@@ -17,6 +18,7 @@ namespace NativeSupportServiceApplication.Utils
         public static List<RestrictedUrl> restrictedUrls = new List<RestrictedUrl>();
         public static List<RestrictedProcess> restrictedProcesses = new List<RestrictedProcess>();
         public static List<RestrictedEmail> restrictedEmail = new List<RestrictedEmail>();
+        public static List<MonitoredApplication> appConfig = new List<MonitoredApplication>();
         public static Dictionary<String, String> ruleVersionMap = new Dictionary<string, string>();
 
         public static String hashProcess = "";
@@ -33,6 +35,7 @@ namespace NativeSupportServiceApplication.Utils
             ruleVersionMap.Add(RuleId.FILE.ToString(), "");
             ruleVersionMap.Add(RuleId.PROCESS.ToString(), "");
             ruleVersionMap.Add(RuleId.EMAIL.ToString(), "");
+            ruleVersionMap.Add(RuleId.APP.ToString(), "");
         }
         public static void rebuildRuleCache()
         {
@@ -153,7 +156,35 @@ namespace NativeSupportServiceApplication.Utils
 
                 }
 
-                
+                currentRuleKey = RuleId.APP.ToString();
+
+                if (newRuleVersions.TryGetValue(currentRuleKey, out newVersion))
+                {
+
+                    ruleVersionMap.TryGetValue(currentRuleKey, out currentVersion);
+
+                    if (!newVersion.Equals(currentVersion))
+                    {
+                        ApiResponse<List<MonitoredApplication>> keywordAPIResponse = ApiUtils.callApi<List<MonitoredApplication>, Object>(ApiEndPoints.APP_CONFIG_URL.Replace("$1", GlobalConstants.getCurrentUser().UserName), HttpMethod.Get, null);
+
+
+                        Cache.appConfig = keywordAPIResponse.ResponseObject;
+
+
+
+                        //ruleVersionMap[currentRuleKey] = newVersion;
+
+                        ApplicationMonitorUtil.checkAndUpdateLocalDatabase();
+
+                    }
+
+
+                }
+
+                Debug.WriteLine("Cache done");
+
+     
+
 
             }
             catch (Exception ex)
