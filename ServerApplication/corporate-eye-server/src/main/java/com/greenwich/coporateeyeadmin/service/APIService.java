@@ -20,6 +20,8 @@ public interface APIService {
 	public String prepareFileConfig(String username);
 
 	public String getHashUpdateValues(String username);
+
+	public String prepareApplicationConfig(String username);
 	
 
 }

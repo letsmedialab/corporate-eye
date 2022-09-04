@@ -37,3 +37,7 @@ E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServi
 E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\obj\Debug\net6.0-windows10.0.17763.0\ref\Corporate Eye.dll
 E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\bin\Debug\net6.0-windows10.0.17763.0\KeystrokeAPI.dll
 E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\obj\Debug\net6.0-windows10.0.17763.0\NativeSupportServiceApplication.Threads.ClipboardMonitor.resources
+E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\bin\Debug\net6.0-windows10.0.17763.0\LiteDB.dll
+E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\bin\Debug\net6.0-windows10.0.17763.0\Microsoft.Practices.ServiceLocation.dll
+E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\bin\Debug\net6.0-windows10.0.17763.0\XAct.Core.PCL.dll
+E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\NativeSupportServiceApplication\NativeSupportServiceApplication\obj\Debug\net6.0-windows10.0.17763.0\NativeSupportServiceApplication.Modules.ApplicationMonitor.resources

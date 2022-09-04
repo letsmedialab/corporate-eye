@@ -36,6 +36,11 @@
 					<th class="sorting" tabindex="0" aria-controls="zero_config"
 						rowspan="1" colspan="1"
 						aria-label="Position: activate to sort column ascending"
+						style="width: 556.219px;">Audit</th>
+
+					<th class="sorting" tabindex="0" aria-controls="zero_config"
+						rowspan="1" colspan="1"
+						aria-label="Position: activate to sort column ascending"
 						style="width: 556.219px;">Actions</th>
 
 				</tr>
@@ -85,16 +90,28 @@
 
 
 					</td>
+					<td style="width: 15%"
+						th:classappend="${rowstat.odd} ? 'odd' : 'even'">
+						<ul style="list-style: none">
+							<li><h6>Created:</h6> <span
+								th:text="${#dates.format(item.getCreatedDate,'dd-MM-yyyy hh:mm a')} " />
+							</li>
+							<br>
+							<li><h6>Modified:</h6> <span
+								th:text="${#dates.format(item.getModifiedDate,'dd-MM-yyyy hh:mm a')} " />
+							</li>
 
+						</ul>
+					</td>
 					<td style="width: 5%"
 						th:classappend="${rowstat.odd} ? 'odd' : 'even'"
 						th:text="${item.enabled} ? 'Enabled' : 'Disabled'" />
 
 					<td>
-						<button class="btn btn-primary" data-toggle="modal"
+						<button class="btn btn-primary actionButton" data-toggle="modal"
 							data-target="#addModal" th:attr="data-id=${item.id}"
 							data-mode="edit">Edit</button>
-						<button class="btn btn-danger" data-toggle="modal"
+						<button class="btn btn-danger actionButton" data-toggle="modal"
 							data-target="#confirm-delete"
 							th:attr="data-id=${item.id},data-policyname=${item.policyName}">
 							Delete</button>
@@ -104,7 +121,7 @@
 
 
 
-				</button>
+			
 			</tbody>
 
 		</table>

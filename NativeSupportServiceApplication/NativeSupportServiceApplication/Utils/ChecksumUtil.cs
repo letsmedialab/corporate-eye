@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XSystem.Security.Cryptography;
 
 namespace NativeSupportServiceApplication.Utils
 {
-    public static class ChecksumUtil
+    public static class DigestUtil
     {
         public static string GetChecksum(string filename)
         {
@@ -17,6 +18,14 @@ namespace NativeSupportServiceApplication.Utils
                     var hash = hasher.ComputeHash(stream);
                     return BitConverter.ToString(hash).Replace("-", "");
                 }
+            }
+        }
+
+        public static string SHA(string stringToHash)
+        {
+            using (var sha1 = new SHA1Managed())
+            {
+                return BitConverter.ToString(sha1.ComputeHash(Encoding.UTF8.GetBytes(stringToHash)));
             }
         }
 

@@ -13,7 +13,7 @@ import lombok.Setter;
 public class RestrictedEmailDto
 {
 	  private Long id;
-      private String email;
+      private List<String> email;
       private String policyName;
 
 }

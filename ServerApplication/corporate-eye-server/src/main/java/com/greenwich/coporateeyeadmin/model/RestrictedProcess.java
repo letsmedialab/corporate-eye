@@ -23,13 +23,13 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class RestrictedProcess implements RestrictedModel{
+public class RestrictedProcess extends AuditBean  implements RestrictedModel{
 
 	  @Id
 	  @GeneratedValue(strategy=GenerationType.AUTO) 
 	  private Long id; 
 	  
-	  @Column( unique = true)
+	
 	  private String restrictedProcess; 
 
 	  @Column

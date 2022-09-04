@@ -25,7 +25,7 @@ namespace NativeSupportServiceApplication.Modules
                 {
                     foreach (RestrictedFile restrictedFile in Cache.restrictedFiles)
                     {
-                        if (restrictedFile.FileSHA.Equals(ChecksumUtil.GetChecksum(file).ToLower()))
+                        if (restrictedFile.FileSHA.Equals(DigestUtil.GetChecksum(file).ToLower()))
                         {
                             //restrictedFile.FileName = file;
                             alertFiles.Add(new DetectedRestrictedFile(restrictedFile,file));

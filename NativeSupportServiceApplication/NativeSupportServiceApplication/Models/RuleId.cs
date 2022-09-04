@@ -8,6 +8,7 @@ namespace NativeSupportServiceApplication.Models
 {
     public enum RuleId
     {
-        PROCESS, URL, FILE, KEYWORD, EMAIL
+        PROCESS, URL, FILE, KEYWORD, EMAIL,
+        APP
     }
 }

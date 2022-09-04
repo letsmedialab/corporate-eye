@@ -48,6 +48,10 @@
               "target": "Package",
               "version": "[1.0.6.4, )"
             },
+            "LiteDB": {
+              "target": "Package",
+              "version": "[5.0.12, )"
+            },
             "Microsoft.Toolkit.Uwp.Notifications": {
               "target": "Package",
               "version": "[7.1.2, )"
@@ -63,6 +67,10 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.1, )"
+            },
+            "XAct.Core.PCL": {
+              "target": "Package",
+              "version": "[0.0.5014, )"
             }
           },
           "imports": [

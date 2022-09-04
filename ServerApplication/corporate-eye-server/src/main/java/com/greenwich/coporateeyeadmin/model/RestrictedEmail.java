@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -25,13 +27,14 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class RestrictedEmail implements RestrictedModel{
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+public class RestrictedEmail extends AuditBean implements RestrictedModel{
 
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO) 
   private Long id; 
   
-  @Column( unique = true)
+  
   private String restrictedEmail;
   
   @Column

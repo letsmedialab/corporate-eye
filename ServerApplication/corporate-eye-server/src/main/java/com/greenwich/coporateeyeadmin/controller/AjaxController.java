@@ -1,5 +1,6 @@
 package com.greenwich.coporateeyeadmin.controller;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -24,13 +25,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.greenwich.coporateeyeadmin.ServingWebContentApplication;
 import com.greenwich.coporateeyeadmin.dto.GroupDTO;
 import com.greenwich.coporateeyeadmin.dto.GroupEditDTO;
+import com.greenwich.coporateeyeadmin.dto.MonitoredApplicationDTO;
 import com.greenwich.coporateeyeadmin.dto.RestrictedEmailDTO;
 import com.greenwich.coporateeyeadmin.dto.RestrictedFileDTO;
 import com.greenwich.coporateeyeadmin.dto.RestrictedKeywordDTO;
 import com.greenwich.coporateeyeadmin.dto.RestrictedProcessDTO;
 import com.greenwich.coporateeyeadmin.dto.RestrictedUrlDTO;
+import com.greenwich.coporateeyeadmin.dto.client.MonitoredApplicationDto;
 import com.greenwich.coporateeyeadmin.model.CGroup;
 import com.greenwich.coporateeyeadmin.model.CUser;
+import com.greenwich.coporateeyeadmin.model.MonitoredApplication;
 import com.greenwich.coporateeyeadmin.model.RestrictedEmail;
 import com.greenwich.coporateeyeadmin.model.RestrictedFile;
 import com.greenwich.coporateeyeadmin.model.RestrictedKeyword;
@@ -38,6 +42,7 @@ import com.greenwich.coporateeyeadmin.model.RestrictedProcess;
 import com.greenwich.coporateeyeadmin.model.RestrictedUrl;
 import com.greenwich.coporateeyeadmin.model.interfaces.RestrictedModel;
 import com.greenwich.coporateeyeadmin.repo.GroupRepository;
+import com.greenwich.coporateeyeadmin.repo.MonitoredApplicationRepository;
 import com.greenwich.coporateeyeadmin.repo.RestrictedEmailRepository;
 import com.greenwich.coporateeyeadmin.repo.RestrictedFileRepository;
 import com.greenwich.coporateeyeadmin.repo.RestrictedKeywordRepository;
@@ -73,6 +78,9 @@ public class AjaxController {
 	@Autowired
 	private RestrictedFileRepository fileRepository;
 
+	@Autowired
+	private MonitoredApplicationRepository applicationRepository;
+
 	@GetMapping(value = "checkUsername", produces = MediaType.APPLICATION_JSON_VALUE)
 	public String checkUsername(@RequestParam(name = "username", required = false, defaultValue = "") String username) {
 
@@ -90,14 +98,67 @@ public class AjaxController {
 		return String.valueOf(group.isPresent());
 	}
 
-	@GetMapping(value = "checkPolicyname", produces = MediaType.APPLICATION_JSON_VALUE)
-	public String checkPolicyName(
+	@GetMapping(value = "checkKeywordPolicyname", produces = MediaType.APPLICATION_JSON_VALUE)
+	public String checkKeywordPolicyName(
 			@RequestParam(name = "policyname", required = false, defaultValue = "") String policyName) {
 
 		Optional<RestrictedKeyword> rkeys = keywordRepository.findByPolicyName(policyName);
 
 		return String.valueOf(rkeys.isPresent());
 	}
+	
+	@GetMapping(value = "checkFilePolicyname", produces = MediaType.APPLICATION_JSON_VALUE)
+	public String checkFilePolicyname(
+			@RequestParam(name = "policyname", required = false, defaultValue = "") String policyName) {
+
+		Optional<RestrictedFile> rkeys = fileRepository.findByPolicyName(policyName);
+
+		return String.valueOf(rkeys.isPresent());
+	}
+	
+	
+	@GetMapping(value = "checkUrlPolicyname", produces = MediaType.APPLICATION_JSON_VALUE)
+	public String checkUrlPolicyName(
+			@RequestParam(name = "policyname", required = false, defaultValue = "") String policyName) {
+
+		Optional<RestrictedUrl> rkeys = urlRepository.findByPolicyName(policyName);
+
+		return String.valueOf(rkeys.isPresent());
+	}
+	
+	
+	
+	@GetMapping(value = "checkProcessPolicyname", produces = MediaType.APPLICATION_JSON_VALUE)
+	public String checkProcessPolicyname(
+			@RequestParam(name = "policyname", required = false, defaultValue = "") String policyName) {
+
+		Optional<RestrictedProcess> rkeys = processRepository.findByPolicyName(policyName);
+
+		return String.valueOf(rkeys.isPresent());
+	}
+	
+	
+	@GetMapping(value = "checkEmailPolicyname", produces = MediaType.APPLICATION_JSON_VALUE)
+	public String checkEmailPolicyName(
+			@RequestParam(name = "policyname", required = false, defaultValue = "") String policyName) {
+
+		Optional<RestrictedEmail> rkeys = emailRepository.findByPolicyName(policyName);
+
+		return String.valueOf(rkeys.isPresent());
+	}
+	
+	
+	@GetMapping(value = "checkApplicationPolicyname", produces = MediaType.APPLICATION_JSON_VALUE)
+	public String checkApplicationPolicyName(
+			@RequestParam(name = "policyname", required = false, defaultValue = "") String policyName) {
+
+		Optional<MonitoredApplication> rkeys = applicationRepository.findByPolicyName(policyName);
+
+		return String.valueOf(rkeys.isPresent());
+	}
+	
+	
+
 
 	@GetMapping(value = "getUserDetails", produces = MediaType.APPLICATION_JSON_VALUE)
 	public String getUserDetails(@RequestParam(name = "keyword", required = true, defaultValue = "") String keyword) {
@@ -177,11 +238,22 @@ public class AjaxController {
 
 		return GeneralUtils.convertToJson(data.get());
 	}
+	
+	@GetMapping(value = "getApplicationDataById", produces = MediaType.APPLICATION_JSON_VALUE)
+	public String getApplicationDataById(@RequestParam(name = "id", required = false, defaultValue = "") Long id)
+			throws JsonProcessingException {
+
+		Optional<MonitoredApplication> data = applicationRepository.findById(id);
+
+		return GeneralUtils.convertToJson(data.get());
+	}
 
 	@PostMapping(value = "addUser", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public String addUser(@RequestBody CUser user) {
 		try {
-
+			user.setCreatedDate(new Date());
+			user.setModifiedDate(new Date());
+			
 			user.setPassword(GeneralUtils.bCryptEncode(user.getPassword()));
 			userRepository.save(user);
 
@@ -203,6 +275,9 @@ public class AjaxController {
 
 			newGroup.setGroupName(group.getGroupName());
 			newGroup.setUsers(users);
+			
+			newGroup.setModifiedDate(new Date());
+			newGroup.setCreatedDate(new Date());
 
 			final CGroup lewGroup = groupRepository.save(newGroup);
 
@@ -232,7 +307,8 @@ public class AjaxController {
 			Set<CGroup> groups = groupRepository.findAllByGroupNameIn(group.getGroupNames());
 
 			RestrictedKeyword data = new RestrictedKeyword();
-
+			data.setModifiedDate(new Date());
+			data.setCreatedDate(new Date());
 			data.setGroups(groups);
 			data.setUsers(users);
 			data.setEnabled(group.getEnabled());
@@ -269,7 +345,9 @@ public class AjaxController {
 			Set<CGroup> groups = groupRepository.findAllByGroupNameIn(group.getGroupNames());
 
 			RestrictedFile data = new RestrictedFile();
-
+			
+			data.setModifiedDate(new Date());
+			data.setCreatedDate(new Date());
 			data.setGroups(groups);
 			data.setUsers(users);
 			data.setEnabled(group.getEnabled());
@@ -307,6 +385,8 @@ public class AjaxController {
 
 			RestrictedProcess data = new RestrictedProcess();
 
+			data.setModifiedDate(new Date());
+			data.setCreatedDate(new Date());
 			data.setGroups(groups);
 			data.setUsers(users);
 			data.setEnabled(group.getEnabled());
@@ -343,6 +423,8 @@ public class AjaxController {
 
 			RestrictedUrl data = new RestrictedUrl();
 
+			data.setModifiedDate(new Date());
+			data.setCreatedDate(new Date());
 			data.setGroups(groups);
 			data.setUsers(users);
 			data.setEnabled(group.getEnabled());
@@ -379,6 +461,8 @@ public class AjaxController {
 
 			RestrictedEmail data = new RestrictedEmail();
 
+			data.setModifiedDate(new Date());
+			data.setCreatedDate(new Date());
 			data.setGroups(groups);
 			data.setUsers(users);
 			data.setEnabled(group.getEnabled());
@@ -405,12 +489,55 @@ public class AjaxController {
 
 	}
 
+	@PostMapping("addApplication")
+	public String addApplication(@RequestBody MonitoredApplicationDTO group) {
+		try {
+
+			Set<CUser> users = userRepository.findAllByUsernameIn(group.getUserNames().keySet());
+
+			Set<CGroup> groups = groupRepository.findAllByGroupNameIn(group.getGroupNames());
+
+			MonitoredApplication data = new MonitoredApplication();
+
+			data.setModifiedDate(new Date());
+			data.setCreatedDate(new Date());
+			data.setGroups(groups);
+			data.setUsers(users);
+			data.setEnabled(group.getEnabled());
+			data.setPolicyName(group.getPolicyName());
+			data.setRestrictGroupsByDefault(group.getRestrictGroupsByDefault());
+			data.setRestrictUsersByDefault(group.getRestrictUsersByDefault());
+			data.setApplicationName(group.getApplicationName());
+			data.setApplicationPath(group.getApplicationPath());
+			data.setApplicationRevision(group.getApplicationRevision());
+			//data.setRestrictedEmail(group.getEmailName());
+			
+
+			users.stream().forEach(u -> u.getApplications().add(data));
+			groups.stream().forEach(u -> u.getApplications().add(data));
+
+			// userRepository.saveAll(users);
+			// groupRepository.saveAll(groups);
+
+			applicationRepository.save(data);
+
+		} catch (Exception ex) {
+
+			ex.printStackTrace();
+			return "failed";
+		}
+
+		return "success";
+
+	}
+	
 	@PostMapping("updateUser")
 	public String updateUser(@RequestBody CUser user) {
 		try {
 
 			CUser currentUser = userRepository.findById(user.getId()).get();
 
+			currentUser.setModifiedDate(new Date());
 			currentUser.setName(user.getName());
 			currentUser.setRole(user.getRole());
 			currentUser.setEnabled(user.getEnabled());
@@ -436,6 +563,8 @@ public class AjaxController {
 		try {
 
 			CGroup cgroup = groupRepository.findById(group.getId()).get();
+			
+			cgroup.setModifiedDate(new Date());
 
 			Set<CUser> users = userRepository.findAllByUsernameIn(group.getUsernames().keySet());
 
@@ -489,7 +618,7 @@ public class AjaxController {
 			data.setRestrictUsersByDefault(group.getRestrictUsersByDefault());
 			data.setRestrictedKeyword(group.getKeywordName());
 			data.setRestrictedRegex(group.getRegEx());
-
+			data.setModifiedDate(new Date());
 			users.stream().forEach(u -> u.getKeywords().add(data));
 			groups.stream().forEach(u -> u.getKeywords().add(data));
 
@@ -526,7 +655,8 @@ public class AjaxController {
 			data.setRestrictUsersByDefault(group.getRestrictUsersByDefault());
 			data.setRestrictedFileName(group.getFileName());
 			data.setHashValue(group.getHash());
-
+			data.setModifiedDate(new Date());
+			
 			users.stream().forEach(u -> u.getFiles().add(data));
 			groups.stream().forEach(u -> u.getFiles().add(data));
 
@@ -562,7 +692,8 @@ public class AjaxController {
 			data.setRestrictGroupsByDefault(group.getRestrictGroupsByDefault());
 			data.setRestrictUsersByDefault(group.getRestrictUsersByDefault());
 			data.setRestrictedProcess(group.getProcessName());
-
+			data.setModifiedDate(new Date());
+			
 			users.stream().forEach(u -> u.getProcesses().add(data));
 			groups.stream().forEach(u -> u.getProcesses().add(data));
 
@@ -595,6 +726,7 @@ public class AjaxController {
 			data.setRestrictGroupsByDefault(group.getRestrictGroupsByDefault());
 			data.setRestrictUsersByDefault(group.getRestrictUsersByDefault());
 			data.setRestrictedEmail(group.getEmailName());
+			data.setModifiedDate(new Date());
 
 			users.stream().forEach(u -> u.getEmails().add(data));
 			groups.stream().forEach(u -> u.getEmails().add(data));
@@ -628,11 +760,48 @@ public class AjaxController {
 			data.setRestrictGroupsByDefault(group.getRestrictGroupsByDefault());
 			data.setRestrictUsersByDefault(group.getRestrictUsersByDefault());
 			data.setRestrictedUrl(group.getUrlName());
+			data.setModifiedDate(new Date());
 
 			users.stream().forEach(u -> u.getUrls().add(data));
 			groups.stream().forEach(u -> u.getUrls().add(data));
 
 			urlRepository.save(data);
+
+		} catch (Exception ex) {
+
+			ex.printStackTrace();
+			return "failed";
+		}
+
+		return "success";
+
+	}
+	
+	@PostMapping("updateApplication")
+	public String updateApplication(@RequestBody MonitoredApplicationDTO group) {
+
+		try {
+
+			Set<CUser> users = userRepository.findAllByUsernameIn(group.getUserNames().keySet());
+
+			Set<CGroup> groups = groupRepository.findAllByGroupNameIn(group.getGroupNames());
+
+			MonitoredApplication data = applicationRepository.findById(group.getId()).get();
+
+			data.setGroups(groups);
+			data.setUsers(users);
+			data.setEnabled(group.getEnabled());
+			data.setRestrictGroupsByDefault(group.getRestrictGroupsByDefault());
+			data.setRestrictUsersByDefault(group.getRestrictUsersByDefault());
+			data.setApplicationName(group.getApplicationName());
+			data.setApplicationPath(group.getApplicationPath());
+			data.setApplicationRevision(group.getApplicationRevision());
+			data.setModifiedDate(new Date());
+
+			users.stream().forEach(u -> u.getApplications().add(data));
+			groups.stream().forEach(u -> u.getApplications().add(data));
+
+			applicationRepository.save(data);
 
 		} catch (Exception ex) {
 
@@ -699,7 +868,7 @@ public class AjaxController {
 	@PostMapping("deleteKeyword/{keywordId}")
 	public String deleteKeyword(@PathVariable(required = true) Long keywordId) {
 		try {
-			deleteModel(keywordId,RestrictedKeyword.class);
+			deleteModel(keywordId, RestrictedKeyword.class);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return "failed";
@@ -712,7 +881,7 @@ public class AjaxController {
 	@PostMapping("deleteProcess/{keyId}")
 	public String deleteProcess(@PathVariable(required = true) Long keyId) {
 		try {
-			deleteModel(keyId,RestrictedProcess.class);
+			deleteModel(keyId, RestrictedProcess.class);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return "failed";
@@ -725,7 +894,7 @@ public class AjaxController {
 	@PostMapping("deleteEmail/{keyId}")
 	public String deleteEmail(@PathVariable(required = true) Long keyId) {
 		try {
-			deleteModel(keyId,RestrictedEmail.class);
+			deleteModel(keyId, RestrictedEmail.class);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return "failed";
@@ -738,7 +907,7 @@ public class AjaxController {
 	@PostMapping("deleteUrl/{keyId}")
 	public String deleteUrl(@PathVariable(required = true) Long keyId) {
 		try {
-			deleteModel(keyId,RestrictedUrl.class);
+			deleteModel(keyId, RestrictedUrl.class);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return "failed";
@@ -751,7 +920,20 @@ public class AjaxController {
 	@PostMapping("deleteFile/{keyId}")
 	public String deleteFile(@PathVariable(required = true) Long keyId) {
 		try {
-			deleteModel(keyId,RestrictedFile.class);
+			deleteModel(keyId, RestrictedFile.class);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return "failed";
+		}
+
+		return "success";
+
+	}
+	
+	@PostMapping("deleteApplication/{keyId}")
+	public String deleteApplication(@PathVariable(required = true) Long keyId) {
+		try {
+			deleteModel(keyId, MonitoredApplication.class);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return "failed";
@@ -761,8 +943,7 @@ public class AjaxController {
 
 	}
 
-	private void deleteModel(Long keyId,Class fileType) {
-
+	private void deleteModel(Long keyId, Class fileType) {
 
 		JpaRepository repo = null;
 
@@ -776,6 +957,8 @@ public class AjaxController {
 			repo = urlRepository;
 		} else if (fileType.equals(RestrictedProcess.class)) {
 			repo = processRepository;
+		} else if (fileType.equals(MonitoredApplication.class)) {
+			repo = applicationRepository;
 		}
 
 		Set<CGroup> groups;

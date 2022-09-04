@@ -25,7 +25,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class CUser {
+public class CUser  extends AuditBean {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -66,6 +66,10 @@ public class CUser {
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, }, mappedBy = "users")
 	@JsonIgnore
 	Set<RestrictedUrl> urls = new HashSet<>();
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, }, mappedBy = "users")
+	@JsonIgnore
+	Set<MonitoredApplication> applications = new HashSet<>();
 
 	@OneToMany(mappedBy = "user" , fetch = FetchType.LAZY)
 	@JsonIgnore

@@ -112,5 +112,14 @@ public class ViewController {
 
 		return "eventLog";
 	}
+	
+	@GetMapping("monitorApplication")
+	public String monitorApplication(@RequestParam(name = "keyword", required = false, defaultValue = "") String keyword,
+			Model model) {
+
+		model.addAttribute("keyword", keyword);
+
+		return "configApplication";
+	}
 
 }

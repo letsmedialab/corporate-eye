@@ -74,6 +74,12 @@ public class APIController {
 		return apiService.prepareUrlConfig(username);
 	}
 	
+	@GetMapping(value = "getMonitoredApplicationConfig", produces = MediaType.APPLICATION_JSON_VALUE)
+	public String getMonitoredApplicationConfig(@RequestParam(name = "username", required = false, defaultValue = "") String username) {
+
+		return apiService.prepareApplicationConfig(username);
+	}
+	
 	@GetMapping(value = "getUpdateHash", produces = MediaType.APPLICATION_JSON_VALUE)
 	public String getUpdateHash(@RequestParam(name = "username", required = false, defaultValue = "") String username) {
 

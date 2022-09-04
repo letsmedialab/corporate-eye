@@ -3,6 +3,7 @@ using NativeSupportServiceApplication.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace NativeSupportServiceApplication.Utils
 
     public enum REventType
     {
-        NONE, R_PROCESS, R_FILE, R_KEYWORD, R_URL, R_EMAIL
+        NONE, R_PROCESS, R_FILE, R_KEYWORD, R_URL, R_EMAIL , R_APP
     }
     enum ActionType
     {
@@ -23,7 +24,8 @@ namespace NativeSupportServiceApplication.Utils
 
     public enum EventSource
     {
-        NONE, KEYBOARD, CLIPBOARD, PROCESS, BROWSER_CONTENT, EMAIL_PAGE, BROWSER_URL, FILE_SCAN
+        NONE, KEYBOARD, CLIPBOARD, PROCESS, BROWSER_CONTENT, EMAIL_PAGE, BROWSER_URL, FILE_SCAN,
+        APP_MON
     }
 
     class NotificationDto
@@ -54,6 +56,8 @@ namespace NativeSupportServiceApplication.Utils
         public static string PRE_KEYWORD = "PRE_KEYWORD_";
 
         public static double NOTIFICATION_DELAY = 30;
+
+        public static string PRE_APP  = "PRE_APP_";
 
         static AlertHandler()
         {
@@ -204,6 +208,30 @@ namespace NativeSupportServiceApplication.Utils
 
                             //toastContentBuilder.AddButton("Snooze Notification", ToastActivationType.Background, args.Add(ACTION, ActionType.SNOOZE).ToString());
                             break;
+
+                        case REventType.R_APP:
+
+                            var ele = identifier.Split("$");
+
+                            heading = "Critical File Change for "+ ele[0] + ". Policy "+policyName+" Violation";
+
+                            
+
+                            if (eventSource.Equals(EventSource.APP_MON))
+                                message = ele[1];
+                           
+                         
+                            args = new ToastArguments();
+
+
+
+                            args.Add(EVENT_TYPE, rEvent);
+                            args.Add(ID, id);
+                            args.Add(VIOLATION_MSG, id);
+
+
+                            //toastContentBuilder.AddButton("Snooze Notification", ToastActivationType.Background, args.Add(ACTION, ActionType.SNOOZE).ToString());
+                            break;
                     }
 
                     notifierListRefresh(id, rEvent, identifier);
@@ -333,6 +361,13 @@ namespace NativeSupportServiceApplication.Utils
             notify(restrictedProcess.ProcessName, REventType.R_PROCESS, restrictedProcess.PolicyName, PRE_PROCESS + Convert.ToString(restrictedProcess.Id), EventSource.PROCESS);
 
 
+        }
+
+        internal static void handle(MonitoredApplication alertFile, EventSource aPP_MON)
+        {
+            Debug.WriteLine("notifying for " + alertFile.ViolationMessage);
+
+            notify(alertFile.ApplicationName + "$" + alertFile.ViolationMessage, REventType.R_APP, alertFile.PolicyName, PRE_APP + Convert.ToString(alertFile.Id), aPP_MON);
         }
     }
 }

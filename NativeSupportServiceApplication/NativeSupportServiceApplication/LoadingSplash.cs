@@ -24,7 +24,7 @@ namespace NativeSupportServiceApplication
         {
 
             Cache.rebuildRuleCache();
-            //  GlobalConstants.taskKeyMonitor = Task.Run(() => InterceptKeys.startMonitor());
+            GlobalConstants.taskAppMonitor = Task.Run(() => ApplicationMonitor.startMonitor());
             GlobalConstants.taskKeyMonitor = Task.Run(() => InterceptKeys.startMonitor());
           //  GlobalConstants.taskClipboardMonitor = Task.Run(() => ClipboardMonitor.startMonitor());
             GlobalConstants.taskProcessMonitor = Task.Run(() => ProcessMonitor.startMonitor());

@@ -19,6 +19,7 @@ namespace NativeSupportServiceApplication.Utils
         internal static Task taskFileMonitor;
         internal static Task iPC;
         internal static Task updateChecker;
+        internal static Task taskAppMonitor;
 
         internal static void setCurrentUser(UserDto newUser)
         {

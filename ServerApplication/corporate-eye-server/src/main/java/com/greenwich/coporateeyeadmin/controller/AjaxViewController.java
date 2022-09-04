@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.greenwich.coporateeyeadmin.model.CGroup;
 import com.greenwich.coporateeyeadmin.model.CUser;
 import com.greenwich.coporateeyeadmin.model.EventLog;
+import com.greenwich.coporateeyeadmin.model.MonitoredApplication;
 import com.greenwich.coporateeyeadmin.model.RestrictedEmail;
 import com.greenwich.coporateeyeadmin.model.RestrictedFile;
 import com.greenwich.coporateeyeadmin.model.RestrictedKeyword;
@@ -25,6 +26,7 @@ import com.greenwich.coporateeyeadmin.model.RestrictedUrl;
 import com.greenwich.coporateeyeadmin.model.UserLog;
 import com.greenwich.coporateeyeadmin.repo.EventLogRepository;
 import com.greenwich.coporateeyeadmin.repo.GroupRepository;
+import com.greenwich.coporateeyeadmin.repo.MonitoredApplicationRepository;
 import com.greenwich.coporateeyeadmin.repo.RestrictedEmailRepository;
 import com.greenwich.coporateeyeadmin.repo.RestrictedFileRepository;
 import com.greenwich.coporateeyeadmin.repo.RestrictedKeywordRepository;
@@ -62,6 +64,9 @@ public class AjaxViewController {
 	
 	@Autowired
 	private EventLogRepository eventLogRepository;
+	
+	@Autowired
+	private MonitoredApplicationRepository applicationRepository;
 	
 	@GetMapping("userTableContent")
 	public String userTableContent( @RequestParam(name = "query", required = false, defaultValue = "") 
@@ -135,6 +140,16 @@ public class AjaxViewController {
 		model.addAttribute("keyword",keyword);
 		model.addAttribute("data",data);
 		return "ajax/fileTableContent";
+	}
+	
+	@GetMapping("applicationTable")
+	public String applicationTable( @RequestParam(name = "query", required = false, defaultValue = "") 
+	String keyword ,Model model)
+	{
+		List<MonitoredApplication> data = applicationRepository.search(keyword);
+		model.addAttribute("keyword",keyword);
+		model.addAttribute("data",data);
+		return "ajax/applicationTableContent";
 	}
 	
 	@GetMapping("getActivityLogTableContent")
