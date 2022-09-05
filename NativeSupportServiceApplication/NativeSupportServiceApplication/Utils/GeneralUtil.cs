@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XAct;
 
 namespace NativeSupportServiceApplication.Utils
 {
@@ -18,9 +19,9 @@ namespace NativeSupportServiceApplication.Utils
             {
                 foreach (String key in rkeyword.RestrictedKeywords)
                 {
-                    if (currentKey.Contains(" " + key.ToLower() + " ") || currentKey.Equals(key.ToLower()))
+                    if (currentKey.ToLower().Contains(" " + key.ToLower() + " ") || currentKey.ToLower().Equals(key.ToLower()) || currentKey.ToLower().StartsWith(key.ToLower()) || currentKey.ToLower().EndsWith(key.ToLower()))
                     {
-                        rkeyword.ViolatedMsg = key;
+                        rkeyword.ViolatedMsg = " Restricted Keyword " + key;
                         return rkeyword;
                     }
                 }
@@ -28,6 +29,74 @@ namespace NativeSupportServiceApplication.Utils
 
             return null;
         }
+
+
+        public static RestrictedUrl checkUrlMatch(String currentKey)
+        {
+
+            foreach (RestrictedUrl rUrl in Cache.restrictedUrls)
+            {
+                foreach (String key in rUrl.Url)
+                {
+
+                    //if (key.Contains("*"))
+                    //{
+                 
+                        
+                    //    var urlComp = key.Split("*");
+
+                    //    if (urlComp.Length == 1)
+                    //    { 
+                        
+                    //    }
+                    
+                    //}
+
+                    if (currentKey.ToLower().Contains(key.ToLower()) || currentKey.ToLower().Equals(key.ToLower()) || currentKey.ToLower().StartsWith(key.ToLower()) || currentKey.ToLower().EndsWith(key.ToLower()))
+                    {
+                        rUrl.ViolatedMsg = " Restricted Url " + key;
+                        return rUrl;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        public static RestrictedEmail checkEmailMatch(String currentKey)
+        {
+
+            foreach (RestrictedEmail rEmail in Cache.restrictedEmail)
+            {
+                foreach (String key in rEmail.Email)
+                {
+
+                    //if (key.Contains("*"))
+                    //{
+
+
+                    //    var urlComp = key.Split("*");
+
+                    //    if (urlComp.Length == 1)
+                    //    { 
+
+                    //    }
+
+                    //}
+
+                    if (currentKey.ToLower().Contains(" " + key.ToLower() + " ") || currentKey.ToLower().Contains("\"" + key.ToLower() + "\"") || currentKey.ToLower().Equals(key.ToLower()) || currentKey.ToLower().StartsWith(key.ToLower()) || currentKey.ToLower().EndsWith(key.ToLower()))
+                    {
+                        rEmail.ViolatedMsg = " Restricted Email " + key;
+                        return rEmail;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+
+
         public static bool IsKeyAChar(Keys key)
         {
             return key >= Keys.A && key <= Keys.Z || key >= Keys.A && key <= Keys.Z;

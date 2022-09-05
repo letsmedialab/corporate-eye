@@ -962,14 +962,21 @@ public class AjaxController {
 		}
 
 		Set<CGroup> groups;
+		Set<CUser> users;
 
 		RestrictedModel restrictedFile = (RestrictedModel) repo.findById(keyId).get();
 		groups = restrictedFile.getGroups();
 		groups.stream().forEach(g -> g.getFiles().remove(restrictedFile));
 		restrictedFile.setGroups(new HashSet<CGroup>());
 		restrictedFile.setGroups(new HashSet<CGroup>());
+		
+		users = restrictedFile.getUsers();
+		users.stream().forEach(g -> g.getFiles().remove(restrictedFile));
+		restrictedFile.setUsers(new HashSet<CUser>());
+		restrictedFile.setUsers(new HashSet<CUser>());
 
 		groupRepository.saveAll(groups);
+		userRepository.saveAll(users);
 
 		repo.deleteById(keyId);
 

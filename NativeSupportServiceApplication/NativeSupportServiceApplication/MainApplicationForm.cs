@@ -1,4 +1,5 @@
 ﻿
+using MySqlX.XDevAPI.Common;
 using NativeSupportServiceApplication.Api;
 using NativeSupportServiceApplication.Dto;
 using NativeSupportServiceApplication.Models;
@@ -70,13 +71,26 @@ namespace NativeSupportServiceApplication
                
             }
 
-            var result = GeneralUtil.checkKeywordMatch(System.Windows.Forms.Clipboard.GetText().ToLower());
-            if (result != null)
+            var keyWordResult = GeneralUtil.checkKeywordMatch(System.Windows.Forms.Clipboard.GetText().ToLower());
+            var emailResult = GeneralUtil.checkEmailMatch(System.Windows.Forms.Clipboard.GetText().ToLower());
+            var urlResult = GeneralUtil.checkUrlMatch   (System.Windows.Forms.Clipboard.GetText().ToLower());
+
+            if (keyWordResult != null)
             {
-
-                AlertHandler.handle(result, EventSource.CLIPBOARD);
-
+                AlertHandler.handle(keyWordResult, EventSource.CLIPBOARD);
             }
+            if (urlResult != null)
+            {
+                AlertHandler.handle(urlResult, EventSource.CLIPBOARD);
+            }
+
+            if (emailResult != null)
+            {
+                AlertHandler.handle(emailResult, EventSource.CLIPBOARD);
+            }
+
+
+
         }
         private void MainApplicationForm_Load(object sender, EventArgs e)
         {

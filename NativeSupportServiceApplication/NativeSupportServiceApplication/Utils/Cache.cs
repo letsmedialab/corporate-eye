@@ -145,7 +145,7 @@ namespace NativeSupportServiceApplication.Utils
 
                     if (!newVersion.Equals(currentVersion))
                     {
-                        ApiResponse<List<RestrictedUrl>> keywordAPIResponse = ApiUtils.callApi<List<RestrictedUrl>, Object>(ApiEndPoints.FILE_CONFIG_URL.Replace("$1", GlobalConstants.getCurrentUser().UserName), HttpMethod.Get, null);
+                        ApiResponse<List<RestrictedUrl>> keywordAPIResponse = ApiUtils.callApi<List<RestrictedUrl>, Object>(ApiEndPoints.URL_CONFIG_URL.Replace("$1", GlobalConstants.getCurrentUser().UserName), HttpMethod.Get, null);
 
                         Cache.restrictedUrls = keywordAPIResponse.ResponseObject;
 

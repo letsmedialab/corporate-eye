@@ -187,7 +187,7 @@ namespace NativeSupportServiceApplication.Utils
                             break;
 
                         case REventType.R_KEYWORD:
-                            heading = "Restricted message/keyword Detected";
+                            heading = identifier + " Detected";
 
                             if (eventSource.Equals(EventSource.KEYBOARD))
                                 message = "The text you entered contains " + identifier + ", violates company policy " + policyName;
@@ -352,6 +352,21 @@ namespace NativeSupportServiceApplication.Utils
 
             notify(restrictedKeyword.ViolatedMsg, REventType.R_KEYWORD, restrictedKeyword.PolicyName, PRE_KEYWORD + Convert.ToString(restrictedKeyword.Id), eventSource);
         }
+        public static void handle(RestrictedUrl restrictedUrl, EventSource eventSource)
+        {
+            Debug.WriteLine("notifying for " + restrictedUrl.ViolatedMsg);
+
+            notify(restrictedUrl.ViolatedMsg, REventType.R_KEYWORD, restrictedUrl.PolicyName, PRE_KEYWORD + Convert.ToString(restrictedUrl.Id), eventSource);
+        }
+
+        public static void handle(RestrictedEmail restrictedEmail, EventSource eventSource)
+        {
+            Debug.WriteLine("notifying for " + restrictedEmail.ViolatedMsg);
+
+            notify(restrictedEmail.ViolatedMsg, REventType.R_KEYWORD, restrictedEmail.PolicyName, PRE_KEYWORD + Convert.ToString(restrictedEmail.Id), eventSource);
+        }
+
+
         public static void handle(RestrictedProcess restrictedProcess)
         {
 
