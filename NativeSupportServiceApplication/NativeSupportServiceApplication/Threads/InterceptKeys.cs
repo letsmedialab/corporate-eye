@@ -313,12 +313,22 @@ namespace NativeSupportServiceApplication.Modules
                 KeyStrokeCache.cache.TryGetValue(windowTitle, out var buffer);
                 Debug.WriteLine(windowTitle + buffer.stringValue());
 
-                var result = GeneralUtil.checkKeywordMatch(buffer.stringValue().ToLower());
-                if(result != null)
+                var keyWordResult = GeneralUtil.checkKeywordMatch(buffer.stringValue());
+                var emailResult = GeneralUtil.checkEmailMatch(buffer.stringValue());
+                var urlResult = GeneralUtil.checkUrlMatch(buffer.stringValue());
+
+                if (keyWordResult != null)
                 {
+                    AlertHandler.handle(keyWordResult, EventSource.KEYBOARD);
+                }
+                if (urlResult != null)
+                {
+                    AlertHandler.handle(urlResult, EventSource.KEYBOARD);
+                }
 
-                     AlertHandler.handle(result,EventSource.KEYBOARD);
-
+                if (emailResult != null)
+                {
+                    AlertHandler.handle(emailResult, EventSource.KEYBOARD);
                 }
             }
             catch (Exception ex)

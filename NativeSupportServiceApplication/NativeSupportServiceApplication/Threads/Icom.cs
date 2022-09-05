@@ -22,12 +22,24 @@ namespace NativeSupportServiceApplication.Threads
             {
                 String msg = (string)message.GetPayload();
 
-                Debug.WriteLine(msg);
+                Debug.WriteLine("Payload" + msg);
 
-                  RestrictedKeyword rest = GeneralUtil.checkKeywordMatch(msg);
-                if (rest != null)
+                var keyWordResult = GeneralUtil.checkKeywordMatch(msg);
+                var emailResult = GeneralUtil.checkEmailMatch(msg);
+                var urlResult = GeneralUtil.checkUrlMatch(msg);
+
+                if (keyWordResult != null)
                 {
-                    AlertHandler.handle(rest, EventSource.BROWSER_CONTENT);
+                    AlertHandler.handle(keyWordResult, EventSource.BROWSER_CONTENT);
+                }
+                if (urlResult != null)
+                {
+                    AlertHandler.handle(urlResult, EventSource.BROWSER_CONTENT);
+                }
+
+                if (emailResult != null)
+                {
+                    AlertHandler.handle(emailResult, EventSource.BROWSER_CONTENT);
                 }
             }
             if (message.GetPayloadType() == PipeMessageType.PMTByte)

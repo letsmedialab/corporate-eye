@@ -22,7 +22,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     port.postMessage(dataTS);
   //}
 
-  sendResponse({ datax: request.emails });
+  //sendResponse({ datax: request.emails });
 });
 
 async function getTab() {
@@ -38,6 +38,6 @@ chrome.tabs.onUpdated.addListener(async function () {
 
   port.postMessage("url is"+url);
 
-  sendResponse({ datax: url});
+  //sendResponse({ datax: url});
 })
 // connect();

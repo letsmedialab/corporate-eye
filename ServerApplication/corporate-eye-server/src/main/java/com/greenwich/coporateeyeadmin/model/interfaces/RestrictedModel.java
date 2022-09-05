@@ -14,6 +14,8 @@ public interface RestrictedModel {
 	public Set<CGroup> getGroups();
 	
 	public void setGroups(Set<CGroup> groups);
+	
+	public void setUsers(Set<CUser> users);
 
 	public Set<CUser> getUsers();
 
