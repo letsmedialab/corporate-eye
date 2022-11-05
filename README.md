@@ -13,4 +13,27 @@ Instructions to test beta distributable.
 7. the default username and password is "admin"
 
 
+Instructions to install browser extension.
+
+1. Open chrome browser.
+2. Goto Chrome Options-> More Tools -> Extensions
+3. On the right top corner of the Extensions Tab, Enable Developer mode.
+4. On the left top corner, click load unpacked.
+5. Browser to <install_path>\CorporateEyeExtension\
+6. Once the extension is loaded, copy the id field from the extensions tab.
+
+For example ID: kfmnkfepmagcipakhpjmdoacmhbalnkk <example ![image](https://user-images.githubusercontent.com/13004828/200120577-da22f0cf-b3dc-409f-88af-c396da53efc4.png)>
+
+7. Edit <install_path>\CorporateEyeExtension\native-apps\handler.json
+8. change the following property to id copied from chrome extension.
+   "allowed_origins": [
+        "chrome-extension://kfmnkfepmagcipakhpjmdoacmhbalnkk/"
+      ]
+
+
 Note: To run the configuration utility again, run <install_path>\CorporateEyeClient\ServerConfigUtility\FirstTimeSetup.exe
+
+Known issues for dist version.
+1. Regex not yet integrated. While configuring , enter any value into regex field.
+2. Block chain component and event reporting components are not integrated yet.
+3. Refined notification not yet integrated.
