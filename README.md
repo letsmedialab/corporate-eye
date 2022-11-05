@@ -22,7 +22,8 @@ Instructions to install browser extension.
 5. Browser to <install_path>\CorporateEyeExtension\
 6. Once the extension is loaded, copy the id field from the extensions tab.
 
-For example ID: kfmnkfepmagcipakhpjmdoacmhbalnkk <example ![image](https://user-images.githubusercontent.com/13004828/200120577-da22f0cf-b3dc-409f-88af-c396da53efc4.png)>
+For example ID: kfmnkfepmagcipakhpjmdoacmhbalnkk 
+![image](https://user-images.githubusercontent.com/13004828/200120577-da22f0cf-b3dc-409f-88af-c396da53efc4.png)
 
 7. Edit <install_path>\CorporateEyeExtension\native-apps\handler.json
 8. change the following property to id copied from chrome extension.
