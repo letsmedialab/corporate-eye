@@ -24,11 +24,14 @@ Instructions to install browser extension.
 
 For example ID: kfmnkfepmagcipakhpjmdoacmhbalnkk 
 <br>
+
 ![image](https://user-images.githubusercontent.com/13004828/200120577-da22f0cf-b3dc-409f-88af-c396da53efc4.png)
 
 7. Edit <install_path>\CorporateEyeExtension\native-apps\handler.json
 8. change the following property to id copied from chrome extension.
+
 <br>
+
 ![image](https://user-images.githubusercontent.com/13004828/200120672-c2d5b47f-242e-446a-9fd6-d25cb927769d.png)
 
 
