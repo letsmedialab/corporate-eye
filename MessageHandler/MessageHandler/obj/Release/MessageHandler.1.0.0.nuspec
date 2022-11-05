@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>MessageHandler</id>
+    <version>1.0.0</version>
+    <authors>MessageHandler</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework="net6.0">
+        <dependency id="IPC.NamedPipe" version="0.9.3" exclude="Build,Analyzers" />
+        <dependency id="NativeMessaging" version="2.0.0" exclude="Build,Analyzers" />
+        <dependency id="Newtonsoft.Json" version="13.0.1" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\MessageHandler\MessageHandler\bin\Release\net6.0\MessageHandler.runtimeconfig.json" target="lib\net6.0\MessageHandler.runtimeconfig.json" />
+    <file src="E:\WorkOnedrive\OneDrive\MScProjects\SourceCode\corporate-eye\MessageHandler\MessageHandler\bin\Release\net6.0\MessageHandler.dll" target="lib\net6.0\MessageHandler.dll" />
+  </files>
+</package>

@@ -1,0 +1,65 @@
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="navside" id="layoutSidenav_nav">
+	<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+		<div class="sb-sidenav-menu">
+			<div class="nav">
+				<div class="sb-sidenav-menu-heading">Core</div>
+				<a class="nav-link" href="/admin/">
+					<div class="sb-nav-link-icon">
+						<i class="fas fa-tachometer-alt"></i>
+					</div> Dashboard
+				</a> <a class="nav-link" href="/admin/configUrls">
+					<div class="sb-nav-link-icon">
+						<i class="fas fa-link"></i>
+					</div> Restricted Urls
+				</a> <a class="nav-link" href="/admin/configEmails">
+					<div class="sb-nav-link-icon">
+						<i class="fas fa-at"></i>
+					</div> Restricted Emails
+				</a> <a class="nav-link" href="/admin/configKeywords">
+					<div class="sb-nav-link-icon">
+						<i class="fas fa-tag"></i>
+					</div> Restricted Keywords
+				</a> <a class="nav-link" href="/admin/configProcesses">
+					<div class="sb-nav-link-icon">
+						<i class="fas fa-tasks"></i>
+					</div> Restricted Processes
+				</a> <a class="nav-link" href="/admin/configFiles">
+					<div class="sb-nav-link-icon">
+						<i class="fas fa-file"></i>
+					</div> Restricted Files
+				</a> <a class="nav-link" href="/admin/users">
+					<div class="sb-nav-link-icon">
+						<i class="fas fa-user"></i>
+					</div> Manage Users
+				</a>
+				 <a class="nav-link" href="/admin/groups">
+					<div class="sb-nav-link-icon">
+						<i class="fas fa-users"></i>
+					</div> Manage Groups
+				</a>
+				
+				 <a class="nav-link" href="/admin/eventLog">
+					<div class="sb-nav-link-icon">
+						<i class="fas fa-book"></i>
+					</div> Event Log
+				</a>
+				
+				 <a class="nav-link" href="/admin/monitorApplication">
+					<div class="sb-nav-link-icon">
+						<i class="fas fa-book"></i>
+					</div> Monitor Application
+				</a>
+				
+			</div>
+		</div>
+		<div class="sb-sidenav-footer">
+			<div class="small">Logged in as:</div>
+
+			<h3 th:inline="text">[[${#httpServletRequest.remoteUser}]]</h3>
+		</div>
+	</nav>
+</div>
+</html>

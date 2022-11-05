@@ -1,0 +1,732 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
+
+
+
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	crossorigin="anonymous"></script>
+
+<title>Corporate Eye Admin - Configure Urls</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"
+	rel="stylesheet" />
+
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+
+<link href="css/styles.css" rel="stylesheet" />
+<link href="css/commonstyles.css" rel="stylesheet" />
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
+	crossorigin="anonymous"></script>
+
+
+<style>
+#userlist, #grouplist {
+	list-style: none;
+	float: none;
+	display: block;
+	padding: 0px;
+	height: 60px;
+	overflow: auto;
+	padding: 5px;
+}
+</style>
+</head>
+<body class="sb-nav-fixed">
+
+	<span th:replace="fragments/header :: nav"></span>
+	<div id="layoutSidenav">
+
+		<span th:replace="fragments/nav :: navside"></span>
+
+		<div id="layoutSidenav_content">
+			<main>
+				<div class="container-fluid px-4">
+					<h1 class="mt-4">Configure Urls</h1>
+
+
+					<div class="row">
+
+						<div class="col-xl-12">
+							<div class="card">
+								<div class="card-body">
+
+									<div class="table-responsive">
+										<div id="zero_config_wrapper"
+											class="dataTables_wrapper container-fluid dt-bootstrap4">
+
+											<div class="row" style="margin-bottom: 10px">
+
+												<div class="col-sm-6">
+
+													<label>Search:<input id="searchInput"
+														onKeyUp="getTableData(this.value)" type="search"
+														class="form-control form-control-sm" th:value="${keyword}"
+														placeholder="" aria-controls="zero_config"></label>
+
+												</div>
+												<div class="offset-4 col-sm-2" style="margin-top: 10px">
+													<button class="btn btn-success" style="float: right"
+														data-toggle="modal" data-target="#addModal"
+														data-mode="add" data-id="Add">Add Url
+														Configuration</button>
+												</div>
+											</div>
+											<div id="tableContent"></div>
+
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</main>
+
+
+
+
+			<!-- notification -->
+
+
+			<div class="toast-container">
+
+				<div class="toast toast1" role="alert" aria-live="assertive"
+					aria-atomic="true" data-delay="2000">
+					<div class="toast-header">
+
+						<strong class="mr-auto text-danger toastMessage">Alert</strong>
+
+					</div>
+					<div class="toast-body" id="toastMessage1"></div>
+
+				</div>
+
+				<div class="toast toast2" role="alert" aria-live="assertive"
+					aria-atomic="true" data-delay="2000">
+					<div class="toast-header">
+
+						<strong class="mr-auto text-danger toastMessage">Alert</strong>
+
+
+					</div>
+					<div class="toast-body" id="toastMessage2"></div>
+
+				</div>
+
+				<div class="toast toast3" role="alert" aria-live="assertive"
+					aria-atomic="true" data-delay="2000">
+					<div class="toast-header">
+
+						<strong class="mr-auto text-danger toastMessage">Alert</strong>
+
+
+					</div>
+					<div class="toast-body" id="toastMessage3"></div>
+
+				</div>
+
+
+				<div class="toast toast4" role="alert" aria-live="assertive"
+					aria-atomic="true" data-delay="2000">
+					<div class="toast-header">
+
+						<strong class="mr-auto text-danger toastMessage">Alert</strong>
+
+
+					</div>
+					<div class="toast-body" id="toastMessage4"></div>
+
+				</div>
+
+				<div class="toast toast5" role="alert" aria-live="assertive"
+					aria-atomic="true" data-delay="5000">
+					<div class="toast-header">
+
+						<strong class="mr-auto text-danger toastMessage">Alert</strong>
+
+
+					</div>
+					<div class="toast-body" id="toastMessage5"></div>
+
+				</div>
+
+			</div>
+			<!-- #modal -->
+
+
+
+
+			<div class="modal fade" id="confirm-delete" tabindex="-1"
+				role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header" id="confirmHeader">...</div>
+						<div class="modal-body" id="confirmBody">...</div>
+						<div class="modal-footer">
+							<button type="button" id="cModalCancel" class="btn btn-default"
+								data-dismiss="modal">Cancel</button>
+							<a class="btn btn-danger btn-ok">Delete</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+			<span th:replace="fragments/footer :: footer"></span>
+
+		</div>
+	</div>
+
+
+
+
+	<div class="modal fade" id="addModal" tabindex="-1" role="dialog"
+		aria-labelledby="addModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="addModalLabel">Add Url
+						Configuration</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form>
+
+						<input type="hidden" class="form-control" id="f_id">
+
+						<div class="row">
+							<div class="form-group-inline col-sm-6">
+								<label for="f_policyname" class="col-form-label">PolicyName:</label>
+								<input type="text" class="form-control" id="f_policyname"
+									placeholder="Atleast 3 characters.">
+								<div style="height: 10px; margin-bottom: 30px">
+									<label for="f_policyname" id="policynameStatus"
+										class="col-form-label text-danger "
+										style="display: none; float: right;">Policy Already
+										Exist</label>
+								</div>
+							</div>
+							<div class="form-group-inline col-sm-6">
+								<label for="f_role" class="col-form-label">Status:</label><br>
+								<div class="form-check-inline">
+
+									<input class="form-check-input" value="true"
+										style="margin: 5px;" type="radio" name="f_enabled" checked>
+									<label class="form-check-label" for="flexRadioDefault1">
+										ENABLED </label>
+								</div>
+								<div class="form-check-inline">
+									<input class="form-check-input" value="false"
+										style="margin: 5px;" type="radio" name="f_enabled"> <label
+										class="form-check-label" for="flexRadioDefault2">
+										DISABLED </label>
+								</div>
+							</div>
+
+						</div>
+						<div class="form-group">
+							<label for="f_name" class="col-form-label">Url Name</label> <input
+								type="text" class="form-control"
+								placeholder="Enter Url or Url pattern with * as csv" id="f_url">
+						</div>
+
+
+						<hr>
+
+						<label for="f_role" class="col-form-label">Group Rule: </label>
+						<div class="form-check-inline" style="margin-left: 12px;">
+
+							<input class="form-check-input" style="margin: 5px;" type="radio"
+								name="f_restrictgroup" value="false"> <label
+								class="form-check-label" for="flexRadioDefault1">
+								Applicable For </label>
+						</div>
+						<div class="form-check-inline">
+							<input class="form-check-input" style="margin: 5px;" type="radio"
+								name="f_restrictgroup" value="true" checked> <label
+								class="form-check-label" for="flexRadioDefault2"> Not
+								Applicable For </label>
+						</div>
+
+
+						<!-- 						group suggestion -->
+						<div class="form-group">
+
+							<input type="text" class="form-control" id="f_gname"
+								placeholder="Seach by Group Name..."> <label
+								for="f_gname" class="col-form-label" style="display: block">Group(s):</label>
+
+							<div id="loggroup"
+								style="max-height: 200px; width: 300px; overflow: auto; display: none; position: absolute; z-index: 99;"
+								class="ui-widget-content"></div>
+
+						</div>
+
+						<div id="grouplist">
+
+							<div class="alert alert-primary" style="padding: 3px"
+								role="alert">No groups in this rule!</div>
+
+						</div>
+
+						<!-- group end -->
+
+
+
+
+						<hr>
+
+						<label for="f_role" class="col-form-label">User Rule: </label>
+						<div class="form-check-inline" style="margin-left: 12px;">
+
+							<input class="form-check-input" style="margin: 5px;" type="radio"
+								name="f_restricteduser" value="false" checked> <label
+								class="form-check-label" for="flexRadioDefault1">
+								Applicable For </label>
+						</div>
+						<div class="form-check-inline">
+							<input class="form-check-input" style="margin: 5px;" type="radio"
+								name="f_restricteduser" value="true"> <label
+								class="form-check-label" for="flexRadioDefault2"> Not
+								Applicable For </label>
+						</div>
+						<!-- 						user suggestion -->
+						<div class="form-group">
+
+							<input type="text" class="form-control" id="f_name"
+								placeholder="Seach by Username , name or role"> <label
+								for="f_name" class="col-form-label" style="display: block">User(s):</label>
+
+							<div id="loguser"
+								style="max-height: 200px; width: 300px; overflow: auto; display: none; position: absolute; z-index: 99;"
+								class="ui-widget-content"></div>
+
+						</div>
+
+						<div id="userlist">
+
+							<div class="alert alert-primary" style="padding: 3px"
+								role="alert">No users in this rule!</div>
+
+						</div>
+
+						<!-- usersuggestion end -->
+
+
+
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button id="closeModal" type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+					<button type="button" id="submitButton" class="btn btn-primary">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script>
+		
+	</script>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		crossorigin="anonymous"></script>
+	<script src="js/scripts.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+		crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
+		crossorigin="anonymous"></script>
+	<script src="js/datatables-simple-demo.js"></script>
+
+	<script>
+		var currentUsername = "[[${#httpServletRequest.remoteUser}]]";
+
+		var policyValid = false;
+
+		function validate() {
+			
+			 $('.toast').each(function(index,val){
+				 
+				 $(this).toast('dispose')
+			 });
+			formValid = true;	
+			policyName = $("#f_policyname").val().trim();
+			urlName = $("#f_url").val().trim();
+			
+
+			if (policyName.length < 3) {
+				formValid = false;
+				 $("#toastMessage1").html("Policy name should be atleast 3 characters long");
+	  				
+			 	 $('.toast1').toast('show');
+			}
+			
+			if (urlName.length == 0) {
+				formValid = false;
+				 $("#toastMessage2").html("Keywords cannot be empty");
+	  				
+			 	 $('.toast2').toast('show');
+			}
+
+		
+			
+			if (formValid) {
+				
+				policyName = $("#f_policyname").val().trim();
+				urlName = $("#f_url").val().trim();
+				userNames = userList;
+				groupNames = Array.from(groupList);
+				console.log(groupNames);
+				enabled = $('input[name="f_enabled"]:checked').val();
+				restrictGroupsByDefault = $('input[name="f_restrictgroup"]:checked').val();
+				restrictUsersByDefault = $('input[name="f_restricteduser"]:checked').val();
+				
+				data = JSON.stringify({  "policyName" :  policyName 
+					, "enabled" : enabled,"restrictUsersByDefault" : restrictUsersByDefault 
+					, "restrictGroupsByDefault" : restrictGroupsByDefault,
+					
+					"urlName" : urlName,
+					
+					userNames ,
+					
+					groupNames })
+					
+				
+
+				$
+						.ajax({
+							type : "POST",
+							url : "ajax/addUrl",
+							data : data,
+							contentType : "application/json; charset=UTF-8",
+							success : function(data) {
+								if (data == "success") {
+									getTableData($("#searchInput").val());
+									$("#closeModal").click();
+									$("#toastMessage1").html(
+											"<span class='text-success'>Policy "
+													+ policyName
+													+ " created!</span>");
+									$('.toast1').toast('show');
+								} else {
+									getTableData($("#searchInput").val());
+									$("#toastMessage1")
+											.html(
+													"<span class='text-danger'>Policy creation failed!</span>");
+									$('.toast1').toast('show');
+								}
+							}
+
+						});
+
+			}
+
+		}
+
+		function validateEdit() {
+			
+			
+			 $('.toast').each(function(index,val){
+				 
+				 $(this).toast('dispose')
+			 });
+			formValid = true;	
+			policyName = $("#f_policyname").val().trim();
+			urlName = $("#f_url").val().trim();
+	
+
+		
+			if (urlName.length == 0) {
+				formValid = false;
+				 $("#toastMessage2").html("Url cannot be empty");
+	  				
+			 	 $('.toast2').toast('show');
+			}
+
+			
+			
+			if (formValid) {
+				
+				policyName = $("#f_policyname").val().trim();
+				urlName = $("#f_url").val().trim();
+			
+				userNames = userList;
+				groupNames = Array.from(groupList);
+				console.log(groupNames);
+				enabled = $('input[name="f_enabled"]:checked').val();
+				restrictGroupsByDefault = $('input[name="f_restrictgroup"]:checked').val();
+				restrictUsersByDefault = $('input[name="f_restricteduser"]:checked').val();
+				id = $("#f_id").val();
+				
+				data = JSON.stringify({ "id" : id,  "policyName" :  policyName 
+					, "enabled" : enabled,"restrictUsersByDefault" : restrictUsersByDefault 
+					, "restrictGroupsByDefault" : restrictGroupsByDefault,
+					"urlName" : urlName,
+					userNames ,groupNames })
+					
+				
+
+				$
+						.ajax({
+							type : "POST",
+							url : "ajax/updateUrl",
+							data : data,
+							contentType : "application/json; charset=UTF-8",
+							success : function(data) {
+								if (data == "success") {
+									getTableData($("#searchInput").val());
+									$("#closeModal").click();
+									$("#toastMessage1").html(
+											"<span class='text-success'>Policy "
+													+ policyName
+													+ " created!</span>");
+									$('.toast1').toast('show');
+								} else {
+									getTableData($("#searchInput").val());
+									$("#toastMessage1")
+											.html(
+													"<span class='text-danger'>Policy creation failed!</span>");
+									$('.toast1').toast('show');
+								}
+							}
+
+						});
+
+			}
+
+		}
+
+	
+		
+		function resetValues() {
+
+			$("#policynameStatus").hide();
+			$('input[type="text"]').each(function() {
+				$(this).val("");
+			});
+		
+			$("#f_policyname").prop('disabled', false);
+			$("input[name=f_restrictgroup][value=true]").prop('checked', true);
+			$("input[name=f_restricteduser][value=false]").prop('checked', true);
+			$("input[name=f_enabled][value=true]").prop('checked', true);
+			userList = {};
+			groupList = new Set([]);
+			
+			generateUserList();
+			generateGroupList();
+
+		}
+
+		function getTableData(keyword) {
+
+			$.get("ajax/urlTableContent?query=" + keyword, function(data,
+					status) {
+				//alert("Data: " + data + "\nStatus: " + status);
+				$("#tableContent").html(data);
+
+			});
+
+		}
+
+		function setValues(id) {
+			$.get("ajax/getUrlDataById?id=" + id,
+					function(data, status) {
+						//alert("Data: " + data + "\nStatus: " + status);
+						$("#f_policyname").val(data.policyName);
+						$('input:radio[name="f_enabled"]').filter(
+								'[value="' + data.enabled + '"]').attr(
+								'checked', true);
+						$("#f_url").val(data.restrictedUrl);
+						$("#f_id").val(data.id);			
+						
+						$("#f_policyname").prop('disabled', true);
+						$("#policynameStatus").hide();
+						
+						if(data.restrictUsersByDefault == true)
+							data.restrictUsersByDefault = false;
+						else
+							data.restrictUsersByDefault = true;
+						
+						if(data.restrictGroupsByDefault == true)
+							data.restrictGroupsByDefault = false;
+						else
+							data.restrictGroupsByDefault = true;
+						
+						$("input[type='radio'][name='f_restrictgroup'][value='"+data.restrictUsersByDefault+"']").prop("checked",true)
+						$("input[type='radio'][name='f_restricteduser'][value='"+data.restrictGroupsByDefault+"']").prop("checked",true)
+						
+						userList = {};
+						$(data.users).each(function(val,obj){
+							 addToUserList(obj.username,obj.name);
+							
+							
+						});
+						generateUserList();
+						
+						
+						
+						groupList = new Set([]);;
+						$(data.groups).each(function(val,obj){
+							 addToGroupList(obj.groupName);
+							
+							
+						});
+						generateGroupList();
+
+					});
+		}
+
+		$(document).ready(
+				function() {
+
+					getTableData($("#searchInput").val());
+
+					$("#f_policyname").on(
+							"keyup",
+							function() {
+								var policyname = $(this).val();
+								$.get("ajax/checkUrlPolicyname?policyname="
+										+ policyname, function(data, status) {
+									//alert("Data: " + data + "\nStatus: " + status);
+									if (data == true) {
+										$("#policynameStatus").show();
+										policyValid = false;
+										$("#policynameStatus").html(
+												"Policy Name Already Exist");
+										$("#policynameStatus").removeClass(
+												"text-success");
+										$("#policynameStatus").addClass(
+												"text-danger");
+
+									} else {
+
+										if (policyname.length > 2) {
+											policyValid = true;
+											$("#policynameStatus").show();
+											$("#policynameStatus").html(
+													"Policy Name Available");
+											$("#policynameStatus").removeClass(
+													"text-danger");
+											$("#policynameStatus").addClass(
+													"text-success");
+										} else {
+											$("#policynameStatus").hide();
+										}
+									}
+
+								});
+
+							});
+
+				});
+
+		$('#confirm-delete').on(
+				'click',
+				'.btn-ok',
+				function(e) {
+
+					var $modalDiv = $(e.delegateTarget);
+					var id = $(this).data('recordId');
+					var policyname = $(this).data('policyname');
+					$modalDiv.addClass('loading');
+					$.post('ajax/deleteUrl/' + id).then(
+							function() {
+								$modalDiv.modal('hide').removeClass('loading');
+								getTableData($("#searchInput").val());
+								$("#toastMessage1").html(
+										"<span class='text-success'>User "
+												+ policyname
+												+ " deleted!</span>");
+								$('.toast1').toast('show');
+								$('#cModalCancel').click();
+							});
+				});
+
+		// Bind to modal opening to set necessary data properties to be used to make request
+		$('#confirm-delete').on(
+				'show.bs.modal',
+				function(e) {
+					var button = $(e.relatedTarget);
+
+					console.log(button.data('id'));
+					$("#confirmHeader").text("Confirm Delete?");
+					$("#confirmBody").text(
+							"Do you really want to delete policy "
+									+ button.data("policyname") + "?");
+					$('.title', this).text(
+							"Do you really want to delete policy "
+									+ button.data("policyname") + "?");
+					$('.btn-ok', this).data('recordId', button.data("id"))
+							.data('policyname', button.data("policyname"));
+				});
+
+		$('#addModal').on('show.bs.modal', function(event) {
+			var button = $(event.relatedTarget) // Button that triggered the modal
+			var id = button.data('id') // Extract info from data-* attributes
+			// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+			// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+			var mode = button.data('mode')
+
+			var modal = $(this)
+
+			if (mode == "add") {
+				$("#submitButton").off("click");
+
+				$("#submitButton").on("click", function() {
+
+					validate();
+
+				});
+				resetValues();
+			} else if (mode == "edit") {
+
+				$("#submitButton").off("click");
+
+				$("#submitButton").on("click", function() {
+
+					validateEdit();
+
+				});
+				setValues(id);
+
+			}
+
+			//	modal.find('.modal-title').text('New message to ' + recipient)
+			//modal.find('.modal-body input').val(recipient)
+		})
+	</script>
+
+	<script src="js/userSuggestion.js"></script>
+	<script src="js/groupSuggestion.js"></script>
+
+
+</body>
+</html>

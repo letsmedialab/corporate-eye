@@ -1,0 +1,199 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0-windows10.0.17763": {
+      "IPC.NamedPipe/0.9.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/IPC.NamedPipe.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/IPC.NamedPipe.dll": {}
+        }
+      },
+      "NativeMessaging/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "compile": {
+          "lib/net472/NativeMessaging.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net472/NativeMessaging.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Newtonsoft.Json/13.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "IPC.NamedPipe/0.9.3": {
+      "sha512": "HdQTKNG4CVcmd+zM/MsWmLAqDU8tOhj5qmQWuY8SjITqDUPOa3ClK4G4ujNPD8Si3Xc0qtTLoMZzxcDQvnfqjw==",
+      "type": "package",
+      "path": "ipc.namedpipe/0.9.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ipc.namedpipe.0.9.3.nupkg.sha512",
+        "ipc.namedpipe.nuspec",
+        "lib/netstandard2.0/IPC.NamedPipe.dll"
+      ]
+    },
+    "NativeMessaging/2.0.0": {
+      "sha512": "NNwkCLNX1gNzI48PXwBvNs+l3N7XYmvr/O0zdYvIWzZqR+CLwtif23IyLYpz4+w2pln2VDNAnyQe8qp6+eWiqw==",
+      "type": "package",
+      "path": "nativemessaging/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net472/NativeMessaging.dll",
+        "lib/net472/NativeMessaging.xml",
+        "nativemessaging.2.0.0.nupkg.sha512",
+        "nativemessaging.nuspec"
+      ]
+    },
+    "Newtonsoft.Json/13.0.1": {
+      "sha512": "ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A==",
+      "type": "package",
+      "path": "newtonsoft.json/13.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "newtonsoft.json.13.0.1.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "packageIcon.png"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0-windows10.0.17763": [
+      "IPC.NamedPipe >= 0.9.3",
+      "NativeMessaging >= 2.0.0",
+      "Newtonsoft.Json >= 13.0.1"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\workp\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "E:\\WorkOnedrive\\OneDrive\\MScProjects\\SourceCode\\corporate-eye\\MessageHandler\\MessageHandler\\MessageHandler.csproj",
+      "projectName": "MessageHandler",
+      "projectPath": "E:\\WorkOnedrive\\OneDrive\\MScProjects\\SourceCode\\corporate-eye\\MessageHandler\\MessageHandler\\MessageHandler.csproj",
+      "packagesPath": "C:\\Users\\workp\\.nuget\\packages\\",
+      "outputPath": "E:\\WorkOnedrive\\OneDrive\\MScProjects\\SourceCode\\corporate-eye\\MessageHandler\\MessageHandler\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\workp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0-windows10.0.17763.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0-windows10.0.17763": {
+          "targetAlias": "net6.0-windows10.0.17763.0",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0-windows10.0.17763": {
+        "targetAlias": "net6.0-windows10.0.17763.0",
+        "dependencies": {
+          "IPC.NamedPipe": {
+            "target": "Package",
+            "version": "[0.9.3, )"
+          },
+          "NativeMessaging": {
+            "target": "Package",
+            "version": "[2.0.0, )"
+          },
+          "Newtonsoft.Json": {
+            "target": "Package",
+            "version": "[13.0.1, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.Windows.SDK.NET.Ref",
+            "version": "[10.0.17763.26, 10.0.17763.26]"
+          }
+        ],
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.Windows.SDK.NET.Ref": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+      }
+    }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'NativeMessaging 2.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0-windows10.0.17763'. This package may not be fully compatible with your project.",
+      "libraryId": "NativeMessaging",
+      "targetGraphs": [
+        "net6.0-windows10.0.17763"
+      ]
+    }
+  ]
+}
