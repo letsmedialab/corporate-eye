@@ -28,9 +28,8 @@ For example ID: kfmnkfepmagcipakhpjmdoacmhbalnkk
 
 7. Edit <install_path>\CorporateEyeExtension\native-apps\handler.json
 8. change the following property to id copied from chrome extension.
-   "allowed_origins": [
-        "chrome-extension://kfmnkfepmagcipakhpjmdoacmhbalnkk/"
-      ]
+<br>
+![image](https://user-images.githubusercontent.com/13004828/200120672-c2d5b47f-242e-446a-9fd6-d25cb927769d.png)
 
 
 Note: To run the configuration utility again, run <install_path>\CorporateEyeClient\ServerConfigUtility\FirstTimeSetup.exe
